@@ -1,8 +1,0 @@
--Teacher User Functions
-  -Set Phrase Types
-  -Set Phrase Lengths
-  -Add Custom Phrases
--Student User Functions
-  -Drop Class
--Registered User Functions
-  -Customize Parameters
