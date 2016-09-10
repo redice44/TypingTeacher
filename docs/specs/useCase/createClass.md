@@ -4,7 +4,7 @@ Actors: Teacher
 
 Entry Condition: Authenticated Teacher
 
-Exit Condition:
+Exit Condition: 
 
 Flow of Events:
 1. User clicks Create Class
@@ -15,3 +15,4 @@ Flow of Events:
 4. System displays class overview
 
 Exceptions:
+2.1 Classes must have different/unique names

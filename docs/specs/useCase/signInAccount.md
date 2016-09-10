@@ -1,5 +1,7 @@
 # Sign In to Account
 
+Actors: Registered, Student, and Teacher users
+
 Entry Condition: Not Logged In
 
 Exit Condition: Logged In

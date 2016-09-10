@@ -1,1 +1,14 @@
 # Functional Requirements
+- TypingTeacher is a web application that will allow an user to practice and assess his/her typing proficiency by typing displayed texts as quickly and accurately as possible.   
+- Users will be able to see results in common metrics such as Words Per Minute (WPM) and accuracy.
+- The system will support two types of game modes:
+  - Phrase Mode: The user has to type a phrase based on certain parameters without a time limit.
+  - Time Trial Mode: The user has to type phrases until time stops counting.
+- The system supports 4 types of users:
+  - Anonymous User: A basic user that is not logged in. This user can play the game and receive immediate results. This user's data will not persist in a form that can be identified to the user.
+  - Registered User: A user that is registered and logged in to the application. This user can play the game and receive immediate, personalized results. This user's data will persist. Historical and aggregated data about the user is available. This user is able to customize game parameters.
+  - Student User: A user that is identical to a registered user, however a student's data is viewable by his or her teacher. This user is unable to customize game parameters. This user's game parameters are set by his or her teacher.
+  - Teacher User: A user that is able to create classes, and see aggregated data about these classes. A teacher is able to set the following game parameters for his or her class:
+    - Phrase types (random English words, random English sentences, Lorem Ipsum)
+    - Phrase lengths (short, medium, long)
+    - Custom input phrases
