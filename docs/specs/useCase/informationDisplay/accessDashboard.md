@@ -16,4 +16,4 @@ Flow of Events:
   - Import Campaign
 
 Exceptions:
-1. If the user does not have any specialized campaigns, then the system does not display any.
+1. If the user does not have any class campaigns, then the system does not display any.

@@ -2,7 +2,7 @@
 
 Actors: Registered users
 
-Entry Condition: Must be Logged In, Must be creating or editing a campaign
+Entry Condition: Must be Signed In, Must be creating or editing a campaign
 
 Exit Condition: Level created or saved
 

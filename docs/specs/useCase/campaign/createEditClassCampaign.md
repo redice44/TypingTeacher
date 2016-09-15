@@ -1,4 +1,4 @@
-# Create or Edit Teacher Campaign
+# Create or Edit Class Campaign
 
 Actors: Teacher User
 
