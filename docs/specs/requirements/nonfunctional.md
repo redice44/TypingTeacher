@@ -1,19 +1,22 @@
 # Nonfunctional Requirements
 
 ### Usability
-- Any user who has basic computer literacy should be able to use TypingTeacher without instructions or the user manual. 
+- Any user who has basic computer literacy will be able to use the system without instructions or the user manual.
 
-### Reliability
-- TypingTeacher should support a user name and password for each registered user, therefore, repeling basic security attacks.
+### Security
+- The system will support a user name and password for each registered user.
 
 ### Robustness
-- If a blackout or crash occurs, unsaved data will be lost for all registered users if they did not finish their play or changing their parameters.  
+- If a blackout or crash occurs:
+  - unsaved data will be lost for all registered users if they did not finish their current game.
+  - unsaved campaign changes will be lost.
 
 ### Performance
-- TypingTeacher should process typed keys and input by the user in less than a second.
-- TypingTeacher should display correct results after each play.
-- TypingTeacher should save results correctly for each registered user. 
-- TypingTeacher should save data for all registered users after each play or change made to the game parameters.
+- The system will process typed keys and input by the user in less than a second.
+- The system will display correct results after each play.
+- The system will save results correctly for each registered user.
+- The system will save data for all registered users after each play.
+- The system will save data after each level is created when creating a campaign.
 
 ### Supportability
-- TypingTeacher should accept upgrades/patches.
+- The system will accept upgrades/patches.
