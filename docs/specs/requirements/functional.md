@@ -1,14 +1,39 @@
 # Functional Requirements
-- TypingTeacher is a web application that will allow an user to practice and assess his/her typing proficiency by typing displayed texts as quickly and accurately as possible.   
-- Users will be able to see results in common metrics such as Words Per Minute (WPM) and accuracy.
+
+### Game Play
+- The system will display a typing game to the user that assesses the user's typing accuracy and speed.
+- The user will be able to interact with the game by typing
+- The system will display results in common metrics such as Words Per Minute (WPM) and accuracy percentage.
 - The system will support two types of game modes:
-  - Phrase Mode: The user has to type a phrase based on certain parameters without a time limit.
-  - Time Trial Mode: The user has to type phrases until time stops counting.
+  - Phrase Mode: The system will display a phrase to complete.
+  - Time Trial Mode: The system will display a count down timer and unlimited phrases to complete.
+- Registered users may use items if available.
+
+### User Functionality
+- Users will be able to see historical and aggregated information about all games and specific campaigns.
+- The system allows registered users to create of custom campaigns and levels.
+  - Campaigns are a collection of levels.
+    - Campaigns must have at least one level.
+  - Levels a set of game parameters and passing requirements.
+    - Levels must be part of a campaign.
+- The system allows teachers to create specialized custom campaigns.
+  - These specialized campaigns can have
+    - Deadlines
+- The system allows registered users to export and import campaigns.
+- Users will be able to see the user's inventory of items.
+
+### User Roles
 - The system supports 4 types of users:
-  - Anonymous User: A basic user that is not logged in. This user can play the game and receive immediate results. This user's data will not persist in a form that can be identified to the user.
-  - Registered User: A user that is registered and logged in to the application. This user can play the game and receive immediate, personalized results. This user's data will persist. Historical and aggregated data about the user is available. This user is able to customize game parameters.
-  - Student User: A user that is identical to a registered user, however a student's data is viewable by his or her teacher. This user is unable to customize game parameters. This user's game parameters are set by his or her teacher.
-  - Teacher User: A user that is able to create classes, and see aggregated data about these classes. A teacher is able to set the following game parameters for his or her class:
-    - Phrase types (random English words, random English sentences, Lorem Ipsum)
-    - Phrase lengths (short, medium, long)
-    - Custom input phrases
+  - Anonymous User: A basic user that is not logged in.
+    - This user can play the game and receive immediate results.
+    - This user's data will not persist in a form that can be identified to the user.
+  - Registered User: A user that is registered and logged in to the system.
+    - This user can play the game and receive immediate, personalized results.
+    - This user's data will persist. Historical and aggregated data about the user is available.
+    - This user is able to create custom campaigns.
+    - This user has an inventory
+  - Student User: A registered user that is participating in a Teacher's campaign.
+  - Teacher User: A privileged registered users.
+    - Teachers can create specialized Teacher campaigns.
+    - Teachers can assign registered users (students) to specialized campaigns
+    - Teachers can see overviews of the students in each specialized campaign.
