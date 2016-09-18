@@ -9,11 +9,11 @@ Exit Condition: Finish making campaign or cancels.
 Flow of Events:
 
 1. User clicks Create Campaign
-2. User sets available options for the campaign:
+2. System shows options
+3. User sets available options for the campaign:
   - Starting items
-3. See use case "createLevel"
-4. System adds created game to the campaign.
-5. System asks user if the user needs to create more levels.
+  - See use case "createLevel"
+4. System adds created game to the campaign and asks user if the user needs to create more levels.
   - If so, system prompts user if this is a branch point.
     - If so, create a two level branch.
     - Repeat 2.
