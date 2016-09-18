@@ -2,6 +2,7 @@
 
 ### Usability
 - Any user who has basic computer literacy will be able to use the system without instructions or the user manual.
+- Any user with English proficiency will be able to understand the system
 
 ### Security
 - The system will support a user name and password for each registered user.
