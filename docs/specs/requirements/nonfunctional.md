@@ -2,6 +2,7 @@
 
 ### Usability
 - Any user who has basic computer literacy will be able to use the system without instructions or the user manual.
+- The system will provide visual cues to guide the users without any previous knowledge.
 - Any user with English proficiency will be able to understand the system
 
 ### Security
