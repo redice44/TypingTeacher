@@ -7,6 +7,7 @@ Entry Condition: Authenticated User
 Exit Condition:
 
 Flow of Events:
+
 1. User clicks dashboard
 2. System displays the following information for the user
   - Campaign List ^1
