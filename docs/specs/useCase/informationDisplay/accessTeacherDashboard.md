@@ -7,6 +7,7 @@ Entry Condition: Authenticated Teacher
 Exit Condition:
 
 Flow of Events:
+
 1. Extends use case accessDashboard.
 2. The system also displays:
   - Class Campaign List ^1
