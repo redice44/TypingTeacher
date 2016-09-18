@@ -7,6 +7,7 @@ Entry Condition: Authenticated User
 Exit Condition: Finish making campaign or cancels.
 
 Flow of Events:
+
 1. User clicks Create Campaign
 2. User sets available options for the campaign:
   - Starting items
@@ -20,5 +21,6 @@ Flow of Events:
 7. System saves campaign and returns user to dashboard. ^2
 
 Exceptions:
+
 1. If the campaign does not have any levels, the system will display an error telling the user that the campaign requires at least one level to finish.
 2. If the user cancels without saving, the system will not save the campaign and returns the user to dashboard.
