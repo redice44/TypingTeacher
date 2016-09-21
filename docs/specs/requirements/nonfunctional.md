@@ -8,11 +8,6 @@
 ### Security
 - The system will support a user name and password for each registered user.
 
-### Robustness
-- If a blackout or crash occurs:
-  - unsaved data will be lost for all registered users if they did not finish their current game.
-  - unsaved campaign changes will be lost.
-
 ### Performance
 - The system will process typed keys and input by the user in less than a second.
 - The system will display correct results after each play.
