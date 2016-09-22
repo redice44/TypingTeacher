@@ -79,19 +79,19 @@ This web application will allow users to practice and assess his or her typing p
 
 ##### 3.1.1 Account Use Cases
 
-** Register Account **
+**Register Account**
 - Actors:
 - Entry Condition:
 - Flow of Events
 - Exit Condition:
 
-** Sign In Account **
+**Sign In Account**
 - Actors:
 - Entry Condition:
 - Flow of Events
 - Exit Condition:
 
-** Sigh Out Account **
+**Sigh Out Account**
 - Actors:
 - Entry Condition:
 - Flow of Events
@@ -99,31 +99,31 @@ This web application will allow users to practice and assess his or her typing p
 
 ##### 3.1.2 Campaign Use Cases
 
-** Create/Edit Campaign **
+**Create/Edit Campaign**
 - Actors:
 - Entry Condition:
 - Flow of Events
 - Exit Condition:
 
-** Create/Edit Class Campaign **
+**Create/Edit Class Campaign**
 - Actors:
 - Entry Condition:
 - Flow of Events
 - Exit Condition:
 
-** Create/Edit Level **
+**Create/Edit Level**
 - Actors:
 - Entry Condition:
 - Flow of Events
 - Exit Condition:
 
-** Export Campaign **
+**Export Campaign**
 - Actors:
 - Entry Condition:
 - Flow of Events
 - Exit Condition:
 
-** Import Campaign **
+**Import Campaign**
 - Actors:
 - Entry Condition:
 - Flow of Events
@@ -131,19 +131,19 @@ This web application will allow users to practice and assess his or her typing p
 
 ##### 3.1.3 Gameplay Use Cases
 
-** Play Game **
+**Play Game**
 - Actors:
 - Entry Condition:
 - Flow of Events
 - Exit Condition:
 
-** Play Phrase Mode **
+**Play Phrase Mode**
 - Actors:
 - Entry Condition:
 - Flow of Events
 - Exit Condition:
 
-** Play Time Trial Mode **
+**Play Time Trial Mode**
 - Actors:
 - Entry Condition:
 - Flow of Events
@@ -151,25 +151,25 @@ This web application will allow users to practice and assess his or her typing p
 
 ##### 3.1.4 Information Display Use Cases
 
-** Access Campaign **
+**Access Campaign**
 - Actors:
 - Entry Condition:
 - Flow of Events
 - Exit Condition:
 
-** Access Class Campaign **
+**Access Class Campaign**
 - Actors:
 - Entry Condition:
 - Flow of Events
 - Exit Condition:
 
-** Access Dashboard **
+**Access Dashboard**
 - Actors:
 - Entry Condition:
 - Flow of Events
 - Exit Condition:
 
-** Access Teacher Dashboard **
+**Access Teacher Dashboard**
 - Actors:
 - Entry Condition:
 - Flow of Events
