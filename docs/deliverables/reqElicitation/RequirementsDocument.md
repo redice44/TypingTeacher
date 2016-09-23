@@ -80,99 +80,207 @@ Typing Teacher is dedicated to providing a flexible system for teachers of the t
 ##### 3.1.1 Account Use Cases
 
 **Register Account**
-- Actors:
-- Entry Condition:
-- Flow of Events
-- Exit Condition:
+- Actors: Anonymous
+- Entry Condition: Not signed in
+- Flow of Events:
+  1. User clicks register
+  2. System prompts user for Account name and password (required)
+  3. User enters required information ^i
+  4. System validates and generates user account.
+  5. Includes use case signInAccount
+- Exceptions:
+  1. Account name must be unique. 
+- Exit Condition: Registration Submitted
 
 **Sign In Account**
-- Actors:
-- Entry Condition:
-- Flow of Events
-- Exit Condition:
+- Actors: Registered users
+- Entry Condition: Not Signed In
+- Flow of Events:
+  1. User clicks Sign In
+  2. System prompts user to enter credentials, account name and password.
+  3. User enters credentials.
+  4. System signs in user ^i
+- Exceptions:
+  1. If credentials cannot be authenticated, system prompts user with an error of incorrect username or password.
+- Exit Condition: Signed In
 
 **Sigh Out Account**
-- Actors:
-- Entry Condition:
-- Flow of Events
-- Exit Condition:
+- Actors: Registered user
+- Entry Condition: Signed In
+- Flow of Events:
+  1. User clicks Sign Out
+  2. System signs out user
+- Exit Condition: Not Signed In
 
 ##### 3.1.2 Campaign Use Cases
 
 **Create/Edit Campaign**
-- Actors:
-- Entry Condition:
-- Flow of Events
-- Exit Condition:
+- Actors: Registered User
+- Entry Condition: Authenticated User
+- Flow of Events:
+  1. User clicks Create Campaign
+  2. System shows options
+  3. User sets available options for the campaign:
+    - Starting items
+    - See use case "createLevel"
+  4. System adds created game to the campaign and asks user if the user needs to create more levels.
+    - If so, system prompts user if this is a branch point.
+      - If so, create a two level branch.
+      - Repeat 2.
+  6. User finishes campaign. ^i
+  7. System saves campaign and returns user to dashboard. ^ii
+
+- Exceptions:
+  1. If the campaign does not have any levels, the system will display an error telling the user that the campaign requires at least one level to finish.
+  2. If the user cancels without saving, the system will not save the campaign and returns the user to dashboard.
+- Exit Condition: Finish making campaign or cancels.
 
 **Create/Edit Class Campaign**
-- Actors:
-- Entry Condition:
-- Flow of Events
-- Exit Condition:
+- Actors: Teacher User
+- Entry Condition: Authenticated Teacher
+- Flow of Events:
+  1. Extends use case createEditCampaign.
+  2. User may add a deadline to the campaign. ^i
+  3. User may add a user white list to the campaign.
+    1. The system will verify the user to be added exists. ^ii
+    2. The system adds the user to the white list.
+    3. Upon creation of the campaign, the system will notify all users on the white list that they have been added to this campaign by the teacher.
+    4. The system adds this campaign to all whitelisted users' campaign lists.
+- Exceptions:
+  1. If the date selected is in the past, the system prompts the teacher with an error stating that the deadline has already passed.
+  2. If the user does not exist, the system prompts the teacher with an error stating that the user does not exist.
+- Exit Condition: Finish making campaign or cancels.
 
 **Create/Edit Level**
-- Actors:
-- Entry Condition:
-- Flow of Events
-- Exit Condition:
+- Actors: Registered users
+- Entry Condition: Must be Signed In, Must be creating or editing a campaign
+- Flow of Events: 
+  1. System displays the level options and level completion requirements
+  2. User Updates: ^i
+    - options:
+      - Game Mode
+      - Timer length or Passage length
+    - completion requirements:
+      - required accuracy percentage
+      - required words per minute
+3. System saves level and returns.
+- Exceptions:
+  1. User inputs invalid input. System prompts user to correct input with helpful tips.
+- Exit Condition: Level created or saved
 
 **Export Campaign**
-- Actors:
-- Entry Condition:
-- Flow of Events
-- Exit Condition:
+- Actors: Registered users
+- Entry Condition: Authenticated Registered User, User must have created campaigns.
+- Flow of Events:
+  1. User clicks to export campaign.
+  2. System displays the campaign code.
+- Exit Condition: None
 
 **Import Campaign**
-- Actors:
-- Entry Condition:
-- Flow of Events
-- Exit Condition:
+- Actors: Registered users
+- Entry Condition: Authenticated Registered User
+- Flow of Events:
+  1. User clicks to import campaign.
+  2. System prompts user for campaign code.
+  3. User inputs campaign code. ^i ^ii
+  4. System displays campaign.
+  5. User can accept or deny the campaign.
+    - Accept: System adds the campaign to the user's campaign list
+    - Deny: The system returns
+-Exceptions:
+  1. If the campaign code is invalid, the system will display an error telling the user that the campaign code is invalid, and allow additional attempts.
+  2. If the campaign code is valid, but the user is not on the whitelist, then the system will display an error to the user stating that they do not have access to the campaign.
+- Exit Condition: None
 
 ##### 3.1.3 Gameplay Use Cases
 
 **Play Game**
-- Actors:
-- Entry Condition:
-- Flow of Events
-- Exit Condition:
+- Actors: All users
+- Entry Condition: User starts game
+- Flow of Events:
+  1. User starts game
+  2. System provide game type
+  3. (Generalization) User interacts with game. (playPhraseMode, playTimeTrialMode)
+  4. User replays or quits game
+- Exit Condition: User finishes game
 
 **Play Phrase Mode**
-- Actors:
-- Entry Condition:
-- Flow of Events
-- Exit Condition:
+- Actors: All users
+- Entry Condition: Game started
+- Flow of Events:
+  1. System displays passage based on user
+  2. User types the phrase as accurately as possible ^i
+  3. System analyzes and displays results to user. If the user is registered, the system saves the results.
+- Exceptions:
+  1. Typos are indicated in red. Possible to correct typos.
+- Exit Condition: Phrase Complete
 
 **Play Time Trial Mode**
-- Actors:
-- Entry Condition:
-- Flow of Events
-- Exit Condition:
+- Actors: All users
+- Entry Condition: Game started
+- Flow of Events:
+  1. System displays passage and timer based on user and starts timer.
+  2. User types the phrase as accurately and quickly as possible ^i
+  3. If there is still time remaining display another phrase. Repeat 1.
+  4. When time expires the system analyzes and displays results to user. If User is registered, the system saves results.
+- Exceptions:
+  1. Typos are indicated in red. Possible to correct typos.
+- Exit Condition: Timer Complete
 
 ##### 3.1.4 Information Display Use Cases
 
 **Access Campaign**
-- Actors:
-- Entry Condition:
-- Flow of Events
-- Exit Condition:
+- Actors:  Registered User
+- Entry Condition: Authenticated user
+- Flow of Events:
+  1. User clicks campaign
+  2. System displays
+    - Campaign Name
+    - Completion Percentage
+    - Campaign Levels
+      - Aggregated data about the level
+    - Detailed run history ^i
+      - Aggregated data about the run
+- Exceptions:
+  1. If the user does not have any past runs, then the system does not display any.
+- Exit Condition: None
 
 **Access Class Campaign**
-- Actors:
-- Entry Condition:
-- Flow of Events
-- Exit Condition:
+- Actors: Teacher User
+- Entry Condition: Authenticated Teacher
+- Flow of Events:
+  1. Extends use case 
+  2. System also displays
+    - Registered Users that are in the class
+    - Overview of class progression
+    - Details of individuals progression
+- Exit Condition: None
 
 **Access Dashboard**
 - Actors:
 - Entry Condition:
-- Flow of Events
-- Exit Condition:
+- Flow of Events:
+  1. User clicks dashboard
+  2. System displays the following information for the user
+    - Campaign List ^i
+      - Campaign name, progress, history.
+    - Regular game history
+    - Create Campaign
+    - Import Campaign
+- Exceptions:
+  1. If the user does not have any class campaigns, then the system does not display any.
+- Exit Condition: None
 
 **Access Teacher Dashboard**
-- Actors:
-- Entry Condition:
-- Flow of Events
-- Exit Condition:
+- Actors: Teacher User
+- Entry Condition: Authenticated Teacher
+- Flow of Events:
+  1. Extends use case accessDashboard.
+  2. The system also displays:
+    - Class Campaign List ^i
+      - Abbreviated aggregated data: progress, completion percentage, etc.
+- Exceptions:
+  1. If the user does not have any class campaigns, then the system does not display any.
+- Exit Condition: None
 
 # 4 GLOSSARY
