@@ -2,11 +2,11 @@
 This web application will allow users to practice and assess his or her typing proficiency by typing in the displayed text as quickly and accurately as possible. The user will be able to see results in common metrics such as Words Per Minute (WPM) and accuracy. Registered users will see additional information in the form of historical information and progress. The web application will also allow teachers to set up classrooms, and be able to view aggregated information about the class.
 
 ### 1.1 Current System
-
+The current system in place is a static, rigidly structured course that does not allow the teacher to create their own courses. Teachers a restricted to a predefined system. In addition, the current system maintains a system destined to make students see learning as a chore, more than as a fun experience. Words like course, assignments and other drab terminology keep students feeling like learning is a nothing more than a process they are put through rather than an engaging activity.
 # 2. PROPOSED SYSTEM
 
 ### 2.1 Overview
-
+Typing Teacher is dedicated to providing a flexible system for teachers of the touch typing skill to provide students with a fun and engaging way to learn this invaluable skill. The rest of this section of the document will be designated to describing the feature set that this project will bring to insure this goal is met. It will begin with the Functional Requirements which will detail the specific features that users can expect from the end result, then it will transition to a description of features that specify how the system should perform (Non Functional Requirements), followed by a listing of constraints that this project must adhere to, and finished by a collection of models designed to help visualization of the entire project easy.
 ### 2.2 Functional Requirements
 
 ##### 2.2.1 Game Play
