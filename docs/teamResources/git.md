@@ -19,6 +19,10 @@ The -m argument allows you to type in a one line commit message.
 
 The -a argument adds all updated files to the commit. Note: this does not add untracked files to the commit.
 
+> git commit --amend
+
+This is useful if you want to make a little update to the most recent commit you made. However, do not amend commits that have been pushed to the remote repo. This will cause a lot of problems for people that have pulled the repo and don't have the amend. So only do this to fix local commits. Once you push it, don't amend it. Create a new commit.
+
 > git status
 
 This will show you the status of the files in the project directory. It will show you what files are changed and any untracked files. This is useful to see what you will commit.
@@ -56,7 +60,23 @@ This deletes a branch.
 
 > git checkout [branch name]
 
-This switches to a branch.
+This switches to a branch. Note: You can only switch between branches when the directory is clean. So if you want to switch between branches but aren't at a point where you should/can commit your work, then you would want to stash your work for later.
+
+> git stash
+
+Kind of makes a soft commit where you were working and reverts your local directory to the previous commit.
+
+> git stash apply
+
+Applies the stash changes you made.
+
+> git stash list
+
+Shows the list of stashes you have.
+
+> git stash clear
+
+Clears the stashes.
 
 > git checkout -b [branch name]
 
