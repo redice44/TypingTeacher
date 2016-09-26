@@ -1,0 +1,39 @@
+{
+  "name": "typing-teacher",
+  "version": "0.0.0",
+  "description": "A game to practice and assess typing proficiency",
+  "main": "src/app/app.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "webpack --watch",
+    "server:dev": "NODE_ENV=dev node build/server/server.js",
+    "start": "nodemon --delay 3 --exec \"npm run server:dev\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/redice44/TypingTeacher.git"
+  },
+  "authors": [
+    "Matt Thomson <red.cataclysm@gmail.com>",
+    "Victor Estopinan Rodriguez",
+    "Kevin Delamo"
+  ],
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/redice44/TypingTeacher/issues"
+  },
+  "homepage": "https://github.com/redice44/TypingTeacher#readme",
+  "devDependencies": {
+    "babel-core": "^6.14.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.14.0",
+    "nodemon": "^1.10.2",
+    "webpack": "^1.13.2"
+  },
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
