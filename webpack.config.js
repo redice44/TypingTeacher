@@ -3,7 +3,6 @@ var webpack = require('webpack');
 
 var config = {
   entry: {
-    'build/server/server': './src/server/server.js',
     'build/app/app': './src/app/app.js'
   },
   output: {
