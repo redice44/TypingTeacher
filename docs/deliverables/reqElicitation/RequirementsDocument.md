@@ -288,3 +288,6 @@ Caption: Diagram of Typing Teacher's Use Case Models
 - Exit Condition: None
 
 # 4 GLOSSARY
+
+- Campaign: A set of related levels in which the levels must be traversed from start to end in order to complete the set of levels.
+- WPM: Words per minute - The average number of words typed per minute.
