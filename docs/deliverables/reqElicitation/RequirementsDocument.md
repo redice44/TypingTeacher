@@ -1,20 +1,10 @@
 # 1. INTRODUCTION
-Typing Teacher is dedicated to providing a flexible system for teachers of the touch typing skill to provide students with a fun and engaging way to learn this invaluable skill. The rest of this section of the document will be designated to describing the feature set that this project will bring to insure this goal is met. It will begin with the Functional Requirements which will detail the specific features that users can expect from the end result, then it will transition to a description of features that specify how the system should perform (Non Functional Requirements), followed by a listing of constraints that this project must adhere to, and finished by a collection of models designed to help visualization of the entire project easy.
+Typing Teacher provides a flexible system for teachers to provide students with a fun and engaging way to improve his or her typing skills.
 
-Section 1.1 will discuss the current in place system.
-
-Section 2 will be dedicated to describing the functions and constraints of the proposed system.
-
-Section 2.1 will list the functional requirements, which have been split into x main categories. These categories include Game Play, User functionality, and User Roles which will comprise sections 2.2.1, 2.2.2, and 2.2.3 respectively.
-
-Section 2.2 will list the non-functional requirements which will, once again, be split into a few different sections for convenience. These sections include Section 2.3.1 (Usability) 2.3.2 (Security), 2.3.3 (Performance), and 2.3.4 (Supportability).
-
-Section 2.3 will list the constraints of the project.
-
-Section 3 will get into the models used to further outline the system. Section 3.1 specifically will delve into the various use case models used to describe user interactions with the system.
+In section 1.1, the current system will be discussed. Section 2 will be dedicated to describing the requirements and constraints of the proposed system. Section 3 describes the system models, specifically the use case model in section 3.1.
 
 ### 1.1 Current System
-The current system in place is a static, rigidly structured course that does not allow the teacher to create their own courses. Teachers are restricted to a predefined system. In addition, the current system maintains a system destined to make students see learning as a chore, more than as a fun experience. Words like course, assignments and other drab terminology keep students feeling like learning is a nothing more than a process they are put through rather than an engaging activity.
+The current system in place is a static, rigid course that does not allow the teacher to create their own courses. Teachers are restricted to a predefined system. In addition, the current system maintains a system destined to make students see learning as a chore, more than as a fun experience. Words like course, assignments and other drab terminology keep students feeling like learning is a nothing more than a process they are put through rather than an engaging activity.
 
 # 2. PROPOSED SYSTEM
 
@@ -30,7 +20,7 @@ The current system in place is a static, rigidly structured course that does not
 -The system will allow the use of items for various purposes such as stopping the timer during time trial mode.
 
 ##### 2.1.2 User Functionality
-- The system will allow users to be able to see historical and aggreagated statistical information about specific game, aggregated campaign, and overall results.
+- The system will allow users to be able to see historical and aggregated statistical information about specific game, aggregated campaign, and overall results.
 - The system allows registered users to create of custom campaigns and levels.
   - Campaigns are a collection of levels.
     - Campaigns must have at least one level.
@@ -57,6 +47,7 @@ The current system in place is a static, rigidly structured course that does not
   - Create teacher class campaigns
   - Assign student users to class campaign
   - Can track student progress and game results in the class campaign.
+
 ### 2.2 Nonfunctional Requirements
 
 ##### 2.2.1 Usability
@@ -87,6 +78,9 @@ The current system in place is a static, rigidly structured course that does not
 
 ### 3.1 Use Case Models
 
+Figure 3.1-1
+Caption: Diagram of Typing Teacher's Use Case Models
+
 ##### 3.1.1 Account Use Cases
 
 **Register Account**
@@ -99,7 +93,7 @@ The current system in place is a static, rigidly structured course that does not
   4. System validates and generates user account.
   5. Includes use case signInAccount
 - Exceptions:
-  1. Account name must be unique. 
+  1. Account name must be unique.
 - Exit Condition: Registration Submitted
 
 **Sign In Account**
@@ -164,7 +158,7 @@ The current system in place is a static, rigidly structured course that does not
 **Create/Edit Level**
 - Actors: Registered users
 - Entry Condition: Must be Signed In, Must be creating or editing a campaign
-- Flow of Events: 
+- Flow of Events:
   1. System displays the level options and level completion requirements
   2. User Updates: ^i
     - options:
@@ -259,7 +253,7 @@ The current system in place is a static, rigidly structured course that does not
 - Actors: Teacher User
 - Entry Condition: Authenticated Teacher
 - Flow of Events:
-  1. Extends use case 
+  1. Extends use case
   2. System also displays
     - Registered Users that are in the class
     - Overview of class progression
