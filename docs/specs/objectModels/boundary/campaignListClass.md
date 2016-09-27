@@ -4,6 +4,9 @@
 
 ### Methods
 
+- Select campaign
+- Play Selected campaign
+
 ### Associations
 
-  - Has campaigns
+- Has campaigns

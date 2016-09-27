@@ -4,4 +4,7 @@
 
 ### Methods
 
+- Verify User Name/Email
+- create Account
+
 ### Associations

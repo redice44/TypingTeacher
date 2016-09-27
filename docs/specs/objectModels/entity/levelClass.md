@@ -2,9 +2,9 @@
 
 ### Attributes
 
-  - Passing WPM
-  - Passing Accuracy %
-  - Game Mode
+- Passing WPM
+- Passing Accuracy %
+- Game Mode
 
 ### Methods
 

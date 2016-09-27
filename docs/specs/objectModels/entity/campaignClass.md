@@ -11,7 +11,7 @@
 - (Class) Student List
 - (Class) Teacher
 - (Class, Optional) Deadline  
-- (Class, Optional) Restrict Items
+- (Class, Optional) Add/Restrict Items
 
 ### Methods
 
