@@ -8,7 +8,9 @@
   "scripts": {
     "dev": "webpack --watch",
     "server:dev": "node src/lib/copyServer.js && NODE_ENV=dev node build/server/index.js",
+    "server:dev-windows": "node src/lib/copyServer.js&&set NODE_ENV=dev&&node build/server/index.js",
     "start": "nodemon --watch src/server --delay 3 --exec \"npm run server:dev\"",
+    "start-windows": "nodemon --watch src/server --delay 3 --exec \"npm run server:dev-windows\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
