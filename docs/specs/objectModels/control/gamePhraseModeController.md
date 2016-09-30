@@ -1,4 +1,4 @@
-Game Phrase Mode Controller
+# Game Phrase Mode Controller
 
 ### Attributes
 
