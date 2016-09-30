@@ -1,11 +1,10 @@
-# Sign Out Class
+# Sign Out Controller
 
 ### Attributes
 
 ### Methods
 
-- validate user is logged in
 - log user out
-- generate boundary object container for main page
+- create main page container
 
 ### Associations

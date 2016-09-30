@@ -4,6 +4,6 @@
 
 ### Methods
 
-- Initiates sign out procedure. [GET] /signout
+- Initiates sign out procedure.
 
 ### Associations
