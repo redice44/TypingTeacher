@@ -6,7 +6,7 @@
 - Campaign Name
 - Creator
 - Campaign Export/Import hash
-- Campaign levels (simple tree)
+- Campaign levels (simple graph)
 - (Optional) Campaign Items
 - (Class) Student List
 - (Class) Teacher

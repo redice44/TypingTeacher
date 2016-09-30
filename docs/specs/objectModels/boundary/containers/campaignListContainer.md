@@ -1,11 +1,10 @@
-# Campaign List Class
+# Campaign List Container
 
 ### Attributes
 
-### Methods
+- List of Campaign Preview Containers
 
-- Select campaign
-- Play Selected campaign
+### Methods
 
 ### Associations
 

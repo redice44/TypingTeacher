@@ -8,4 +8,4 @@
 6. Account Entity Returns <--y/n--
   1. If not valid, Sign In Controller --Creates--> Error notification and Sign In Container
 7. Sign In Controller --Signs In User--> Sign In Controller
-8. Sign In Controller --Creates--> Dashboard Container
+8. Sign In Controller --Creates--> Dashboard Controller

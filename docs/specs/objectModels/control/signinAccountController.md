@@ -7,7 +7,7 @@
 - create sign in container
 - validate user's credentials
 - Sign in user
-- create dashboard container
+- create dashboard controller
 - create error notification component
 
 ### Associations
