@@ -1,10 +1,11 @@
-# Create Account Class
+# Create Account Controller
 
 ### Attributes
 
 ### Methods
 
-- Verify User Name/Email
-- create Account
+- create Create Account Container
+- does user already exist
+- create account
 
 ### Associations
