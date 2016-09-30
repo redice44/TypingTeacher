@@ -2,13 +2,13 @@
 
 ### Attributes
 
--  campaignList: CampaignListContainer
--  regularGameHistory: Component
--  createCampaign: createCampaignButtonComponent
--  importCampaign: ImportCampaignCodeComponent
+- General Statistics Container
+- Quick Play Container
+- Campaign List Container
+- Create Campaign Component
+- Import Campaign Component
+
 
 ### Methods
-
--  InitializeDashBoardContainer()
 
 ### Associations

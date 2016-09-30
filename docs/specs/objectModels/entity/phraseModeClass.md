@@ -1,11 +1,14 @@
 # Phrase Mode Class
 
 ### Attributes
+
 -  phrase: String
 
 ### Methods
--  LoadString()
--  CompareCurrentLetterWithInput()
+
+-  LoadPhraseBasedOnUserPreferences()
+-  GetPhrase() 
+-  SetPhrase()
 
 ### Associations
 
