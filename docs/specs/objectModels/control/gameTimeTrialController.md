@@ -3,15 +3,28 @@
 ### Attributes
 
 -  input: Char
--  game: TimeTrialClass
+-  game: timeTrialClass
+-  phrase: timeTrialComponent
+-  results: resultsComponent
+-  continue: createAcceptButton
+-  timer: TimerComponent
+
 ### Methods
 
 -  CreateTimeTrialClass()
 -  StartGame()
+-  MakePhraseComponentVisible()
 -  UpdateGame()
+-  UpdatePhraseComponent()
 -  ShowResults()
--  CompareInputWithNextChar()
+-  CompareCharWithPhraseCurrentCharacter()
+-  CreateResultsComponents()
+-  MakeResultsComponentsVisible()
+-  CreateContinueButton()
+-  MakeContinueButtonVisible()
+-  CreateTimerComponent()
+-  MakeTimerComponentVisible()
+-  UpdateTimerComponent()
 
 ### Associations
-
 

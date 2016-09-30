@@ -1,12 +1,16 @@
 # Time Trial Class
 
 ### Attributes
--  timer
+
+-  timer: Integer
 -  phrase: String
 
 ### Methods
--  LoadPhrase()
--  CompareCurrentLetterWithInput()
+
+-  LoadPhraseBasedOnUserInput()
+-  GetPhrase()
+-  SetPhrase()
+-  SetNewPhrase()
 
 ### Associations
 
