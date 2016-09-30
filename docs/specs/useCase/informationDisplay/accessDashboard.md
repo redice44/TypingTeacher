@@ -13,6 +13,7 @@ Flow of Events:
   - Campaign List ^1
     - Campaign name, progress, history.
   - Regular game history
+  - Quick Play
   - Create Campaign
   - Import Campaign
 
