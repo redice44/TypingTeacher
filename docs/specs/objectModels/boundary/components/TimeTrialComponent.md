@@ -3,5 +3,6 @@
 ### Attributes
 ### Methods
 -  CreateGameTimeTrialController()
+
 ### Associations
 
