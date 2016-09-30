@@ -2,9 +2,11 @@
 
 ### Attributes
 -  phrase: String
+
 ### Methods
 -  LoadString()
 -  CompareCurrentLetterWithInput()
+
 ### Associations
 
 
