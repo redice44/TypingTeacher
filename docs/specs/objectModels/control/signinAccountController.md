@@ -1,13 +1,13 @@
-# Sign In Class
+# Sign In Controller
 
 ### Attributes
 
 ### Methods
 
-- generate boundary object container for sign in forum.
-- validate user is not logged in
-- validate user's credentials.
+- create sign in container
+- validate user's credentials
 - Sign in user
-- generate boundary object container for dashboard.
+- create dashboard container
+- create error notification component
 
 ### Associations

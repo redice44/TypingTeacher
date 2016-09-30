@@ -4,6 +4,4 @@
 
 ### Methods
 
-- Initiates sign in procedure. [POST] /signin
-
 ### Associations
