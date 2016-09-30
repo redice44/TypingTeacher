@@ -4,14 +4,23 @@
 
 -  input: Char
 -  game: PhraseModeClass
+-  phrase: phraseModeComponent
+-  results: resultsComponent
+-  continue: createAcceptButton
 
 ### Methods
 
 -  CreatePhraseModeClass()
 -  StartGame()
+-  MakePhraseComponentVisible()
 -  UpdateGame()
+-  UpdatePhraseComponent()
 -  ShowResults()
--  CompareInputWithNextChar()
+-  CompareCharWithPhraseCurrentCharacter()
+-  CreateResultsComponents()
+-  MakeResultsComponentsVisible()
+-  CreateContinueButton()
+-  MakeContinueButtonVisible()
 
 ### Associations
 
