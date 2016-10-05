@@ -8,6 +8,7 @@
 
 -  SetButtonVisible()
 -  GetisVisible()
+-  Click Event()
 
 ### Associations
 
