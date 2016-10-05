@@ -2,9 +2,21 @@
 
 ### Attributes
 
+-  Level Class
+-  Level Container
+-  Game Mode
+-  Campaign Container
+
+
 ### Methods
 
-- Set WPM, Acc, Mode
-- Create Level
+-  Create Level Container
+-  Set WPM, Acc, Mode, Length
+-  Create Level
+-  Dispose Level
+-  Load Campaign Container
+-  Display Changes
+-  Display Error Notification
+-  Send Level to createCampaignController
 
 ### Associations
