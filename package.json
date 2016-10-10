@@ -6,6 +6,7 @@
     "doc": "docs"
   },
   "scripts": {
+    "db": "mongod",
     "dev": "webpack --watch",
     "server:dev": "node src/lib/copyServer.js && NODE_ENV=dev node build/server/index.js",
     "server:dev-windows": "node src/lib/copyServer.js&&set NODE_ENV=dev&&node build/server/index.js",
@@ -37,6 +38,8 @@
     "webpack": "^1.13.2"
   },
   "dependencies": {
-    "express": "^4.14.0"
+    "express": "^4.14.0",
+    "mongo": "^0.1.0",
+    "mongoose": "^4.6.3"
   }
 }
