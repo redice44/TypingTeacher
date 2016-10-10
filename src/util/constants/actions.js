@@ -1,0 +1,1 @@
+export const UPDATE_GAME_RESULT = 'UPDATE_GAME_RESULT';

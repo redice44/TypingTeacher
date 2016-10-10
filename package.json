@@ -8,10 +8,10 @@
   "scripts": {
     "db": "mongod",
     "dev": "webpack --watch",
-    "server:dev": "node src/lib/copyServer.js && NODE_ENV=dev node build/server/index.js",
-    "server:dev-windows": "node src/lib/copyServer.js&&set NODE_ENV=dev&&node build/server/index.js",
-    "start": "nodemon --watch src/server --delay 3 --exec \"npm run server:dev\"",
-    "start-windows": "nodemon --watch src/server --delay 3 --exec \"npm run server:dev-windows\"",
+    "server:dev": "NODE_ENV=dev node src/server/index.js",
+    "server:dev-windows": "set NODE_ENV=dev&&node src/server/index.js",
+    "start": "nodemon --watch src/ --delay 3 --exec \"npm run server:dev\"",
+    "start-windows": "nodemon --watch src/ --delay 3 --exec \"npm run server:dev-windows\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -32,6 +32,7 @@
     "babel-core": "^6.14.0",
     "babel-loader": "^6.2.5",
     "babel-preset-es2015": "^6.14.0",
+    "babel-preset-react": "^6.16.0",
     "babel-register": "^6.14.0",
     "ncp": "^2.0.0",
     "nodemon": "^1.10.2",
@@ -39,7 +40,14 @@
   },
   "dependencies": {
     "express": "^4.14.0",
+    "material-ui": "^0.16.0",
     "mongo": "^0.1.0",
-    "mongoose": "^4.6.3"
+    "mongoose": "^4.6.3",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.8.1",
+    "react-tap-event-plugin": "^1.0.0",
+    "redux": "^3.6.0"
   }
 }

@@ -3,7 +3,15 @@ var webpack = require('webpack');
 
 var config = {
   entry: {
-    'build/app/app': './src/app/app.js'
+    'build/assets/js/client': './src/app/client.js',
+    'build/assets/js/vendor': [
+      'react',
+      'react-dom',
+      'react-redux',
+      'react-tap-event-plugin',
+      'redux',
+      'material-ui'
+    ]
   },
   output: {
     path: './',
@@ -17,7 +25,11 @@ var config = {
         exclude: /node_modules/
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin('build/assets/js/vendor',
+      'build/assets/js/vendor.js')
+  ]
 };
 
 module.exports = config;
