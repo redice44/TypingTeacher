@@ -8,6 +8,7 @@ var config = {
       'react',
       'react-dom',
       'react-redux',
+      'react-router',
       'react-tap-event-plugin',
       'redux',
       'material-ui'

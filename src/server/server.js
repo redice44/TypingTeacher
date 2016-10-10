@@ -28,7 +28,7 @@ mongoose.connect(mongodbUri, (err) => {
     next();
   });
 
-  server.get('/', handleRender);
+  server.get('*', handleRender);
 
   server.listen(SERVER_PORT, () => {
     console.log(`Server listening on port ${SERVER_PORT}.`);

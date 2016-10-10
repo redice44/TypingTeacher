@@ -1,14 +1,13 @@
 import React from 'react';
 
 import Header from './header';
-import MainContent from './main';
 import Footer from './footer';
 
-const App = () => {
+const App = (props) => {
   return (
     <div>
       <Header />
-      <MainContent />
+      { props.children }
       <Footer />
     </div>
   );
