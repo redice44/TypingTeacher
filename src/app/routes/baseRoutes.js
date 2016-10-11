@@ -1,10 +1,10 @@
-import App from '../app/components/app';
-import Game from '../app/components/game';
-import Dashboard from '../app/components/dashboard';
+import App from '../components/app';
+import Game from '../components/game';
+import Dashboard from '../components/dashboard';
 
 const dashboard = {
   path: 'dashboard',
-  component: Dashboard,
+  component: Dashboard
 };
 
 const routes = [

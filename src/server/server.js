@@ -5,8 +5,10 @@ import mongoose from 'mongoose';
 import path from 'path';
 import passport from 'passport';
 import LocalStrategy from 'passport-local/lib/strategy';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import Account from '../database/account/model';
+import auth from './util/auth.js';
 
 const jsonParser = bodyParser.json();
 // TODO: Pull database into a secret.
@@ -48,17 +50,13 @@ mongoose.connect(mongodbUri, (err) => {
     next();
   });
 
-  /*
-  passport.use(new LocalStrategy((username, password, done) => {
-    if (username === 'admin' && password === 'pass') {
-      return done(null, {user: 'bob'});
-    }
-    return done(null, false, {message: 'Incorrect User'});
-  }));
-  */
   passport.use(Account.createStrategy());
   passport.serializeUser(Account.serializeUser());
   passport.deserializeUser(Account.deserializeUser());
+
+  // Needed for onTouchTap
+  // http://stackoverflow.com/a/34015469/988941
+  injectTapEventPlugin();
 
   server.post('/register', (req, res, next) => {
     Account.register(new Account({username: req.body.username}),
@@ -83,49 +81,34 @@ mongoose.connect(mongodbUri, (err) => {
 
   // TODO: Gracefully handle unsucessful logins
   server.post('/signin', passport.authenticate('local'), (req, res, next) => {
+    // TODO: Reponse should update store
     res.json({message: 'Success'});
   });
 
   server.get('/signout', (req, res, next) => {
     req.logout();
+    // TODO: Reponse should update store
     res.json({message: 'logged out'});
   });
 
-
-
-/*
-  server.post('/signin', (req, res, next) => {
-    passport.authenticate('local',
-      (err, user, info) => {
-        console.log(err, user, info);
-        if (err) {
-          return next(err);
-        }
-
-        if (!user) {
-          // TODO: Handle various passport-local-mongoose errors
-          return res.json({error: info});
-        }
-
-        req.login(user, (err) => {
-          if (err) {
-            return next(err);
-          }
-
-          res.json({message: 'Success'});
-        });
-      })(req, res, next);
-  });
-*/
   server.get('/verify', (req, res, next) => {
-    // TODO: Extract to reusable function for verifying session
     if (!req.user) {
-      return res.json({error: 'Not Logged In'});
+      return res.json({authenticated: false});
     }
-
-    res.json({message: req.user});
+    // TODO: Reponse should update store
+    res.json({
+      authenticated: true,
+      user: req.user
+    });
   });
 
+  // TODO: Someday sync these auth routes gracefully
+
+  // REMINDER: Adjustments need to be done here and in the route file.
+  // Authenticated Routes
+  server.get('/dashboard', auth, handleRender);
+
+  // Unauthenticated Routes
   server.get('*', handleRender);
 
   server.listen(SERVER_PORT, () => {

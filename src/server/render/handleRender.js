@@ -3,7 +3,6 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory, match, RouterContext } from 'react-router';
 import { renderToString } from 'react-dom/server';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { deepOrange500 } from 'material-ui/styles/colors';
@@ -14,12 +13,12 @@ import Game from '../../app/components/Game';
 import Dashboard from '../../app/components/Dashboard';
 import renderFullPage from './renderFullPage';
 import { GAME_REDUCER_INIT } from '../../util/constants/reducers';
-import routes from '../routes';
+import routes from '../../app/routes/baseRoutes.js';
 
-const handleRender = (req, res) => {
+const handleRender = (req, res, next) => {
   match({routes, location: req.url}, (err, redirectLocation, renderProps) => {
     if (err) {
-      console.log("Server Error");
+      console.log('Server Error', err);
       res.status(500).send(err.message);
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
@@ -35,10 +34,6 @@ const handleRender = (req, res) => {
         userAgent: req.headers['user-agent']
       });
 
-      // Needed for onTouchTap
-      // http://stackoverflow.com/a/34015469/988941
-      injectTapEventPlugin();
-
       const html = renderToString(
         <MuiThemeProvider muiTheme = { muiTheme }>
           <Provider store = { store }>
@@ -50,6 +45,7 @@ const handleRender = (req, res) => {
       const initialState = store.getState();
       res.send(renderFullPage(html, initialState));
     } else {
+      // TODO: Handle 404 better
       res.status(404).send('Not found');
     }
   });
