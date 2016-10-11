@@ -95,6 +95,8 @@ export default class AccountModal extends React.Component {
           auth: message.authenticated,
           tooltip: message.authenticated ? 'Sign Out' : 'Sign In or Register Account'
         });
+        // Redirecting after signing/register to dashboard
+        this.context.router.push('/dashboard');
       });
   }
 
@@ -114,6 +116,8 @@ export default class AccountModal extends React.Component {
           auth: message.authenticated,
           tooltip: message.authenticated ? 'Sign Out' : 'Sign In or Register Account'
         });
+        // Redirecting to main page after sign out
+        this.context.router.push('/');
       });
   }
 
