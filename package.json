@@ -12,6 +12,7 @@
     "server:dev-windows": "set NODE_ENV=dev&&node src/server/index.js",
     "start": "nodemon --watch src/ --delay 3 --exec \"npm run server:dev\"",
     "start-windows": "nodemon --watch src/ --delay 3 --exec \"npm run server:dev-windows\"",
+	"mongo-win": "md mongo-db & \"C:/Program Files/MongoDb/Server/3.2/bin/mongod.exe\" --dbpath mongo-db",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
