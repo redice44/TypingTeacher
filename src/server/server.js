@@ -34,7 +34,11 @@ mongoose.connect(mongodbUri, (err) => {
   server.use(Session({
     secret: 'keyboard cat',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    // TODO: Be sure to update this life time to something reasonable.
+    cookie: {
+      maxAge: 1 * 60 * 1000
+    }
   }));
   server.use(passport.initialize());
   server.use(passport.session());
@@ -52,7 +56,7 @@ mongoose.connect(mongodbUri, (err) => {
     return done(null, false, {message: 'Incorrect User'});
   }));
   */
-  passport.use(new LocalStrategy(Account.authenticate()));
+  passport.use(Account.createStrategy());
   passport.serializeUser(Account.serializeUser());
   passport.deserializeUser(Account.deserializeUser());
 
@@ -63,21 +67,63 @@ mongoose.connect(mongodbUri, (err) => {
         if (err) {
           return res.json({error: err.message});
         }
-        res.json({message: 'Successfully added account', account: account});
-    });
-  })
-  server.post('/account/in', (req, res, next) => {
+
+        passport.authenticate('local')(req, res, () => {
+          req.session.save((err) => {
+            if (err) {
+              return next(err);
+            }
+
+            // TODO: Prompt client side dashboard load.
+            res.json({message: 'Successfully added account', account: account});
+          });
+        });
+      });
+  });
+
+  // TODO: Gracefully handle unsucessful logins
+  server.post('/signin', passport.authenticate('local'), (req, res, next) => {
+    res.json({message: 'Success'});
+  });
+
+  server.get('/signout', (req, res, next) => {
+    req.logout();
+    res.json({message: 'logged out'});
+  });
+
+
+
+/*
+  server.post('/signin', (req, res, next) => {
     passport.authenticate('local',
       (err, user, info) => {
-        // TODO: Proper validation on db
+        console.log(err, user, info);
         if (err) {
-          next(err);
-        } else if (!user) {
-          res.json({message: 'Error, incorrect user'});
-        } else {
-          res.json({message: 'Success'});
+          return next(err);
         }
+
+        if (!user) {
+          // TODO: Handle various passport-local-mongoose errors
+          return res.json({error: info});
+        }
+
+        req.login(user, (err) => {
+          if (err) {
+            return next(err);
+          }
+
+          res.json({message: 'Success'});
+        });
       })(req, res, next);
+  });
+*/
+  server.get('/verify', (req, res, next) => {
+    // TODO: Extract to reusable function for verifying session
+    if (!req.user) {
+      return res.json({error: 'Not Logged In'});
+    }
+
+    res.json({message: req.user});
   });
 
   server.get('*', handleRender);
