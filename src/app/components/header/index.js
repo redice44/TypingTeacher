@@ -8,7 +8,17 @@ import ComputerIcon from 'material-ui/svg-icons/hardware/computer';
 import AccountIconButton from '../account/modal';
 
 function handleTouchTap() {
-  console.log(`Don't touch me!`);
+  console.log('logging out');
+
+  request
+    .get('/signout')
+    .end((err, res) => {
+      if (err) {
+        return console.log(err);
+      }
+
+      console.log(JSON.parse(res.text));
+    });
 }
 
 function verify() {

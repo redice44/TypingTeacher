@@ -37,7 +37,7 @@ mongoose.connect(mongodbUri, (err) => {
     saveUninitialized: false,
     // TODO: Be sure to update this life time to something reasonable.
     cookie: {
-      maxAge: 1 * 10 * 1000
+      maxAge: 1 * 60 * 1000
     }
   }));
   server.use(passport.initialize());
@@ -68,17 +68,32 @@ mongoose.connect(mongodbUri, (err) => {
           return res.json({error: err.message});
         }
 
-        req.login(user, (err) => {
-          if (err) {
-            return next(err);
-          }
+        passport.authenticate('local')(req, res, () => {
+          req.session.save((err) => {
+            if (err) {
+              return next(err);
+            }
 
-          // TODO: Prompt client side dashboard load.
-          res.json({message: 'Successfully added account', account: account});
+            // TODO: Prompt client side dashboard load.
+            res.json({message: 'Successfully added account', account: account});
+          });
         });
       });
   });
 
+  // TODO: Gracefully handle unsucessful logins
+  server.post('/signin', passport.authenticate('local'), (req, res, next) => {
+    res.json({message: 'Success'});
+  });
+
+  server.get('/signout', (req, res, next) => {
+    req.logout();
+    res.json({message: 'logged out'});
+  });
+
+
+
+/*
   server.post('/signin', (req, res, next) => {
     passport.authenticate('local',
       (err, user, info) => {
@@ -101,8 +116,9 @@ mongoose.connect(mongodbUri, (err) => {
         });
       })(req, res, next);
   });
-
+*/
   server.get('/verify', (req, res, next) => {
+    // TODO: Extract to reusable function for verifying session
     if (!req.user) {
       return res.json({error: 'Not Logged In'});
     }
