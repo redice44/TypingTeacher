@@ -82,19 +82,20 @@ mongoose.connect(mongodbUri, (err) => {
   // TODO: Gracefully handle unsucessful logins
   server.post('/signin', passport.authenticate('local'), (req, res, next) => {
     // TODO: Reponse should update store
-    res.json({message: 'Success'});
+    res.json({authenticated: true});
   });
 
   server.get('/signout', (req, res, next) => {
     req.logout();
     // TODO: Reponse should update store
-    res.json({message: 'logged out'});
+    res.json({authenticated: false});
   });
 
   server.get('/verify', (req, res, next) => {
     if (!req.user) {
       return res.json({authenticated: false});
     }
+    console.log(req.session);
     // TODO: Reponse should update store
     res.json({
       authenticated: true,

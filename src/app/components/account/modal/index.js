@@ -16,9 +16,12 @@ export default class AccountModal extends React.Component {
     super(props);
 
     this.state = {
+      // TODO: Pull from store
+      auth: false,
+      tooltip: 'Sign In or Register Account',
       open: false,
       slideIndex: 0,
-      title: 'Sign In',
+      tabTitle: 'Sign In',
       account: {}
     };
 
@@ -27,13 +30,31 @@ export default class AccountModal extends React.Component {
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSignOut = this.handleSignOut.bind(this);
     this.getValues = this.getValues.bind(this);
   }
+/*
+  componentDidMount() {
+    request
+      .get('/verify')
+      .end((err, res) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
 
+        let a = JSON.parse(res.text).authenticated;
+        this.setState({
+          auth: a,
+          tooltip: a ? 'Sign Out' : 'Sign In or Register Account'
+        });
+      });
+  }
+*/
   handleTabChange(v) {
     this.setState({
       slideIndex: v,
-      title: v === 0 ? 'Sign In' : 'Register Account',
+      tabTitle: v === 0 ? 'Sign In' : 'Register Account',
       account: {}
     });
   }
@@ -68,7 +89,31 @@ export default class AccountModal extends React.Component {
           console.log(err);
           return;
         }
-        console.log(JSON.parse(res.text));
+        let message = JSON.parse(res.text);
+        console.log(message);
+        this.setState({
+          auth: message.authenticated,
+          tooltip: message.authenticated ? 'Sign Out' : 'Sign In or Register Account'
+        });
+      });
+  }
+
+  handleSignOut() {
+    // TODO: Must redirect to main page.
+    request
+      .get('/signout')
+      .end((err, res) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+
+        let message = JSON.parse(res.text);
+        console.log(message);
+        this.setState({
+          auth: message.authenticated,
+          tooltip: message.authenticated ? 'Sign Out' : 'Sign In or Register Account'
+        });
       });
   }
 
@@ -93,15 +138,15 @@ export default class AccountModal extends React.Component {
         onTouchTap={this.handleSubmit}
       />
     ];
-
+    // TODO: Toggle account button state depending on log in status
     return (
       <div>
-        <IconButton tooltip="Account"
-          onTouchTap={this.handleOpen}>
+        <IconButton tooltip={this.state.tooltip}
+          onTouchTap={this.state.auth ? this.handleSignOut : this.handleOpen}>
           <AccountIcon />
         </IconButton>
         <Dialog
-          title={this.state.title}
+          title={this.state.tabTitle}
           actions={actions}
           modal={true}
           open={this.state.open}
@@ -128,5 +173,8 @@ export default class AccountModal extends React.Component {
       </div>
     );
   }
-
 }
+
+AccountModal.contextTypes = {
+  router: React.PropTypes.object
+};
