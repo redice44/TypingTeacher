@@ -3,6 +3,7 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory, match, RouterContext } from 'react-router';
 import { renderToString } from 'react-dom/server';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { deepOrange500 } from 'material-ui/styles/colors';
@@ -33,6 +34,10 @@ const handleRender = (req, res) => {
       }, {
         userAgent: req.headers['user-agent']
       });
+
+      // Needed for onTouchTap
+      // http://stackoverflow.com/a/34015469/988941
+      injectTapEventPlugin();
 
       const html = renderToString(
         <MuiThemeProvider muiTheme = { muiTheme }>
