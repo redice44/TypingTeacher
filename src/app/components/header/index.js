@@ -1,4 +1,5 @@
 import React from 'react';
+import request from 'superagent';
 
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
@@ -10,10 +11,24 @@ function handleTouchTap() {
   console.log(`Don't touch me!`);
 }
 
+function verify() {
+  console.log('verifying');
+  request
+    .get('/verify')
+    .end((err, res) => {
+      if (err) {
+        return console.log(err);
+      }
+
+      console.log(JSON.parse(res.text));
+    });
+}
+
 const Header = () => {
   return (
     <AppBar
       title = 'Typing Teacher'
+      onLeftIconButtonTouchTap={ verify }
       onTitleTouchTap={ handleTouchTap }
       iconElementLeft={ <IconButton><ComputerIcon /></IconButton> }
       iconElementRight={ <AccountIconButton /> }
