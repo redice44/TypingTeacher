@@ -1,9 +1,12 @@
 import bodyParser from 'body-parser';
 import Express from 'express';
+import Session from 'express-session';
 import mongoose from 'mongoose';
 import path from 'path';
 import passport from 'passport';
 import LocalStrategy from 'passport-local/lib/strategy';
+
+import Account from '../database/account/model';
 
 const jsonParser = bodyParser.json();
 // TODO: Pull database into a secret.
@@ -27,21 +30,42 @@ mongoose.connect(mongodbUri, (err) => {
   server.use(Express.static(path.join(__dirname, '..', '..',
     'build', 'assets')));
   server.use(jsonParser);
+  // TODO: Make secret...secret
+  server.use(Session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+  }));
+  server.use(passport.initialize());
+  server.use(passport.session());
 
   server.use((req, res, next) => {
     console.log(`${req.method}: ${req.originalUrl}`);
     next();
   });
 
-  server.use(passport.initialize());
-
+  /*
   passport.use(new LocalStrategy((username, password, done) => {
     if (username === 'admin' && password === 'pass') {
       return done(null, {user: 'bob'});
     }
     return done(null, false, {message: 'Incorrect User'});
   }));
+  */
+  passport.use(new LocalStrategy(Account.authenticate()));
+  passport.serializeUser(Account.serializeUser());
+  passport.deserializeUser(Account.deserializeUser());
 
+  server.post('/register', (req, res, next) => {
+    Account.register(new Account({username: req.body.username}),
+      req.body.password,
+      (err, account) => {
+        if (err) {
+          return res.json({error: err.message});
+        }
+        res.json({message: 'Successfully added account', account: account});
+    });
+  })
   server.post('/account/in', (req, res, next) => {
     passport.authenticate('local',
       (err, user, info) => {

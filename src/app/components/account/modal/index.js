@@ -43,7 +43,7 @@ export default class AccountModal extends React.Component {
     // TODO: Ensure user/pass is entered
     // TODO: Encrypt pw
     request
-      .post('/account/in')
+      .post('/register')
       .send({
         username: this.state.account.username,
         password: this.state.account.password
