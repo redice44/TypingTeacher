@@ -65,8 +65,9 @@ mongoose.connect(mongodbUri, (err) => {
         }
         res.json({message: 'Successfully added account', account: account});
     });
-  })
-  server.post('/account/in', (req, res, next) => {
+  });
+
+  server.post('/signin', (req, res, next) => {
     passport.authenticate('local',
       (err, user, info) => {
         // TODO: Proper validation on db
