@@ -4,4 +4,9 @@
 
 ### Methods
 
+-  GetCampaignID
+-  DisplayCampaignID
+-  DisplayContinueButton
+-  CreateDashboardController
+
 ### Associations
