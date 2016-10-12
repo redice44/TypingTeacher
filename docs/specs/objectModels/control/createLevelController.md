@@ -18,5 +18,5 @@
 -  Display Changes
 -  Display Error Notification
 -  Send Level to createCampaignController
-
+-  Check Input
 ### Associations
