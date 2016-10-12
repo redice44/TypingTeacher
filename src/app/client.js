@@ -13,7 +13,7 @@ import Game from './components/game';
 import Dashboard from './components/dashboard';
 import appReducers from './reducers';
 
-import routes from '../server/routes';
+import routes from './routes';
 
 const initialState = window.__INITIAL_STATE__;
 const store = createStore(appReducers, initialState);
