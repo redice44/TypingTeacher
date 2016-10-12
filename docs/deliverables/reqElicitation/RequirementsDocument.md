@@ -1,5 +1,5 @@
 # 1. INTRODUCTION
-Typing Teacher provides a flexible system for teachers to provide students with a fun and engaging way to improve his or her typing skills.
+Typing Teacher provides a flexible system for teachers to provide students with a fun and engaging way to improve their typing skills.
 
 In section 1.1, the current system will be discussed. Section 2 will be dedicated to describing the requirements and constraints of the proposed system. Section 3 describes the system models, specifically the use case model in section 3.1.
 
@@ -21,10 +21,10 @@ The current system in place is a static, rigid course that does not allow the te
 
 ##### 2.1.2 User Functionality
 - The system will allow users to be able to see historical and aggregated statistical information about specific game, aggregated campaign, and overall results.
-- The system allows registered users to create of custom campaigns and levels.
+- The system allows registered users to create custom campaigns and levels.
   - Campaigns are a collection of levels.
     - Campaigns must have at least one level.
-  - Levels a set of game parameters and passing requirements.
+  - Levels have a set of game parameters and passing requirements.
     - Levels must be part of a campaign.
 - The system allows teachers to create specialized custom campaigns.
   - These specialized campaigns can have
@@ -89,7 +89,7 @@ Caption: Diagram of Typing Teacher's Use Case Models
 - Flow of Events:
   1. User clicks register
   2. System prompts user for Account name and password (required)
-  3. User enters required information ^i
+  3. User enters required information ^1
   4. System validates and generates user account.
   5. Includes use case signInAccount
 - Exceptions:
@@ -103,12 +103,12 @@ Caption: Diagram of Typing Teacher's Use Case Models
   1. User clicks Sign In
   2. System prompts user to enter credentials, account name and password.
   3. User enters credentials.
-  4. System signs in user ^i
+  4. System signs in user ^1
 - Exceptions:
   1. If credentials cannot be authenticated, system prompts user with an error of incorrect username or password.
 - Exit Condition: Signed In
 
-**Sigh Out Account**
+**Sign Out Account**
 - Actors: Registered user
 - Entry Condition: Signed In
 - Flow of Events:
@@ -131,8 +131,8 @@ Caption: Diagram of Typing Teacher's Use Case Models
     - If so, system prompts user if this is a branch point.
       - If so, create a two level branch.
       - Repeat 2.
-  6. User finishes campaign. ^i
-  7. System saves campaign and returns user to dashboard. ^ii
+  6. User finishes campaign. ^1
+  7. System saves campaign and returns user to dashboard. ^2
 
 - Exceptions:
   1. If the campaign does not have any levels, the system will display an error telling the user that the campaign requires at least one level to finish.
@@ -144,9 +144,9 @@ Caption: Diagram of Typing Teacher's Use Case Models
 - Entry Condition: Authenticated Teacher
 - Flow of Events:
   1. Extends use case createEditCampaign.
-  2. User may add a deadline to the campaign. ^i
+  2. User may add a deadline to the campaign. ^1
   3. User may add a user white list to the campaign.
-    1. The system will verify the user to be added exists. ^ii
+    1. The system will verify the user to be added exists. ^2
     2. The system adds the user to the white list.
     3. Upon creation of the campaign, the system will notify all users on the white list that they have been added to this campaign by the teacher.
     4. The system adds this campaign to all whitelisted users' campaign lists.
@@ -160,7 +160,7 @@ Caption: Diagram of Typing Teacher's Use Case Models
 - Entry Condition: Must be Signed In, Must be creating or editing a campaign
 - Flow of Events:
   1. System displays the level options and level completion requirements
-  2. User Updates: ^i
+  2. User Updates: ^1
     - options:
       - Game Mode
       - Timer length or Passage length
@@ -186,7 +186,7 @@ Caption: Diagram of Typing Teacher's Use Case Models
 - Flow of Events:
   1. User clicks to import campaign.
   2. System prompts user for campaign code.
-  3. User inputs campaign code. ^i ^ii
+  3. User inputs campaign code. ^1 ^2
   4. System displays campaign.
   5. User can accept or deny the campaign.
     - Accept: System adds the campaign to the user's campaign list
@@ -224,7 +224,7 @@ Caption: Diagram of Typing Teacher's Use Case Models
 - Entry Condition: Game started
 - Flow of Events:
   1. System displays passage and timer based on user and starts timer.
-  2. User types the phrase as accurately and quickly as possible ^i
+  2. User types the phrase as accurately and quickly as possible ^1
   3. If there is still time remaining display another phrase. Repeat 1.
   4. When time expires the system analyzes and displays results to user. If User is registered, the system saves results.
 - Exceptions:
@@ -243,7 +243,7 @@ Caption: Diagram of Typing Teacher's Use Case Models
     - Completion Percentage
     - Campaign Levels
       - Aggregated data about the level
-    - Detailed run history ^i
+    - Detailed run history ^1
       - Aggregated data about the run
 - Exceptions:
   1. If the user does not have any past runs, then the system does not display any.
@@ -253,7 +253,7 @@ Caption: Diagram of Typing Teacher's Use Case Models
 - Actors: Teacher User
 - Entry Condition: Authenticated Teacher
 - Flow of Events:
-  1. Extends use case
+  1. Access Campaign is invoked.
   2. System also displays
     - Registered Users that are in the class
     - Overview of class progression
@@ -266,7 +266,7 @@ Caption: Diagram of Typing Teacher's Use Case Models
 - Flow of Events:
   1. User clicks dashboard
   2. System displays the following information for the user
-    - Campaign List ^i
+    - Campaign List ^1
       - Campaign name, progress, history.
     - Regular game history
     - Create Campaign
@@ -279,9 +279,9 @@ Caption: Diagram of Typing Teacher's Use Case Models
 - Actors: Teacher User
 - Entry Condition: Authenticated Teacher
 - Flow of Events:
-  1. Extends use case accessDashboard.
+  1. Access Dashboard is invoked.
   2. The system also displays:
-    - Class Campaign List ^i
+    - Class Campaign List ^1
       - Abbreviated aggregated data: progress, completion percentage, etc.
 - Exceptions:
   1. If the user does not have any class campaigns, then the system does not display any.
