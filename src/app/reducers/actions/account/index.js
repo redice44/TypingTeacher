@@ -8,3 +8,12 @@ export const updateModal = (state) => {
     }
   };
 };
+
+export const updateCurrentTab = (tab) => {
+  return {
+    type: ACTION_TYPE.tabUpdate,
+    data: {
+      currentTab: tab
+    }
+  };
+};

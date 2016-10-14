@@ -5,7 +5,8 @@ const reducers = {
     results: 0
   },
   account: {
-    modalState: common.CLOSED
+    modalState: common.CLOSED,
+    currentTab: 0
   }
 };
 

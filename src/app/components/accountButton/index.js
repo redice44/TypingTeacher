@@ -19,10 +19,7 @@ const AccountButton = (props) => {
       >
         <AccountIcon />
       </IconButton>
-      <Modal
-        updateModalState={updateModalState}
-        modalState={modalState}
-      />
+      <Modal {...props} />
     </div>
   );
 };

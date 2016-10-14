@@ -1,12 +1,19 @@
 import React from 'react';
 
 import Dialog from 'material-ui/Dialog';
+import { Tabs, Tab } from 'material-ui/Tabs';
+import SwipeableViews from 'react-swipeable-views';
 import FlatButton from 'material-ui/FlatButton';
 
 import COMMON from '../../../../util/constants/common.js';
 
 const AccountModal = (props) => {
-  const { updateModalState, modalState } = props;
+  const {
+    updateModalState,
+    updateCurrentTab,
+    modalState,
+    currentTab
+  } = props;
   const actions = [
     <FlatButton
       label="Cancel"
@@ -23,7 +30,24 @@ const AccountModal = (props) => {
       open={modalState}
       onRequestClose={() => updateModalState(COMMON.CLOSED)}
     >
-    <p>Hi</p>
+      <Tabs
+        onChange={(tab) => updateCurrentTab(tab)}
+        value={currentTab}
+      >
+      <Tab label="Sign In" value={0} />
+        <Tab label="Register Account" value={1} />
+      </Tabs>
+      <SwipeableViews
+        index={currentTab}
+        onChangeIndex={(tab) => updateCurrentTab(tab)}
+      >
+        <div>
+          <p>Sign In</p>
+        </div>
+        <div style={{overflow: 'hidden'}}>
+          <p>Create Account</p>
+        </div>
+      </SwipeableViews>
     </Dialog>
   );
 };
