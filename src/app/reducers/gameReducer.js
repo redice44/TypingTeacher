@@ -1,7 +1,7 @@
-import { GAME_REDUCER_INIT } from './init';
+import reducersInit from './init';
 import ACTION_TYPE from './actionTypes/game';
 
-const gameReducer = (state = GAME_REDUCER_INIT, action) => {
+const gameReducer = (state = reducersInit.game, action) => {
   switch (action.type) {
     case ACTION_TYPE.updateResults:
       console.log(`Updating Game Results: ${action.data.results}`);

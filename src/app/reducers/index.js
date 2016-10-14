@@ -4,8 +4,8 @@ import accountReducer from './accountReducer';
 
 const appReducers = combineReducers({
   // TODO: add reducers
-  gameReducer,
-  accountReducer
+  game: gameReducer,
+  account: accountReducer
 });
 
 export default appReducers;

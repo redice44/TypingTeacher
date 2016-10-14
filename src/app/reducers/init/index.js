@@ -1,9 +1,12 @@
 import common from '../../../util/constants/common.js';
 
-export const GAME_REDUCER_INIT = {
-  results: 0
+const reducers = {
+  game: {
+    results: 0
+  },
+  account: {
+    modalState: common.CLOSED
+  }
 };
 
-export const ACCOUNT_REDUCER_INIT = {
-  modalState: common.CLOSED
-};
+export default reducers
