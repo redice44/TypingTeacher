@@ -1,7 +1,7 @@
-import common from './common';
+import common from '../../../util/constants/common.js';
 
 export const GAME_REDUCER_INIT = {
-  result: 0
+  results: 0
 };
 
 export const ACCOUNT_REDUCER_INIT = {

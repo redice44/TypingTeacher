@@ -1,14 +1,13 @@
-import { GAME_REDUCER_INIT } from '../../util/constants/reducers';
-import { UPDATE_GAME_RESULT } from '../../util/constants/actions';
+import { GAME_REDUCER_INIT } from './init';
+import ACTION_TYPE from './actionTypes/game';
 
 const gameReducer = (state = GAME_REDUCER_INIT, action) => {
-  console.log(action);
-
   switch (action.type) {
-    case UPDATE_GAME_RESULT:
+    case ACTION_TYPE.updateResults:
+      console.log(`Updating Game Results: ${action.data.results}`);
       // TODO: Validate result
       return Object.assign({}, state, {
-        result: action.payload.result
+        results: action.data.results
       });
     default:
       return state;

@@ -1,10 +1,9 @@
-import { ACCOUNT_REDUCER_INIT } from '../../util/constants/reducers';
-import ACTIONS from '../../util/constants/actions/account';
+import { ACCOUNT_REDUCER_INIT } from './init';
+import ACTION_TYPE from './actionTypes/account';
 
 const accountReducer = (state = ACCOUNT_REDUCER_INIT, action) => {
-
   switch (action.type) {
-    case ACTIONS.modalUpdate:
+    case ACTION_TYPE.modalUpdate:
       console.log(`Updating Sign In Modal: ${action.data.modalState}`);
 
       return Object.assign({}, state, {
