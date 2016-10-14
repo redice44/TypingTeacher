@@ -6,7 +6,7 @@ import SwipeableViews from 'react-swipeable-views';
 import TextField from 'material-ui/TextField';
 import { Tabs, Tab } from 'material-ui/Tabs';
 
-import COMMON from '../../../../util/constants/common.js';
+import accountUtil from '../../../../util/account';
 
 export default class AccountModal extends React.Component{
   constructor(props) {
@@ -37,13 +37,15 @@ export default class AccountModal extends React.Component{
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={() => this.props.updateModalState(COMMON.CLOSED)}
+        onTouchTap={() => this.props.updateModalState(accountUtil.c.CLOSED)}
       />,
       <FlatButton
         label="Submit"
         onTouchTap={() => {
-          this.props.updateModalState(COMMON.CLOSED);
-          this.props.submitAccount(this.state.account);
+          this.props.updateModalState(accountUtil.c.CLOSED);
+          this.props.currentTab === accountUtil.c.SIGN_IN ?
+            this.props.signinAccount(this.state.account) :
+            this.props.registerAccount(this.state.account);
         }}
       />
     ];
@@ -54,7 +56,7 @@ export default class AccountModal extends React.Component{
         modal={false}
         actions={actions}
         open={this.props.modalState}
-        onRequestClose={() => this.props.updateModalState(COMMON.CLOSED)}
+        onRequestClose={() => this.props.updateModalState(accountUtil.c.CLOSED)}
       >
         <Tabs
           onChange={(tab) => this.props.updateCurrentTab(tab)}

@@ -1,8 +1,8 @@
-import common from '../../../util/constants/common.js';
+import accountUtil from '../../../util/account';
 
 const init = {
   currentTab: 0,
-  modalState: common.CLOSED
+  modalState: accountUtil.c.CLOSED
 };
 
 export default init;

@@ -1,10 +1,15 @@
+import request from 'superagent';
+
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import actionTypes from '../reducers/account/actionTypes.js';
 import {
-  submitAccount,
+  registerAccount,
+  signinAccount,
   updateModal,
   updateCurrentTab
 } from '../reducers/account/actions.js';
+import accountUtil from '../../util/account';
 import AccountButton from '../components/accountButton';
 
 // Convert store state to props to be passed to component
@@ -28,8 +33,44 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     updateCurrentTab: (currentTab) => {
       dispatch(updateCurrentTab(currentTab));
     },
-    submitAccount: (account) => {
-      dispatch(submitAccount(account));
+    signinAccount: (account) => {
+      // TODO: Validate
+      request
+        .post(accountUtil.r.SIGN_IN)
+        .send({
+          username: account.username,
+          password: account.password
+        })
+        .end((err, res) => {
+          if (err) {
+            // Unauthorized error happens here
+            return console.log(err);
+          }
+
+          const data = JSON.parse(res.text);
+          console.log('Sign In Response', data);
+          dispatch(push('/dashboard'));
+        });
+    },
+    registerAccount: (account) => {
+      // TODO: Validate
+      request
+        .post(accountUtil.r.REGISTER)
+        .send({
+          username: account.username,
+          password: account.password,
+          email: account.email
+        })
+        .end((err, res) => {
+          if (err) {
+            // Unauthorized error happens here
+            return console.log(err);
+          }
+
+          const data = JSON.parse(res.text);
+          console.log('Register Response', data);
+          dispatch(push('/dashboard'));
+        });
     }
   };
 };

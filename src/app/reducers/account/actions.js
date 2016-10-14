@@ -1,3 +1,6 @@
+import request from 'superagent';
+
+import accountUtil from '../../../util/account';
 import ACTION_TYPE from './actionTypes.js';
 
 export const updateModal = (state) => {
@@ -14,15 +17,6 @@ export const updateCurrentTab = (tab) => {
     type: ACTION_TYPE.tabUpdate,
     data: {
       currentTab: tab
-    }
-  };
-};
-
-export const submitAccount = (account) => {
-  return {
-    type: ACTION_TYPE.submitAccount,
-    data: {
-      account: account
     }
   };
 };

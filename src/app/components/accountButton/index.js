@@ -7,15 +7,14 @@ import AccountIcon from 'material-ui/svg-icons/action/account-box';
 // Custom Components
 import Modal from './modal';
 
-// Constants
-import COMMON from '../../../util/constants/common.js';
+import accountUtil from '../../../util/account';
 
 const AccountButton = (props) => {
   const { updateModalState } = props;
   return (
     <div>
       <IconButton
-        onTouchTap={() => updateModalState(COMMON.OPENED)}
+        onTouchTap={() => updateModalState(accountUtil.c.OPENED)}
       >
         <AccountIcon />
       </IconButton>
