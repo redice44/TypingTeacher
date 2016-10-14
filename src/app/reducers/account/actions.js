@@ -1,4 +1,4 @@
-import ACTION_TYPE from '../../actionTypes/account';
+import ACTION_TYPE from './actionTypes.js';
 
 export const updateModal = (state) => {
   return {

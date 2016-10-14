@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
-import actionTypes from '../reducers/actionTypes/account';
+import actionTypes from '../reducers/account/actionTypes.js';
 import {
   updateModal,
   updateCurrentTab
-} from '../reducers/actions/account';
+} from '../reducers/account/actions.js';
 import AccountButton from '../components/accountButton';
 
 // Convert store state to props to be passed to component

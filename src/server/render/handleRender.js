@@ -12,8 +12,10 @@ import App from '../../app/components/App';
 import Game from '../../app/components/Game';
 import Dashboard from '../../app/components/Dashboard';
 import renderFullPage from './renderFullPage';
-import reducersInit from '../../app/reducers/init';
 import routes from '../../app/routes/baseRoutes.js';
+
+import accountInit from '../../app/reducers/account/init.js';
+import gameInit from '../../app/reducers/game/init.js';
 
 const handleRender = (req, res, next) => {
   match({routes, location: req.url}, (err, redirectLocation, renderProps) => {
@@ -24,8 +26,8 @@ const handleRender = (req, res, next) => {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
       const store = createStore(appReducers, {
-        game: reducersInit.game,
-        account: reducersInit.account
+        game: gameInit,
+        account: accountInit
       });
       // TODO: Standardize MUI Theme
       const muiTheme = getMuiTheme({
