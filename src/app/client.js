@@ -8,7 +8,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {deepOrange500} from 'material-ui/styles/colors';
 
-import App from './components/App';
+import App from './components/app.js';
 import Game from './components/game';
 import Dashboard from './components/dashboard';
 import appReducers from './reducers';

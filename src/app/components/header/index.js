@@ -5,7 +5,7 @@ import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import ComputerIcon from 'material-ui/svg-icons/hardware/computer';
 
-import AccountIconButton from '../account/modal';
+import AccountIconButton from '../../containers/account.js';
 
 function handleTouchTap() {
   console.log('logging out');
