@@ -59,10 +59,16 @@ mongoose.connect(mongodbUri, (err) => {
   injectTapEventPlugin();
 
   server.post('/register', (req, res, next) => {
-    Account.register(new Account({username: req.body.username}),
+    Account.register(
+      new Account({
+        username: req.body.username,
+        email: req.body.email
+      }),
       req.body.password,
       (err, account) => {
         if (err) {
+          // TODO: Handle already registered user error
+          console.log(err);
           return res.json({error: err.message});
         }
 
