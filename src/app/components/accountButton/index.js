@@ -11,7 +11,7 @@ import Modal from './modal';
 import COMMON from '../../../util/constants/common.js';
 
 const AccountButton = (props) => {
-  const { updateModalState, modalState } = props;
+  const { updateModalState } = props;
   return (
     <div>
       <IconButton

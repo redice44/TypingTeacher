@@ -15,6 +15,11 @@ const accountReducer = (state = reducersInit, action) => {
       return Object.assign({}, state, {
         currentTab: action.data.currentTab
       });
+    case ACTION_TYPE.submitAccount:
+      console.log(`Submit Account:`, action.data.account);
+
+      // TODO: Handle account stuff
+      return state;
     default:
       return state;
   }

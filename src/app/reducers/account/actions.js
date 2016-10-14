@@ -17,3 +17,12 @@ export const updateCurrentTab = (tab) => {
     }
   };
 };
+
+export const submitAccount = (account) => {
+  return {
+    type: ACTION_TYPE.submitAccount,
+    data: {
+      account: account
+    }
+  };
+};

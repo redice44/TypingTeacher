@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import actionTypes from '../reducers/account/actionTypes.js';
 import {
+  submitAccount,
   updateModal,
   updateCurrentTab
 } from '../reducers/account/actions.js';
@@ -20,11 +21,15 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   // ownProps are props sent to the component
   return {
+    // Actions to send
     updateModalState: (modalState) => {
       dispatch(updateModal(modalState));
     },
     updateCurrentTab: (currentTab) => {
       dispatch(updateCurrentTab(currentTab));
+    },
+    submitAccount: (account) => {
+      dispatch(submitAccount(account));
     }
   };
 };
