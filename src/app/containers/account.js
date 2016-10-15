@@ -9,6 +9,11 @@ import {
   updateModal,
   updateCurrentTab
 } from '../reducers/account/actions.js';
+import {
+  sendMessage,
+  sendError,
+  sendSuccess
+} from '../reducers/notification/actions.js';
 import accountUtil from '../../util/account';
 import AccountButton from '../components/accountButton';
 
@@ -43,12 +48,16 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         })
         .end((err, res) => {
           if (err) {
-            // Unauthorized error happens here
-            return console.log(err);
+            if (err.status === 401) {
+              // Unauthorized
+              return dispatch(sendError('Incorrect Username or Password'));
+            }
+            return dispatch(sendError(err.response.text));
           }
 
           const data = JSON.parse(res.text);
           console.log('Sign In Response', data);
+          dispatch(sendSuccess('Successfully Signed In'));
           dispatch(push('/dashboard'));
         });
     },
@@ -63,12 +72,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         })
         .end((err, res) => {
           if (err) {
-            // Unauthorized error happens here
-            return console.log(err);
+            console.log(err);
+            return dispatch(sendError(err.response.text));
           }
 
           const data = JSON.parse(res.text);
           console.log('Register Response', data);
+          dispatch(sendSuccess('Successfully Registered Account'));
           dispatch(push('/dashboard'));
         });
     }
