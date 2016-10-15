@@ -2,6 +2,7 @@ import React from 'react';
 
 import Header from './header';
 import Footer from './footer';
+import Notification from '../containers/notification';
 
 const App = (props) => {
   return (
@@ -9,6 +10,7 @@ const App = (props) => {
       <Header />
       { props.children }
       <Footer />
+      <Notification />
     </div>
   );
 }
