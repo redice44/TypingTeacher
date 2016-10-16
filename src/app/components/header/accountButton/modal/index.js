@@ -42,7 +42,6 @@ export default class AccountModal extends React.Component{
       <FlatButton
         label="Submit"
         onTouchTap={() => {
-          this.props.updateModalState(accountUtil.c.CLOSED);
           this.props.currentTab === accountUtil.c.SIGN_IN ?
             this.props.signinAccount(this.state.account) :
             this.props.registerAccount(this.state.account);

@@ -57,6 +57,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
           const data = JSON.parse(res.text);
           console.log('Sign In Response', data);
+          dispatch(updateModal(accountUtil.c.CLOSED));
           dispatch(sendSuccess('Successfully Signed In'));
           dispatch(push('/dashboard'));
         });
@@ -78,6 +79,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
           const data = JSON.parse(res.text);
           console.log('Register Response', data);
+          dispatch(updateModal(accountUtil.c.CLOSED));
           dispatch(sendSuccess('Successfully Registered Account'));
           dispatch(push('/dashboard'));
         });
