@@ -7,7 +7,7 @@ import AccountIcon from 'material-ui/svg-icons/action/account-box';
 // Custom Components
 import Modal from './modal';
 
-import accountUtil from '../../../util/account';
+import accountUtil from '../../../../util/account';
 
 const AccountButton = (props) => {
   const { updateModalState } = props;

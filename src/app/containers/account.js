@@ -15,7 +15,7 @@ import {
   sendSuccess
 } from '../reducers/notification/actions.js';
 import accountUtil from '../../util/account';
-import AccountButton from '../components/accountButton';
+import AccountButton from '../components/header/accountButton';
 
 // Convert store state to props to be passed to component
 const mapStateToProps = (state, ownProps) => {
