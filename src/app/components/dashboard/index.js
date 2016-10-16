@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import Paper from 'material-ui/Paper';
 
-import QuickPlay from './quickPlay';
+import QuickPlay from '../../containers/quickPlay';
 
 const Dashboard = () => {
   return (
