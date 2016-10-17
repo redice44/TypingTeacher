@@ -10,6 +10,8 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import Account from '../database/account/model';
 import auth from './util/auth.js';
 
+import API from './routes/api/1';
+
 const jsonParser = bodyParser.json();
 // TODO: Pull database into a secret.
 const mongodbUri = 'mongodb://localhost/typing-teacher';
@@ -39,7 +41,7 @@ mongoose.connect(mongodbUri, (err) => {
     saveUninitialized: false,
     // TODO: Be sure to update this life time to something reasonable.
     cookie: {
-      maxAge: 1 * 60 * 1000
+      maxAge: 5 * 60 * 1000
     }
   }));
   server.use(passport.initialize());
@@ -58,62 +60,15 @@ mongoose.connect(mongodbUri, (err) => {
   // http://stackoverflow.com/a/34015469/988941
   injectTapEventPlugin();
 
-  server.post('/register', (req, res, next) => {
-    Account.register(
-      new Account({
-        username: req.body.username,
-        email: req.body.email
-      }),
-      req.body.password,
-      (err, account) => {
-        if (err) {
-          // TODO: Handle already registered user error
-          console.log(err);
-          return res.json({error: err.message});
-        }
+  server.use('/api/1', API);
 
-        passport.authenticate('local')(req, res, () => {
-          req.session.save((err) => {
-            if (err) {
-              return next(err);
-            }
-
-            // TODO: Prompt client side dashboard load.
-            res.json({message: 'Successfully added account', account: account});
-          });
-        });
-      });
-  });
-
-  // TODO: Gracefully handle unsucessful logins
-  server.post('/signin', passport.authenticate('local'), (req, res, next) => {
-    // TODO: Reponse should update store
-    res.json({authenticated: true});
-  });
-
-  server.get('/signout', (req, res, next) => {
-    req.logout();
-    // TODO: Reponse should update store
-    res.json({authenticated: false});
-  });
-
-  server.get('/verify', (req, res, next) => {
-    if (!req.user) {
-      return res.json({authenticated: false});
-    }
-    console.log(req.session);
-    // TODO: Reponse should update store
-    res.json({
-      authenticated: true,
-      user: req.user
-    });
-  });
 
   // TODO: Someday sync these auth routes gracefully
 
   // REMINDER: Adjustments need to be done here and in the route file.
   // Authenticated Routes
   server.get('/dashboard', auth, handleRender);
+  server.get('/campaign/new', auth, handleRender);
 
   // Unauthenticated Routes
   server.get('*', handleRender);
