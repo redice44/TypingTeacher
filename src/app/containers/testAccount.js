@@ -48,7 +48,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           console.log('Sign In Response', data);
           dispatch(updateAuth(data.authenticated));
           dispatch(sendSuccess('Successfully Signed In'));
-          dispatch(push('/dashboard'));
+          dispatch(push('/campaign/create'));
         });
     }
   };

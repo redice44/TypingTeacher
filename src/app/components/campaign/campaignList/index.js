@@ -7,46 +7,58 @@ import AddIcon from 'material-ui/svg-icons/content/add';
 import PlayIcon from 'material-ui/svg-icons/av/play-circle-outline';
 import MoreIcon from 'material-ui/svg-icons/navigation/more-horiz';
 
-const CampaignList = () => {
-  // TODO: Actually get the campaigns from the user's account
-  const campaignNum = 5;
-  let campaigns = [];
-
-  for (let i = 0; i < campaignNum; i++) {
-    campaigns.push(
-      <ListItem
-        primaryText={`Campaign ${i}`}
-        // TODO: Make these icon buttons
-        leftIcon={<PlayIcon />}
-        rightIcon={<MoreIcon />}
-        onTouchTap={() => console.log(i)}
-      />
-    );
+export default class CampaignList extends React.Component {
+  constructor(props) {
+    super(props);
   }
 
-  return (
-    <div style={{width: '500px'}}>
-      <Toolbar>
-        <ToolbarGroup
-        >
-          <ToolbarTitle
-            text='Campaign List'
-          />
-        </ToolbarGroup>
-        <ToolbarGroup
-          lastChild={true}
-          style={{alignItems: 'center'}}
-        >
-          <IconButton>
-            <AddIcon />
-          </IconButton>
-        </ToolbarGroup>
-      </Toolbar>
-      <List>
-        {campaigns}
-      </List>
-    </div>
-  );
+  render() {
+    // TODO: Actually get the campaigns from the user's account
+    const campaignNum = 5;
+    let campaigns = [];
+
+    for (let i = 0; i < campaignNum; i++) {
+      campaigns.push(
+        <ListItem
+          primaryText={`Campaign ${i}`}
+          // TODO: Make these icon buttons
+          leftIcon={<PlayIcon />}
+          rightIcon={<MoreIcon />}
+          onTouchTap={() => console.log(i)}
+        />
+      );
+    }
+
+    return (
+      <div style={{width: '500px'}}>
+        <Toolbar>
+          <ToolbarGroup
+          >
+            <ToolbarTitle
+              text='Campaign List'
+            />
+          </ToolbarGroup>
+          <ToolbarGroup
+            lastChild={true}
+            style={{alignItems: 'center'}}
+          >
+            <IconButton
+              onTouchTap={ () => {
+                this.context.router.push('/campaign/create');
+              }}
+            >
+              <AddIcon />
+            </IconButton>
+          </ToolbarGroup>
+        </Toolbar>
+        <List>
+          {campaigns}
+        </List>
+      </div>
+    );
+  }
 };
 
-export default CampaignList;
+CampaignList.contextTypes = {
+  router: React.PropTypes.object
+};

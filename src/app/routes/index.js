@@ -4,7 +4,7 @@ import App from '../components/app';
 import Game from '../components/game';
 import Dashboard from '../components/dashboard';
 import Campaign from '../components/campaign';
-import CreateCampaign from '../components/campaign/create';
+import CreateCampaign from '../containers/createCampaign';
 
 import accountUtil from '../../util/account';
 

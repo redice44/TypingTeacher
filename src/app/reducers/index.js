@@ -5,13 +5,14 @@ import { routerReducer } from 'react-router-redux';
 import gameReducer from './game';
 import accountReducer from './account';
 import notificationReducer from './notification';
-
+import campaignReducer from './campaign';
 
 const appReducers = combineReducers({
   game: gameReducer,
   account: accountReducer,
+  notification: notificationReducer,
+  campaign: campaignReducer,
   routing: routerReducer,
-  notification: notificationReducer
 });
 
 export default appReducers;
