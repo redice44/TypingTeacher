@@ -3,12 +3,13 @@ import request from 'superagent';
 import App from '../components/app';
 import Game from '../components/game';
 import Dashboard from '../components/dashboard';
+import accountUtil from '../../util/account';
 
 const authenticate = (nextState, replace, cb) => {
   // TODO: Handle more gracefully
   console.log(nextState);
   request
-    .get('/verify')
+    .get(accountUtil.r.VALIDATE)
     .end((err, res) => {
       if (err) {
         return cb(err);

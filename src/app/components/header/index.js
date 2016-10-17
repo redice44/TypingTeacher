@@ -6,12 +6,16 @@ import IconButton from 'material-ui/IconButton';
 import ComputerIcon from 'material-ui/svg-icons/hardware/computer';
 
 import AccountIconButton from '../../containers/account.js';
+import TestAccountButton from '../../containers/testAccount.js';
 
+import accountUtil from '../../../util/account';
+
+// TODO: Move to container
 function handleTouchTap() {
   console.log('logging out');
 
   request
-    .get('/signout')
+    .get(accountUtil.r.SIGN_OUT)
     .end((err, res) => {
       if (err) {
         return console.log(err);
@@ -21,10 +25,11 @@ function handleTouchTap() {
     });
 }
 
+// TODO: Move to container
 function verify() {
   console.log('verifying');
   request
-    .get('/verify')
+    .get(accountUtil.r.VALIDATE)
     .end((err, res) => {
       if (err) {
         return console.log(err);
@@ -41,7 +46,7 @@ const Header = () => {
       onLeftIconButtonTouchTap={ verify }
       onTitleTouchTap={ handleTouchTap }
       iconElementLeft={ <IconButton><ComputerIcon /></IconButton> }
-      iconElementRight={ <AccountIconButton /> }
+      iconElementRight={ <div style={{display: 'flex'}}><TestAccountButton /><AccountIconButton /></div> }
     />
   );
 };
