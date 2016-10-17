@@ -24,7 +24,11 @@ router.post('/register', (req, res, next) => {
             return next(err);
           }
 
-          res.json({message: 'Successfully added account', account: account});
+          res.json({
+            message: 'Successfully added account',
+            account: account,
+            authenticated: true
+          });
         });
       });
     });

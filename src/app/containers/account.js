@@ -6,8 +6,10 @@ import actionTypes from '../reducers/account/actionTypes.js';
 import {
   registerAccount,
   signinAccount,
+  signoutAccount,
   updateModal,
-  updateCurrentTab
+  updateCurrentTab,
+  updateAuth
 } from '../reducers/account/actions.js';
 import {
   sendMessage,
@@ -23,7 +25,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     // Set props to send
     modalState: state.account.modalState,
-    currentTab: state.account.currentTab
+    currentTab: state.account.currentTab,
+    auth: state.account.auth
   };
 };
 
@@ -37,6 +40,21 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     updateCurrentTab: (currentTab) => {
       dispatch(updateCurrentTab(currentTab));
+    },
+    signoutAccount: () => {
+      request
+        .get(accountUtil.r.SIGN_OUT)
+        .end((err, res) => {
+          if (err) {
+            return console.log(err);
+          }
+
+          const data = JSON.parse(res.text);
+          console.log('Sign Out Response', data);
+          dispatch(updateAuth(data.authenticated));
+          dispatch(sendSuccess('Successfully Signed Out'));
+          dispatch(push('/'));
+        });
     },
     signinAccount: (account) => {
       // TODO: Validate
@@ -57,6 +75,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
           const data = JSON.parse(res.text);
           console.log('Sign In Response', data);
+          dispatch(updateAuth(data.authenticated));
           dispatch(updateModal(accountUtil.c.CLOSED));
           dispatch(sendSuccess('Successfully Signed In'));
           dispatch(push('/dashboard'));
@@ -79,6 +98,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
           const data = JSON.parse(res.text);
           console.log('Register Response', data);
+          dispatch(updateAuth(data.authenticated));
           dispatch(updateModal(accountUtil.c.CLOSED));
           dispatch(sendSuccess('Successfully Registered Account'));
           dispatch(push('/dashboard'));

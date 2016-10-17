@@ -20,3 +20,18 @@ export const updateCurrentTab = (tab) => {
     }
   };
 };
+
+export const updateAuth = (auth) => {
+  return {
+    type: ACTION_TYPE.updateAuth,
+    data: {
+      auth: auth
+    }
+  };
+};
+
+export const signoutAccount = () => {
+  return {
+    type: ACTION_TYPE.signoutAccount
+  };
+};

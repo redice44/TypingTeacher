@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import actionTypes from '../reducers/account/actionTypes.js';
 import {
-  signinAccount
+  signinAccount,
+  updateAuth
 } from '../reducers/account/actions.js';
 import {
   sendMessage,
@@ -45,6 +46,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
           const data = JSON.parse(res.text);
           console.log('Sign In Response', data);
+          dispatch(updateAuth(data.authenticated));
           dispatch(sendSuccess('Successfully Signed In'));
           dispatch(push('/dashboard'));
         });

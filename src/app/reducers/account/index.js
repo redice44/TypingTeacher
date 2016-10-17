@@ -15,6 +15,12 @@ const accountReducer = (state = reducersInit, action) => {
       return updateState(state, {
         currentTab: action.data.currentTab
       });
+    case ACTION_TYPE.updateAuth:
+      console.log(`Updating Auth State: ${action.data.auth}`);
+
+      return updateState(state, {
+        auth: action.data.auth
+      });
     default:
       return state;
   }
