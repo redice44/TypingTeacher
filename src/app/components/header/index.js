@@ -6,6 +6,7 @@ import IconButton from 'material-ui/IconButton';
 import ComputerIcon from 'material-ui/svg-icons/hardware/computer';
 
 import AccountIconButton from '../../containers/account.js';
+import TestAccountButton from '../../containers/testAccount.js';
 
 function handleTouchTap() {
   console.log('logging out');
@@ -41,7 +42,7 @@ const Header = () => {
       onLeftIconButtonTouchTap={ verify }
       onTitleTouchTap={ handleTouchTap }
       iconElementLeft={ <IconButton><ComputerIcon /></IconButton> }
-      iconElementRight={ <AccountIconButton /> }
+      iconElementRight={ <div style={{display: 'flex'}}><TestAccountButton /><AccountIconButton /></div> }
     />
   );
 };
