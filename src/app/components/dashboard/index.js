@@ -4,6 +4,7 @@ import Paper from 'material-ui/Paper';
 
 import QuickPlay from '../../containers/quickPlay';
 import CampaignList from '../campaign/campaignList';
+import PlayerOverview from '../stats/playerOverview';
 
 const Dashboard = () => {
   return (
@@ -11,6 +12,7 @@ const Dashboard = () => {
       <p>This is a placeholder dashboard.</p>
       <QuickPlay /><br />
       <CampaignList />
+      <PlayerOverview />
       <Link to='/'>Home</Link>
     </Paper>
   );
