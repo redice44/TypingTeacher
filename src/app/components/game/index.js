@@ -8,7 +8,7 @@ const style = {
   margin: 12,
 };
 
-class Game  extends React.Component {
+class Game extends React.Component {
 	constructor(){
 		super();
 		this.state = {
@@ -20,19 +20,21 @@ class Game  extends React.Component {
      this.update = this.update.bind(this);
     };
 
-
 	update(e){
+		//If user has not typed all characters...
+		if(this.state.counter < this.state.phrase.length){
 			var inputChar = e.target.value.substring(this.state.counter,this.state.counter + 1);
 			var currentChar = this.state.phrase.substring(this.state.counter,this.state.counter + 1);
-
-
-			//if(inputChar == currentChar){
-			//	input = this.state.phrase.substring(0, this.state.counter) + "!" + this.state.phrase.substring(this.state.counter + 1, this.state.phrase.length() - 1);
-			//	this.setState({phraseTextField: e.target.value, phrase: input});
-			//}
-			//else{
+			
+			//Compare user input 
+			if(inputChar != currentChar){
+				var input = this.state.phrase.slice(0, this.state.counter) + '*' + this.state.phrase.slice(this.state.counter + 1, this.state.phrase.length);
+				this.setState({phraseTextField: e.target.value, phrase: input, counter: this.state.counter + 1});
+			}
+			else{
 				this.setState({phraseTextField: e.target.value, counter: this.state.counter + 1});
-			//}
+			}
+		}	
 	}
 
 
@@ -50,7 +52,7 @@ class Game  extends React.Component {
 				   />
 
 				   <p>{this.state.phrase}</p>
-           <p>Counter: {this.state.counter}</p>
+				   <p>Counter: {this.state.counter}</p>
 
 				   <TextField
 				     name="phraseTextField"
