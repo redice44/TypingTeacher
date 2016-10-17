@@ -5,24 +5,34 @@
  - /
  - /dashboard (auth) : User's dashboard
  - /campaign : List of campaigns
- - /campaign/:id : Campaign Page
- - /campaign/:id/:lv : Level page
- - /:userId : User's page
- - /:userId/campaign (auth) : List of campaigns for the user
- - /:userId/campaign/:id (auth) : Campaign page for the user
- - /:userId/campaign/new (auth) : Add new campaign
- - /:userId/game (auth) : List of all games for the user
- - /:userId/game/:id (auth) : Game for the user
+ - /c/:id : Campaign Page
+ - /c/:id/:lv : Level page
+ - /u/:user-slug : User's page
+ - /u/:user-slug/campaign (auth) : List of campaigns for the user
+ - /u/:user-slug/campaign/new : Create new campaign
+ - /u/:user-slug/c/:id (auth) : Campaign page for the user
+ - /u/:user-slug/c/id:/g/ : List of all games from this campaign for the user
+ - /u/:user-slug/c/id:/g/:id : individual game from this campaign for the user
+ - /u/:user-slug/game (auth) : List of all games for the user
+ - /u/:user-slug/g/:id (auth) : Game for the user
  */
 
 import App from '../components/app';
 import Game from '../components/game';
 import Dashboard from '../components/dashboard';
 import Campaign from '../components/campaign';
+import CreateCampaign from '../components/campaign/create';
 
 const dashboard = {
   path: 'dashboard',
   component: Dashboard
+};
+
+const createCampaign = {
+  path: 'create',
+  indexRoute: {
+    component: CreateCampaign
+  }
 };
 
 const campaign = {
@@ -31,7 +41,7 @@ const campaign = {
     component: Campaign
   },
   childRoutes: [
-
+    createCampaign
   ]
 };
 

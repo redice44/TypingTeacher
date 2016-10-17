@@ -62,13 +62,12 @@ mongoose.connect(mongodbUri, (err) => {
 
   server.use('/api/1', API);
 
-
   // TODO: Someday sync these auth routes gracefully
 
   // REMINDER: Adjustments need to be done here and in the route file.
   // Authenticated Routes
   server.get('/dashboard', auth, handleRender);
-  server.get('/campaign/new', auth, handleRender);
+  server.get('/campaign/create', auth, handleRender);
 
   // Unauthenticated Routes
   server.get('*', handleRender);

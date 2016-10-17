@@ -13,7 +13,9 @@ const Dashboard = () => {
       <QuickPlay /><br />
       <CampaignList />
       <PlayerOverview />
-      <Link to='/'>Home</Link>
+      <Link to='/'>Home</Link><br />
+      <Link to='/campaign'>Campaign</Link><br />
+      <Link to='/campaign/create'>New Campaign</Link>
     </Paper>
   );
 };

@@ -3,6 +3,9 @@ import request from 'superagent';
 import App from '../components/app';
 import Game from '../components/game';
 import Dashboard from '../components/dashboard';
+import Campaign from '../components/campaign';
+import CreateCampaign from '../components/campaign/create';
+
 import accountUtil from '../../util/account';
 
 const authenticate = (nextState, replace, cb) => {
@@ -28,8 +31,28 @@ const authenticate = (nextState, replace, cb) => {
 
 const dashboard = {
   path: 'dashboard',
-  component: Dashboard,
+  indexRoute: {
+    component: Dashboard
+  },
   onEnter: authenticate
+};
+
+const createCampaign = {
+  path: 'create',
+  indexRoute: {
+    component: CreateCampaign
+  },
+  onEnter: authenticate
+};
+
+const campaign = {
+  path: 'campaign',
+  indexRoute: {
+    component: Campaign
+  },
+  childRoutes: [
+    createCampaign
+  ]
 };
 
 const routes = [
@@ -39,7 +62,10 @@ const routes = [
     indexRoute: {
       component: Game
     },
-    childRoutes: [dashboard]
+    childRoutes: [
+      campaign,
+      dashboard
+    ]
   }
 ];
 
