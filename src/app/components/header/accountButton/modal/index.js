@@ -19,7 +19,7 @@ export default class AccountModal extends React.Component{
         email: ''
       }
     };
-	
+
     this.updateAccount = this.updateAccount.bind(this);
   }
 
@@ -37,7 +37,18 @@ export default class AccountModal extends React.Component{
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={() => this.props.updateModalState(accountUtil.c.CLOSED)}
+        onTouchTap={() => {
+          // Remove password from state
+          let temp = {
+            username: this.state.account.username,
+            password: '',
+            email: this.state.account.email
+          };
+          this.props.updateModalState(accountUtil.c.CLOSED);
+          this.setState({
+            account: Object.assign({}, temp)
+          });
+        }}
       />,
       <FlatButton
         label="Submit"
@@ -45,6 +56,14 @@ export default class AccountModal extends React.Component{
           this.props.currentTab === accountUtil.c.SIGN_IN ?
             this.props.signinAccount(this.state.account) :
             this.props.registerAccount(this.state.account);
+          let temp = {
+            username: '',
+            password: '',
+            email: ''
+          };
+          this.setState({
+            account: Object.assign({}, temp)
+          });
         }}
       />
     ];
