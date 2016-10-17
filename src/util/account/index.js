@@ -12,7 +12,14 @@ const routes = {
   VALIDATE: '/api/1/validate'
 };
 
+const errors = {
+  USERNAME_EMPTY: 'Username is required.',
+  PASSWORD_EMPTY: 'Password is required.',
+  EMAIL_INVALID: 'A valid email is required.'
+};
+
 export default {
   c: constants,
+  e: errors,
   r: routes
 };

@@ -57,7 +57,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         });
     },
     signinAccount: (account) => {
-      // TODO: Validate
       request
         .post(accountUtil.r.SIGN_IN)
         .send({
@@ -82,7 +81,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         });
     },
     registerAccount: (account) => {
-      // TODO: Validate
       request
         .post(accountUtil.r.REGISTER)
         .send({

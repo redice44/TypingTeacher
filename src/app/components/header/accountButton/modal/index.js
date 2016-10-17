@@ -17,6 +17,11 @@ export default class AccountModal extends React.Component{
         username: '',
         password: '',
         email: ''
+      },
+      errors: {
+        username: '',
+        password: '',
+        email: ''
       }
     };
 
@@ -25,7 +30,6 @@ export default class AccountModal extends React.Component{
 
   updateAccount(e) {
     let acc = {};
-
     acc[e.target.name] = e.target.value;
     this.setState({
       account: Object.assign({}, this.state.account, acc)
@@ -53,17 +57,60 @@ export default class AccountModal extends React.Component{
       <FlatButton
         label="Submit"
         onTouchTap={() => {
-          this.props.currentTab === accountUtil.c.SIGN_IN ?
-            this.props.signinAccount(this.state.account) :
-            this.props.registerAccount(this.state.account);
-          let temp = {
+          let errMessage = {
             username: '',
             password: '',
             email: ''
           };
-          this.setState({
-            account: Object.assign({}, temp)
-          });
+          if (this.state.account.username.length < 1) {
+            errMessage.username = accountUtil.e.USERNAME_EMPTY;
+          }
+
+          if (this.state.account.password.length < 1) {
+            errMessage.password = accountUtil.e.PASSWORD_EMPTY;
+          }
+          if (this.props.currentTab === accountUtil.c.SIGN_IN) {
+            // Sign in
+
+            if (errMessage.username === '' && errMessage.password === '') {
+              this.props.signinAccount(this.state.account);
+              let temp = {
+                username: '',
+                password: '',
+                email: ''
+              };
+              this.setState({
+                account: Object.assign({}, temp)
+              });
+            }
+            this.setState({
+              errors: errMessage
+            });
+          } else {
+            // Register Account
+            if (this.state.account.email.length < 1 ||
+                this.state.account.email.match(/.+@.+\..+\s*/g) == null) {
+              errMessage.email = accountUtil.e.EMAIL_INVALID;
+            }
+
+            if (errMessage.username === '' &&
+                errMessage.password === '' &&
+                errMessage.email === '') {
+
+              this.props.registerAccount(this.state.account);
+              let temp = {
+                username: '',
+                password: '',
+                email: ''
+              };
+              this.setState({
+                account: Object.assign({}, temp)
+              });
+            }
+            this.setState({
+              errors: errMessage
+            });
+          }
         }}
       />
     ];
@@ -87,12 +134,14 @@ export default class AccountModal extends React.Component{
         <TextField
           name="username"
           floatingLabelText="User Name"
+          errorText={this.state.errors.username}
           value={this.state.account.username}
           onChange={this.updateAccount}
         /><br />
         <TextField
           name="password"
           floatingLabelText="Password"
+          errorText={this.state.errors.password}
           value={this.state.account.password}
           onChange={this.updateAccount}
           type="password"
@@ -109,6 +158,7 @@ export default class AccountModal extends React.Component{
             <TextField
               name="email"
               floatingLabelText="Email"
+              errorText={this.state.errors.email}
               value={this.state.account.email}
               onChange={this.updateAccount}
             />
