@@ -5,7 +5,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import CampaignMap from '../map';
-import LevelList from '../levelList';
+import LevelList from '../level/levelList';
 
 export default class CreateCampaign extends React.Component {
   constructor(props) {

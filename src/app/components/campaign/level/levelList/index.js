@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import Paper from 'material-ui/Paper';
 
-import Level from './level';
+import Level from '../';
 
 export default class LevelList extends React.Component {
   constructor(props) {

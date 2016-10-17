@@ -5,7 +5,8 @@ import { push } from 'react-router-redux';
 import actionTypes from '../reducers/campaign/actionTypes.js';
 import {
   setLevels,
-  pushLevel
+  pushLevel,
+  updateModal
 } from '../reducers/campaign/actions.js';
 import CreateCampaign from '../components/campaign/create';
 
@@ -14,7 +15,8 @@ const mapStateToProps = (state, ownProps) => {
   // ownProps are props sent to the component
   return {
     // Set props to send
-    levels: state.campaign.levels
+    levels: state.campaign.levels,
+    modalState: state.campaign.modalState
   };
 };
 
@@ -30,6 +32,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     pushLevel: (level) => {
       // TODO: Validate Level
       dispatch(pushLevel(level));
+    },
+    updateModal: (state) => {
+      dispatch(updateModal(state));
     }
   };
 };

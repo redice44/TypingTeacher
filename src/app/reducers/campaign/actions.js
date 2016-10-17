@@ -17,3 +17,12 @@ export const pushLevel = (level) => {
     }
   };
 };
+
+export const updateModal = (state) => {
+  return {
+    type: ACTION_TYPE.updateModal,
+    data: {
+      modalState: state
+    }
+  };
+};

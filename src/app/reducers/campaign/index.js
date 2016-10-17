@@ -17,6 +17,13 @@ const accountReducer = (state = reducersInit, action) => {
         levels: state.levels.concat(action.data.level)
       });
       break;
+    case ACTION_TYPE.updateModal:
+      console.log(`Updating modal state: ${action.data.modalState}`);
+
+      return updateState(state, {
+        modalState: action.data.modalState
+      });
+      break;
     default:
       return state;
   }

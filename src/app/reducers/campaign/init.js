@@ -1,6 +1,8 @@
+import campaignUtil from '../../../util/campaign';
+
 const init = {
-  levels: [
-  ]
+  levels: [],
+  modalState: campaignUtil.c.CLOSED
 };
 
 export default init;

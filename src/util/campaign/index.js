@@ -1,4 +1,6 @@
 const constants = {
+  CLOSED: false,
+  OPENED: true,
   MAX_LEVELS: 5
 };
 
