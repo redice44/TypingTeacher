@@ -8,24 +8,60 @@ const style = {
   margin: 12,
 };
 
-const Game = () => {
+class Game  extends React.Component {
+	constructor(){
+		super();
+		this.state = {
+			phrase : 'Phrase to be typed',
+			phraseTextField: '',
+			typos: 0,
+			counter: 0
+		 }
+    };
 	
-  return (
-    <Paper zDepth={1}>
-	  <RaisedButton
-        label='Phrase Mode'
-		style={style}
-		primary={true}
-      />	
-	  <RaisedButton
-        label='Time Trial Mode'
-		style={style}
-		primary={true}
-      />
-      <p>This is a placeholder game.</p>
-      <Link to='/dashboard'>Dashboard Link</Link>
-    </Paper>
-  );
-};
+	
+	update(e){
+			var inputChar = e.target.value.substring(this.state.counter,this.state.counter + 1);
+			var currentChar = this.state.phrase.substring(this.state.counter,this.state.counter + 1);
+		    
+			
+			//if(inputChar == currentChar){
+			//	input = this.state.phrase.substring(0, this.state.counter) + "!" + this.state.phrase.substring(this.state.counter + 1, this.state.phrase.length() - 1);  
+			//	this.setState({phraseTextField: e.target.value, phrase: input});
+			//}
+			//else{
+				this.setState({phraseTextField: e.target.value, phrase: this.state.counter, counter: this.state.counter + 1});
+			//}	
+			this.state.counter++;
+	}
+	
+	
+	render(){
+		return ( <Paper zDepth={1}>
+				   <RaisedButton 
+				     label='Phrase Mode' 
+					 style={style} 
+					 primary={true}
+                   />
+					
+				   <RaisedButton 
+				     label='Time Trial Mode' 
+					 style={style} primary={true}
+				   />
+				   
+				   <p>{this.state.phrase}</p>
+				   
+				   <TextField 
+				     name="phraseTextField"
+				     floatingLabelText="Type Here"
+				     value={this.state.phraseTextField}
+					 onChange={this.update.bind(this)}
+				   />
+				   <br />
+                   <Link to='/dashboard'>Dashboard Link</Link>
+                 </Paper>
+				);
+			}
+}
 
 export default Game;

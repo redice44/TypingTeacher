@@ -19,7 +19,7 @@ export default class AccountModal extends React.Component{
         email: ''
       }
     };
-
+	
     this.updateAccount = this.updateAccount.bind(this);
   }
 
