@@ -7,6 +7,7 @@ import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 
 import AddLevel from '../level/addLevel';
 import Modal from '../level/addLevel/modal';
+import MapLevel from './level';
 
 import campaignUtil from '../../../../util/campaign';
 
@@ -21,6 +22,16 @@ const styles = {
     flexWrap: 'nowrap',
     overflowX: 'auto',
     width: '100%'
+  },
+  gridTile: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  gridTileSplit: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-around'
   }
 };
 
@@ -30,44 +41,38 @@ export default class CampaignMap extends React.Component {
   }
 
   render () {
-    let gridItems = this.props.levels.map((level, i) => (
-      <GridTile key={i}
-        title={'Level ' + i}
-        actionIcon={
-          <IconButton
-            onTouchTap={ () => {
-              console.log('Edit ' + i);
-            }}
-          >
-            <EditIcon />
-          </IconButton>
-        }
-      >
-        <div>
-          <p>{level.wpm}</p>
-          <p>{level.acc}</p>
-        </div>
-      </GridTile>
-    ));
-
-    if (this.props.levels.length < campaignUtil.c.MAX_LEVELS) {
-      gridItems.push(
-        <GridTile
-          key={this.props.levels.length}
-          style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}
-        >
-          <AddLevel {... this.props} />
-        </GridTile>
-      );
-    }
-
-    for (let i = this.props.levels.length + 1; i < campaignUtil.c.MAX_LEVELS; i++) {
-      gridItems.push(
-        <GridTile key={i}>
-
-        </GridTile>
-      );
-    }
+    let gridLevels = this.props.levels.map((level, i) => {
+      switch(level.state) {
+        case campaignUtil.c.EMPTY:
+          return (
+            <GridTile key={i} style={styles.gridTile} />
+          );
+        case campaignUtil.c.SINGLE:
+          return (
+            <GridTile key={i} style={styles.gridTile}>
+              <MapLevel level={level} />
+            </GridTile>
+          );
+        case campaignUtil.c.SPLIT:
+          return (
+            <GridTile key={i} style={styles.gridTileSplit}>
+              <MapLevel level={level} />
+              <MapLevel level={level} />
+            </GridTile>
+          );
+        case campaignUtil.c.READY:
+          return (
+            <GridTile
+              key={i}
+              style={{display: 'flex', justifyContent: 'center'}}
+            >
+              <AddLevel {... this.props} index={i} />
+            </GridTile>
+          );
+        default:
+          // Do nothing
+      }
+    });
 
     return (
       <Paper zDepth={1} style={styles.root}>
@@ -75,9 +80,8 @@ export default class CampaignMap extends React.Component {
           style={styles.gridList}
           cellHeight={350}
         >
-          {gridItems}
+          {gridLevels}
         </GridList>
-        <Modal {... this.props} />
       </Paper>
     );
   }

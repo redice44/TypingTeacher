@@ -1,7 +1,8 @@
 const actionTypes = {
-  setLevels: 'CAMPAIGN_SET_LEVELS',
-  pushLevel: 'CAMPAIGN_PUSH_LEVEL',
-  updateModal: 'CAMPAIGN_UPDATE_MODAL'
+  setLevel: 'CAMPAIGN_SET_LEVEL',
+  updateModal: 'CAMPAIGN_UPDATE_MODAL',
+  updateLevelType: 'CAMPAIGN_UPDATE_LEVEL_TYPE',
+  updateLevelState: 'CAMPAIGN_UPDATE_LEVEL_STATE'
 };
 
 export default actionTypes;

@@ -5,21 +5,50 @@ import AddIcon from 'material-ui/svg-icons/content/add';
 
 import campaignUtil from '../../../../../util/campaign';
 
+const styles = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'space-around'
+};
+
 export default class AddLevel extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
+    console.log(`FAB Index ${this.props.index}`);
     return (
-      <FloatingActionButton
-        onTouchTap={() => {
-          // TODO: Modal popout
-          this.props.updateModal(campaignUtil.c.OPENED);
-        }}
-      >
-        <AddIcon />
-      </FloatingActionButton>
+      <div style={styles}>
+        <FloatingActionButton
+          mini={true}
+          secondary={true}
+          disabled={this.props.index === 0 || this.props.index === campaignUtil.c.MAX_LEVELS - 1}
+          onTouchTap={() => {
+            this.props.updateLevelState(this.props.index, campaignUtil.c.SPLIT);
+          }}
+        >
+          <AddIcon />
+        </FloatingActionButton>
+        <FloatingActionButton
+          onTouchTap={() => {
+            this.props.updateLevelState(this.props.index, campaignUtil.c.SINGLE);
+          }}
+        >
+          <AddIcon />
+        </FloatingActionButton>
+          <FloatingActionButton
+            mini={true}
+            secondary={true}
+            disabled={this.props.index === 0 || this.props.index === campaignUtil.c.MAX_LEVELS - 1}
+            onTouchTap={() => {
+              this.props.updateLevelState(this.props.index, campaignUtil.c.SPLIT);
+            }}
+          >
+            <AddIcon />
+          </FloatingActionButton>
+      </div>
     );
   }
 }

@@ -1,19 +1,11 @@
 import ACTION_TYPE from './actionTypes.js';
 
-export const setLevels = (levels) => {
+export const setLevel = (i, level) => {
   return {
-    type: ACTION_TYPE.setLevels,
+    type: ACTION_TYPE.setLevel,
     data: {
-      levels: levels
-    }
-  };
-};
-
-export const pushLevel = (level) => {
-  return {
-    type: ACTION_TYPE.pushLevel,
-    data: {
-      level: level
+      level: level,
+      index: i
     }
   };
 };
@@ -23,6 +15,25 @@ export const updateModal = (state) => {
     type: ACTION_TYPE.updateModal,
     data: {
       modalState: state
+    }
+  };
+};
+
+export const updateLevelType = (levelType) => {
+  return {
+    type: ACTION_TYPE.updateLevelType,
+    data: {
+      levelType: levelType
+    }
+  };
+};
+
+export const updateLevelState = (i, levelState) => {
+  return {
+    type: ACTION_TYPE.updateLevelState,
+    data: {
+      levelState: levelState,
+      index: i
     }
   };
 };

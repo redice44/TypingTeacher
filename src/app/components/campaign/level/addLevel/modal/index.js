@@ -47,9 +47,10 @@ export default class AccountModal extends React.Component{
       <FlatButton
         label="Submit"
         onTouchTap={() => {
-          this.props.pushLevel({
+          this.props.setLevel(this.props.index, {
             wpm: parseInt(this.state.level.wpm),
-            acc: parseInt(this.state.level.acc)
+            acc: parseInt(this.state.level.acc),
+            type: this.props.levelType
           });
           this.setState({
             level: {

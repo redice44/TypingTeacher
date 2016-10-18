@@ -4,7 +4,7 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import CampaignMap from '../map';
+import CampaignMap from '../../../containers/campaignMap';
 import LevelList from '../level/levelList';
 
 export default class CreateCampaign extends React.Component {
@@ -17,14 +17,14 @@ export default class CreateCampaign extends React.Component {
       <Paper zDepth={1}>
         <TextField
           floatingLabelText='Campaign Name'
-        />
+        /><br />
         <RaisedButton
-          label='Resume'
-        />
+          label='Save'
+        /><br />
         <RaisedButton
-          label='Export'
-        />
-        <CampaignMap {... this.props}/>
+          label='Cancel'
+        /><br />
+        <CampaignMap />
         <LevelList {... this.props} />
         <Link to='/'>Home Link</Link>
       </Paper>

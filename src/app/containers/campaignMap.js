@@ -5,21 +5,17 @@ import { push } from 'react-router-redux';
 import actionTypes from '../reducers/campaign/actionTypes.js';
 import {
   setLevel,
-  pushLevelSplit,
-  updateModal,
-  updateLevelType,
   updateLevelState
 } from '../reducers/campaign/actions.js';
-import CreateCampaign from '../components/campaign/create';
+import CampaignMap from '../components/campaign/map';
 
 // Convert store state to props to be passed to component
 const mapStateToProps = (state, ownProps) => {
   // ownProps are props sent to the component
+  console.log('map container setting props', state, ownProps);
   return {
     // Set props to send
-    levels: state.campaign.levels,
-    levelType: state.campaign.levelType,
-    modalState: state.campaign.modalState
+    levels: state.campaign.levels
   };
 };
 
@@ -32,21 +28,15 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       // TODO: Validate Levels
       dispatch(setLevel(i, level));
     },
-    updateModal: (state) => {
-      dispatch(updateModal(state));
-    },
-    updateLevelType: (levelType) => {
-      dispatch(updateLevelType(levelType));
-    },
     updateLevelState: (i, levelState) => {
       dispatch(updateLevelState(i, levelState));
     }
   };
 };
 
-const CreateCampaignContainer = connect(
+const CampaignMapContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(CreateCampaign);
+)(CampaignMap);
 
-export default CreateCampaignContainer;
+export default CampaignMapContainer;

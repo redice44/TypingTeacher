@@ -1,29 +1,42 @@
 import reducersInit from './init.js';
 import ACTION_TYPE from './actionTypes.js';
 
+import campaignUtil from '../../../util/campaign';
+
 const accountReducer = (state = reducersInit, action) => {
+  let lv;
+
   switch (action.type) {
-    case ACTION_TYPE.setLevels:
-      console.log(`Setting levels`, action.data.levels);
-
+    case ACTION_TYPE.setLevel:
+      console.log(`Setting level`, action.data.level, action.data.index);
+      lv = state.levels;
+      lv[action.data.index] = action.data.level;
       return updateState(state, {
-        levels: action.data.levels
+        levels: lv
       });
-      break;
-    case ACTION_TYPE.pushLevel:
-      console.log(`Adding level`, action.data.level);
-
-      return updateState(state, {
-        levels: state.levels.concat(action.data.level)
-      });
-      break;
     case ACTION_TYPE.updateModal:
       console.log(`Updating modal state: ${action.data.modalState}`);
 
       return updateState(state, {
         modalState: action.data.modalState
       });
-      break;
+    case ACTION_TYPE.updateLevelState:
+      console.log(`Updating level states`, action.data.index, action.data.levelState);
+      lv = [].concat(state.levels);
+      lv[action.data.index].state = action.data.levelState;
+      if (action.data.index < lv.length - 1) {
+        console.log('updating next level with ready');
+        lv[action.data.index + 1].state = campaignUtil.c.READY;
+      }
+      console.log(lv);
+
+      return updateState(state, {levels: lv});
+    case ACTION_TYPE.updateLevelType:
+      console.log(`Updating level type ${action.data.levelType}`);
+
+      return updateState(state, {
+        levelType: action.data.levelType
+      });
     default:
       return state;
   }
