@@ -25,6 +25,15 @@ export const updateResults = (results) => {
   };
 };
 
+export const setTimer = (timer) => {
+  return {
+    type: ACTION_TYPE.setTimer,
+    data: {
+      timer: timer
+    }
+  };
+};
+
 export const updatePhrase = (phrase) => {
   return {
     type: ACTION_TYPE.updatePhrase,

@@ -5,12 +5,18 @@ import util from '../../../util/game';
 
 const gameReducer = (state = reducersInit, action) => {
   switch (action.type) {
-    case ACTION_TYPE.updatePhrase:
-      console.log(`Updating Phrase: ${action.data.phrase}`);
+    case ACTION_TYPE.setTimer:
+      console.log(`Setting Timer: ${action.data.timer}`);
       // TODO: Validate result
       return Object.assign({}, state, {
-        phrase: action.data.phrase
+        timer: action.data.timer
       });
+      case ACTION_TYPE.updatePhrase:
+        console.log(`Updating Phrase: ${action.data.phrase}`);
+        // TODO: Validate result
+        return Object.assign({}, state, {
+          phrase: action.data.phrase
+        });
     case ACTION_TYPE.updateResults:
       console.log(`Updating Game Results: ${action.data.results}`);
       // TODO: Validate result

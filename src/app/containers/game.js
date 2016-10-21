@@ -18,7 +18,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     // Set props to send
     gameType: state.game.gameType,
-    phrase: state.game.phrase
+    phrase: state.game.phrase,
+    timer: state.game.timer
   };
 };
 
@@ -53,6 +54,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           const data = JSON.parse(res.text);
           console.log(`Receiving Phrase ${data.phrase}`);
           dispatch(updatePhrase(data.phrase));
+          // TODO: Handle dynamically
+          dispatch(setTimer(30));
           dispatch(playTime());
         });
     }
