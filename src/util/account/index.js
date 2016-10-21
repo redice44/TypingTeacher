@@ -6,10 +6,10 @@ const constants = {
 };
 
 const routes = {
-  SIGN_IN: '/api/1/signin',
-  SIGN_OUT: '/api/1/signout',
-  REGISTER: '/api/1/register',
-  VALIDATE: '/api/1/validate'
+  SIGN_IN: '/api/1/account/signin',
+  SIGN_OUT: '/api/1/account/signout',
+  REGISTER: '/api/1/account/register',
+  VALIDATE: '/api/1/account/validate'
 };
 
 const errors = {
