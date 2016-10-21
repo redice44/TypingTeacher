@@ -18,7 +18,7 @@
  */
 
 import App from '../components/app';
-import Game from '../components/game';
+import Game from '../containers/game';
 import Dashboard from '../components/dashboard';
 import Campaign from '../components/campaign';
 import CreateCampaign from '../containers/createCampaign';

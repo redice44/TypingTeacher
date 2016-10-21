@@ -3,6 +3,11 @@ const constants = {
   TIME: 1
 };
 
+const routes = {
+  GET_PHRASE: '/api/1/phrase'
+};
+
 export default {
-  c: constants
+  c: constants,
+  r: routes
 };

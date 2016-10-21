@@ -1,5 +1,8 @@
+import gameUtil from '../../../util/game';
+
 const init = {
-  results: 0
+  results: {},
+  gameType: gameUtil.c.PHRASE
 };
 
 export default init;

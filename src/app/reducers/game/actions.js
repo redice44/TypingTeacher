@@ -15,3 +15,21 @@ export const playTime = () => {
     }
   };
 };
+
+export const updateResults = (results) => {
+  return {
+    type: ACTION_TYPE.updateResults,
+    data: {
+      results: results
+    }
+  };
+};
+
+export const updatePhrase = (phrase) => {
+  return {
+    type: ACTION_TYPE.updatePhrase,
+    data: {
+      phrase: phrase
+    }
+  };
+};
