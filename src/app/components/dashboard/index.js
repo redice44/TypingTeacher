@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 import SwipeableViews from 'react-swipeable-views';
 import { Tabs, Tab } from 'material-ui/Tabs';
@@ -9,8 +10,19 @@ export default class DashboardNav extends React.Component {
   }
 
   render() {
+    const styles = {
+      root: {
+        minHeight: '100%',
+        marginTop: '-64px',
+        paddingTop: '64px',
+        marginBottom: '-200px'
+      }
+    };
+    const c = classNames({
+      'content': true
+    });
     return (
-      <div>
+      <div className={c}>
         <Tabs
           onChange={(tab) => this.props.updateTab(tab)}
           value={this.props.currentTab}

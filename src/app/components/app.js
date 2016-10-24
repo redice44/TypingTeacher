@@ -10,8 +10,14 @@ if (process.env.BROWSER) {
 }
 
 const App = (props) => {
+  const styles = {
+    root: {
+      height: '100%'
+    }
+  };
+
   return (
-    <div>
+    <div style={styles.root}>
       <Header />
       { props.children }
       <Footer />

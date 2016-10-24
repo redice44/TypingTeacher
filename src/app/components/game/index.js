@@ -147,8 +147,8 @@ class Game extends React.Component {
     });
 
 		return (
-		<div>
-			<Paper zDepth={1} className={c}>
+		<div className={c}>
+			<Paper zDepth={1}>
 
 				<RaisedButton
 					label='Phrase Mode'
