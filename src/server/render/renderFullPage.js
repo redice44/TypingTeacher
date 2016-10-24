@@ -9,6 +9,7 @@ const renderFullPage = (html, initialState) => {
       <title>Typing Teacher</title>
       <link href="https://fonts.googleapis.com/css?family=Roboto"
             rel="stylesheet">
+      <link href="/css/app.css" rel="stylesheet">
     </head>
     <body>
       <div id="root">${ html }</div>
