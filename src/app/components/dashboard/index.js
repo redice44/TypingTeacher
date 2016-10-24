@@ -1,25 +1,39 @@
 import React from 'react';
-import { Link } from 'react-router';
-import classNames from 'classnames';
-import Paper from 'material-ui/Paper';
 
-import QuickPlay from '../../containers/quickPlay';
-import CampaignList from '../campaign/campaignList';
-import PlayerOverview from '../stats/playerOverview';
+import SwipeableViews from 'react-swipeable-views';
+import { Tabs, Tab } from 'material-ui/Tabs';
 
-const Dashboard = () => {
-  const c = classNames({
-    'content': true
-  });
+export default class DashboardNav extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-  return (
-    <Paper zDepth={1} className={c}>
-      <QuickPlay /><br />
-      <CampaignList />
-      <PlayerOverview />
-      <Link to='/'>Home</Link><br />
-    </Paper>
-  );
-};
-
-export default Dashboard;
+  render() {
+    return (
+      <div>
+        <Tabs
+          onChange={(tab) => this.props.updateTab(tab)}
+          value={this.props.currentTab}
+        >
+          <Tab label="Dashboard" value={0} />
+          <Tab label="Campaigns" value={1} />
+          <Tab label="Statistics" value={2} />
+        </Tabs>
+        <SwipeableViews
+          index={this.props.currentTab}
+          onChangeIndex={(tab) => this.props.updateTab(tab)}
+        >
+          <div>
+            Dashboard
+          </div>
+          <div>
+            Campaigns
+          </div>
+          <div>
+            Statistics
+          </div>
+        </SwipeableViews>
+      </div>
+    );
+  }
+}

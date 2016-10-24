@@ -19,7 +19,7 @@
 
 import App from '../components/app';
 import Game from '../containers/game';
-import Dashboard from '../components/dashboard';
+import Dashboard from '../containers/dashboard';
 import Campaign from '../components/campaign';
 import CreateCampaign from '../containers/createCampaign';
 
