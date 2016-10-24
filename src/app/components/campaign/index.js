@@ -1,8 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router';
+import classNames from 'classnames';
 import Paper from 'material-ui/Paper';
 
 const Campaign = () => {
+  const c = classNames({
+    'content': true
+  });
+
   return (
     <Paper zDepth={1}>
       <p>This is a placeholder Campaign Root Page.</p>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import classNames from 'classnames';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -13,8 +14,12 @@ export default class CreateCampaign extends React.Component {
   }
 
   render () {
+    const c = classNames({
+      'content': true
+    });
+
     return (
-      <Paper zDepth={1}>
+      <Paper zDepth={1} className={c}>
         <TextField
           floatingLabelText='Campaign Name'
         /><br />
