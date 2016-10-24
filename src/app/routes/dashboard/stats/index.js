@@ -1,4 +1,4 @@
-import Stats from '../../../components/stats';
+import Stats from '../../../contentPages/stats';
 import authenticate from '../../auth';
 
 let routes = {

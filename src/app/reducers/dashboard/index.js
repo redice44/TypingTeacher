@@ -2,6 +2,8 @@ import reducersInit from './init.js';
 import ACTION_TYPE from './actionTypes.js';
 import HISTORY_AT from '../history/actionTypes';
 
+import util from '../../../util/dashboard'
+
 const dashboardReducer = (state = reducersInit, action) => {
   switch (action.type) {
     case ACTION_TYPE.updateTab:
@@ -12,20 +14,20 @@ const dashboardReducer = (state = reducersInit, action) => {
       });
     case HISTORY_AT.locationUpdate:
       switch (action.data.location.pathname) {
-        case '/dashboard':
+        case util.r.dashboard:
           console.log('from store: dashboard');
           return updateState(state, {
-            currentTab: 0
+            currentTab: util.c.tabs.dashboard
           });
-        case '/dashboard/campaign':
+        case util.r.campaign:
           console.log('from store: campaign');
           return updateState(state, {
-            currentTab: 1
+            currentTab: util.c.tabs.campaign
           });
-        case '/dashboard/stats':
+        case util.r.stats:
           console.log('from store: stats');
           return updateState(state, {
-            currentTab: 2
+            currentTab: util.c.tabs.stats
           });
         default:
           console.log(`from store: ${action.data.location.pathname}`);

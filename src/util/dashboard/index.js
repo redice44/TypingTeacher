@@ -1,8 +1,8 @@
 const constants = {
   tabs: {
-    dashboard: 0,
-    campaign: 1,
-    stats: 2
+    dashboard: 1,
+    campaign: 2,
+    stats: 0
   }
 };
 

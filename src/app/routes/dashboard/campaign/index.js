@@ -1,4 +1,4 @@
-import Campaign from '../../../components/campaign';
+import Campaign from '../../../contentPages/campaign';
 import authenticate from '../../auth';
 
 let routes = {
