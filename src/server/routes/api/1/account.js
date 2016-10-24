@@ -9,7 +9,9 @@ router.post('/register', (req, res, next) => {
   Account.register(
     new Account({
       username: req.body.username,
-      email: req.body.email
+      email: req.body.email,
+      wpm: 0,
+      acc: 100
     }),
     req.body.password,
     (err, account) => {
@@ -26,7 +28,11 @@ router.post('/register', (req, res, next) => {
 
           res.json({
             message: 'Successfully added account',
-            account: account,
+            user: {
+              name: account.username,
+              wpm: account.wpm,
+              acc: account.acc
+            },
             authenticated: true
           });
         });
@@ -35,7 +41,14 @@ router.post('/register', (req, res, next) => {
 });
 
 router.post('/signin', passport.authenticate('local'), (req, res, next) => {
-  res.json({authenticated: true, user: req.user});
+  res.json({
+    authenticated: true,
+    user: {
+      name: req.user.username,
+      wpm: req.user.wpm,
+      acc: req.user.acc
+    }
+  });
 });
 
 router.get('/signout', (req, res, next) => {
@@ -51,7 +64,11 @@ router.get('/validate', (req, res, next) => {
 
   res.json({
     authenticated: true,
-    user: req.user
+    user: {
+      name: req.user.username,
+      wpm: req.user.wpm,
+      acc: req.user.acc
+    },
   });
 });
 

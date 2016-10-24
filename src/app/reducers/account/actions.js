@@ -35,3 +35,12 @@ export const signoutAccount = () => {
     type: ACTION_TYPE.signoutAccount
   };
 };
+
+export const updatePlayer = (player) => {
+  return {
+    type: ACTION_TYPE.updatePlayer,
+    data: {
+      player: player
+    }
+  };
+};

@@ -21,6 +21,11 @@ const accountReducer = (state = reducersInit, action) => {
       return updateState(state, {
         auth: action.data.auth
       });
+    case ACTION_TYPE.updatePlayer:
+      console.log(`Updating the player:`, action.data.player);
+      return updateState(state, {
+        player: action.data.player
+      });
     default:
       return state;
   }

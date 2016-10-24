@@ -5,6 +5,7 @@ import { push } from 'react-router-redux';
 import actionTypes from '../reducers/account/actionTypes.js';
 import {
   signinAccount,
+  updatePlayer,
   updateAuth
 } from '../reducers/account/actions.js';
 import {
@@ -45,9 +46,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           }
 
           const data = JSON.parse(res.text);
+          const player = data.user;
           console.log('Sign In Response', data);
           dispatch(updateAuth(data.authenticated));
           dispatch(sendSuccess('Successfully Signed In'));
+          dispatch(updatePlayer(player));
           dispatch(push('/dashboard'));
         });
     }

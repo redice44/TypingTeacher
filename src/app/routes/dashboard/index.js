@@ -1,5 +1,5 @@
 import Dashboard from '../../containers/contentPages/dashboard';
-import Overview from '../../components/overview';
+import Overview from '../../containers/contentPages/playerOverview';
 import Campaign from '../../components/campaign';
 import Stats from '../../components/stats';
 

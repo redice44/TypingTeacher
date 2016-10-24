@@ -5,7 +5,9 @@ import slug from 'mongoose-slug';
 const Schema = mongoose.Schema;
 
 let Account = new Schema({
-  email: String
+  email: String,
+  wpm: Number,
+  acc: Number
 });
 
 Account.plugin(passportLocalMongoose);

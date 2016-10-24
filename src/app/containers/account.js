@@ -9,6 +9,7 @@ import {
   signoutAccount,
   updateModal,
   updateCurrentTab,
+  updatePlayer,
   updateAuth
 } from '../reducers/account/actions.js';
 import {
@@ -26,7 +27,8 @@ const mapStateToProps = (state, ownProps) => {
     // Set props to send
     modalState: state.account.modalState,
     currentTab: state.account.currentTab,
-    auth: state.account.auth
+    auth: state.account.auth,
+    player: state.account.player
   };
 };
 
@@ -52,6 +54,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           const data = JSON.parse(res.text);
           console.log('Sign Out Response', data);
           dispatch(updateAuth(data.authenticated));
+          dispatch(updatePlayer({}));
           dispatch(sendSuccess('Successfully Signed Out'));
           dispatch(push('/'));
         });
@@ -73,9 +76,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           }
 
           const data = JSON.parse(res.text);
+          const player = data.user;
           console.log('Sign In Response', data);
           dispatch(updateAuth(data.authenticated));
           dispatch(updateModal(accountUtil.c.CLOSED));
+          dispatch(updatePlayer(player));
           dispatch(sendSuccess('Successfully Signed In'));
           dispatch(push('/dashboard'));
         });
@@ -95,9 +100,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           }
 
           const data = JSON.parse(res.text);
+          const player = data.user;
           console.log('Register Response', data);
           dispatch(updateAuth(data.authenticated));
           dispatch(updateModal(accountUtil.c.CLOSED));
+          dispatch(updatePlayer(player));
           dispatch(sendSuccess('Successfully Registered Account'));
           dispatch(push('/dashboard'));
         });

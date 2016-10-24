@@ -9,14 +9,9 @@ import { deepOrange500 } from 'material-ui/styles/colors';
 
 import appReducers from '../../app/reducers';
 import App from '../../app/components/App';
-import Game from '../../app/components/Game';
-import Dashboard from '../../app/components/Dashboard';
 import renderFullPage from './renderFullPage';
 // import routes from '../../app/routes/baseRoutes.js';
 import routes from '../../app/routes/';
-
-import accountInit from '../../app/reducers/account/init';
-import gameInit from '../../app/reducers/game/init';
 
 import { routeLocationDidUpdate } from '../../app/reducers/history/actions';
 
@@ -28,10 +23,7 @@ const handleRender = (req, res, next) => {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
-      const store = createStore(appReducers, {
-        game: gameInit,
-        account: accountInit
-      });
+      const store = createStore(appReducers);
       // Triggers any store related changes to location
       store.dispatch(routeLocationDidUpdate(renderProps.location));
 
