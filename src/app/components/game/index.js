@@ -147,9 +147,7 @@ class Game extends React.Component {
     });
 
 		return (
-		<div className={c}>
-			<Paper zDepth={1}>
-
+		<div>
 				<RaisedButton
 					label='Phrase Mode'
 					style={style}
@@ -184,8 +182,6 @@ class Game extends React.Component {
 
 				<br />
 				<Link to='/dashboard'>Dashboard Link</Link>
-            </Paper>
-
 		</div>
 		);
 	}

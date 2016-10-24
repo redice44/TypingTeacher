@@ -18,6 +18,7 @@
  */
 
 import App from '../components/app';
+import MainPage from '../contentPages/main';
 import Game from '../containers/game';
 import Dashboard from '../containers/dashboard';
 import Campaign from '../components/campaign';
@@ -50,7 +51,7 @@ const routes = [
     path: '/',
     component: App,
     indexRoute: {
-      component: Game
+      component: MainPage
     },
     childRoutes: [
       dashboard,

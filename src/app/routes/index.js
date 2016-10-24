@@ -1,6 +1,7 @@
 import request from 'superagent';
 
 import App from '../components/app';
+import MainPage from '../contentPages/main';
 import Game from '../containers/game';
 import Dashboard from '../containers/dashboard';
 import Campaign from '../components/campaign';
@@ -10,7 +11,6 @@ import accountUtil from '../../util/account';
 
 const authenticate = (nextState, replace, cb) => {
   // TODO: Handle more gracefully
-  console.log(nextState);
   request
     .get(accountUtil.r.VALIDATE)
     .end((err, res) => {
@@ -60,7 +60,7 @@ const routes = [
     path: '/',
     component: App,
     indexRoute: {
-      component: Game
+      component: MainPage
     },
     childRoutes: [
       campaign,
