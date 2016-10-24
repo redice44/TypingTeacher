@@ -79,7 +79,7 @@ class Game extends React.Component {
 						isResults: false, 
 						typos: 0, 
 						isTimer: false,
-						timer: 0, 
+						timer: 2, 
 						amountOfTypedLetters: 0,
 						gameType: 1});
     }	
