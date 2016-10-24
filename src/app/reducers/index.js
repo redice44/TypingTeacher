@@ -7,6 +7,7 @@ import accountReducer from './account';
 import notificationReducer from './notification';
 import campaignReducer from './campaign';
 import dashboardReducer from './dashboard';
+import historyReducer from './history';
 
 const appReducers = combineReducers({
   game: gameReducer,

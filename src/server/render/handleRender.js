@@ -12,10 +12,13 @@ import App from '../../app/components/App';
 import Game from '../../app/components/Game';
 import Dashboard from '../../app/components/Dashboard';
 import renderFullPage from './renderFullPage';
-import routes from '../../app/routes/baseRoutes.js';
+// import routes from '../../app/routes/baseRoutes.js';
+import routes from '../../app/routes/';
 
-import accountInit from '../../app/reducers/account/init.js';
-import gameInit from '../../app/reducers/game/init.js';
+import accountInit from '../../app/reducers/account/init';
+import gameInit from '../../app/reducers/game/init';
+
+import { routeLocationDidUpdate } from '../../app/reducers/history/actions';
 
 const handleRender = (req, res, next) => {
   match({routes, location: req.url}, (err, redirectLocation, renderProps) => {
@@ -29,6 +32,9 @@ const handleRender = (req, res, next) => {
         game: gameInit,
         account: accountInit
       });
+      // Triggers any store related changes to location
+      store.dispatch(routeLocationDidUpdate(renderProps.location));
+
       // TODO: Standardize MUI Theme
       const muiTheme = getMuiTheme({
         pallet: {
@@ -47,6 +53,7 @@ const handleRender = (req, res, next) => {
       );
 
       const initialState = store.getState();
+      console.log(initialState);
       res.send(renderFullPage(html, initialState));
     } else {
       // TODO: Handle 404 better

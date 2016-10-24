@@ -20,7 +20,7 @@
 import App from '../components/app';
 import MainPage from '../contentPages/main';
 import Game from '../containers/game';
-import Dashboard from '../containers/dashboard';
+import Dashboard from '../contentPages/dashboard';
 import Campaign from '../components/campaign';
 import CreateCampaign from '../containers/createCampaign';
 
