@@ -5,6 +5,7 @@ import Stats from '../../components/stats';
 
 import campaignRoute from './campaign';
 import statsRoute from './stats';
+import authenticate from '../auth';
 
 let routes = {
   path: 'dashboard',
@@ -17,5 +18,9 @@ let routes = {
     statsRoute
   ]
 };
+
+if (process.env.BROWSER) {
+  routes.onEnter = authenticate;
+}
 
 export default routes;

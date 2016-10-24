@@ -3,17 +3,19 @@ import MainPage from '../contentPages/main';
 
 import dashboardRoute from './dashboard';
 
+let route = {
+  path: '/',
+  component: App,
+  indexRoute: {
+    component: MainPage
+  },
+  childRoutes: [
+    dashboardRoute
+  ]
+};
+
 let routes = [
-  {
-    path: '/',
-    component: App,
-    indexRoute: {
-      component: MainPage
-    },
-    childRoutes: [
-      dashboardRoute
-    ]
-  }
+  route
 ];
 
 export default routes;
