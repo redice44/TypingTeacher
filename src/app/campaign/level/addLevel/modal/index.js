@@ -4,7 +4,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 
-import campaignUtil from '../../../../../../util/campaign';
+import campaignUtil from '../../../constants';
 
 export default class AccountModal extends React.Component{
   constructor(props) {

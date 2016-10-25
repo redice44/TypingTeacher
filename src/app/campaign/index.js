@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import CampaignList from './campaignList';
+import CampaignMap from './map';
 
 const Campaign = () => {
   const c = classNames({
@@ -29,7 +30,7 @@ const Campaign = () => {
         }}
       >Clicky
       </RaisedButton>
-
+      <CampaignMap />
     </div>
   );
 };

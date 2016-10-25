@@ -1,88 +1,42 @@
-import React from 'react';
-import { Link } from 'react-router';
-import Paper from 'material-ui/Paper';
-import { GridList, GridTile } from 'material-ui/GridList';
-import IconButton from 'material-ui/IconButton';
-import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
+import request from 'superagent';
 
-import AddLevel from '../level/addLevel';
-import Modal from '../level/addLevel/modal';
-import MapLevel from './level';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import actionTypes from '../actionTypes.js';
+import {
+  setLevel,
+  updateLevelState
+} from '../actions.js';
+import CampaignMap from './map';
 
-import campaignUtil from '../../../../util/campaign';
-
-const styles = {
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-  },
-  gridList: {
-    display: 'flex',
-    flexWrap: 'nowrap',
-    overflowX: 'auto',
-    width: '100%'
-  },
-  gridTile: {
-    display: 'flex',
-    alignItems: 'center'
-  },
-  gridTileSplit: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'space-around'
-  }
+// Convert store state to props to be passed to component
+const mapStateToProps = (state, ownProps) => {
+  // ownProps are props sent to the component
+  console.log('map container setting props', state, ownProps);
+  return {
+    // Set props to send
+    levels: state.campaign.levels
+  };
 };
 
-export default class CampaignMap extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render () {
-    let gridLevels = this.props.levels.map((level, i) => {
-      switch(level.state) {
-        case campaignUtil.c.EMPTY:
-          return (
-            <GridTile key={i} style={styles.gridTile} />
-          );
-        case campaignUtil.c.SINGLE:
-          return (
-            <GridTile key={i} style={styles.gridTile}>
-              <MapLevel level={level} />
-            </GridTile>
-          );
-        case campaignUtil.c.SPLIT:
-          return (
-            <GridTile key={i} style={styles.gridTileSplit}>
-              <MapLevel level={level} />
-              <MapLevel level={level} />
-            </GridTile>
-          );
-        case campaignUtil.c.READY:
-          return (
-            <GridTile
-              key={i}
-              style={{display: 'flex', justifyContent: 'center'}}
-            >
-              <AddLevel {... this.props} index={i} />
-            </GridTile>
-          );
-        default:
-          // Do nothing
-      }
-    });
-
-    return (
-      <Paper zDepth={1} style={styles.root}>
-        <GridList
-          style={styles.gridList}
-          cellHeight={350}
-        >
-          {gridLevels}
-        </GridList>
-      </Paper>
-    );
-  }
+// Creates props that will dispatch actions
+const mapDispatchToProps = (dispatch, ownProps) => {
+  // ownProps are props sent to the component
+  return {
+    // Actions to send
+    setLevel: (i, level) => {
+      // TODO: Validate Levels
+      dispatch(setLevel(i, level));
+    },
+    updateLevelState: (i, levelState) => {
+      dispatch(updateLevelState(i, levelState));
+    }
+  };
 };
+
+const CampaignMapContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CampaignMap);
+
+export default CampaignMapContainer;

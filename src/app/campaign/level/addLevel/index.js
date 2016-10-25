@@ -3,7 +3,7 @@ import React from 'react';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
 
-import campaignUtil from '../../../../../util/campaign';
+import campaignUtil from '../../constants';
 
 const styles = {
   display: 'flex',
