@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import actionTypes from '../actionTypes.js';
 import {
+  editLevel,
   setLevel,
   updateLevelState
 } from '../actions.js';
@@ -15,7 +16,8 @@ const mapStateToProps = (state, ownProps) => {
   console.log('map container setting props', state, ownProps);
   return {
     // Set props to send
-    levels: state.campaign.levels
+    levels: state.campaign.levels,
+    editLevelIndex: state.campaign.editLevelIndex
   };
 };
 
@@ -30,6 +32,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     updateLevelState: (i, levelState) => {
       dispatch(updateLevelState(i, levelState));
+    },
+    editLevel: (i) => {
+      dispatch(editLevel(i));
     }
   };
 };

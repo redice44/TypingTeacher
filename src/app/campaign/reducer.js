@@ -7,6 +7,12 @@ const accountReducer = (state = reducersInit, action) => {
   let lv;
 
   switch (action.type) {
+    case ACTION_TYPE.editLevel:
+      console.log(`Editing Level ${action.data.editLevel}`);
+
+      return updateState(state, {
+        editLevelIndex: action.data.editLevel
+      });
     case ACTION_TYPE.setLevel:
       console.log(`Setting level`, action.data.level, action.data.index);
       lv = state.levels;

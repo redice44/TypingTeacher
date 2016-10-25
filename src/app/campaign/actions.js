@@ -46,3 +46,12 @@ export const setCampaignList = (campaignList) => {
     }
   };
 };
+
+export const editLevel = (i) => {
+  return {
+    type: ACTION_TYPE.editLevel,
+    data: {
+      editLevel: i
+    }
+  };
+};

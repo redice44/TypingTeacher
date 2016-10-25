@@ -20,26 +20,34 @@ const Dashboard = (props) => {
         onChange={(tab) => props.updateTab(tab)}
         value={props.currentTab}
       >
-        <Tab label="Statistics" value={util.c.tabs.stats} />
-        <Tab label="Dashboard" value={util.c.tabs.dashboard} />
-        <Tab label="Campaigns" value={util.c.tabs.campaign} />
-      </Tabs>
-      <SwipeableViews
-        index={props.currentTab}
-        onChangeIndex={(tab) => props.updateTab(tab)}
-      >
-        <div>
+        <Tab label="Statistics" value={util.c.tabs.stats}>
           <Stats />
-        </div>
-        <div>
+        </Tab>
+        <Tab label="Dashboard" value={util.c.tabs.dashboard}>
           <Overview />
-        </div>
-        <div>
+        </Tab>
+        <Tab label="Campaigns" value={util.c.tabs.campaign}>
           <Campaign />
-        </div>
-      </SwipeableViews>
+        </Tab>
+      </Tabs>
     </div>
   );
 };
 
 export default Dashboard;
+/*
+<SwipeableViews
+  index={props.currentTab}
+  onChangeIndex={(tab) => props.updateTab(tab)}
+>
+  <div>
+    <Stats />
+  </div>
+  <div>
+    <Overview />
+  </div>
+  <div>
+    <Campaign />
+  </div>
+</SwipeableViews>
+*/

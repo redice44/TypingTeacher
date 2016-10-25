@@ -8,6 +8,7 @@ import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 import AddLevel from './addLevel';
 import Modal from './addLevel/modal';
 import MapLevel from './level';
+import EditLevel from './editLevel';
 
 import campaignUtil from '../constants';
 
@@ -42,8 +43,9 @@ export default class CampaignMap extends React.Component {
   }
 
   render () {
+    console.log(`Edit Level: ${this.props.editLevelIndex}`);
     let gridLevels = this.props.levels.map((level, i) => {
-      switch(level.state) {
+      switch (level.state) {
         case campaignUtil.c.EMPTY:
           return (
             <GridTile key={i} style={styles.gridTile} />
@@ -51,16 +53,23 @@ export default class CampaignMap extends React.Component {
         case campaignUtil.c.SINGLE:
           return (
             <GridTile key={i} style={styles.gridTile}
-              title={`Level: ${i+1}`}>
-              <MapLevel level={level} lvNum={i} path={0} />
+              title={`Level: ${i+1}`}
+              titlePosition='top'
+            >
+              <MapLevel level={level} lvNum={i} path={0}
+                editLevel={this.props.editLevel}/>
             </GridTile>
           );
         case campaignUtil.c.SPLIT:
           return (
             <GridTile key={i} style={styles.gridTileSplit}
-              title={`Level: ${i+1}`}>
-              <MapLevel level={level} lvNum={i} path={1} />
-              <MapLevel level={level} lvNum={i} path={2} />
+              title={`Level: ${i+1}`}
+              titlePosition='top'
+            >
+              <MapLevel level={level} lvNum={i} path={1}
+                editLevel={this.props.editLevel}/>
+              <MapLevel level={level} lvNum={i} path={2}
+                editLevel={this.props.editLevel}/>
             </GridTile>
           );
         case campaignUtil.c.READY:
@@ -85,6 +94,10 @@ export default class CampaignMap extends React.Component {
         >
           {gridLevels}
         </GridList>
+        <EditLevel 
+          level={this.props.editLevelIndex}
+          editLevel={this.props.editLevel}
+        />
       </Paper>
     );
   }

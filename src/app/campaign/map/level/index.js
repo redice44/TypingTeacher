@@ -39,7 +39,8 @@ const MapLevel = (props) => {
         })}
         tooltip={`wpm: ${wpm} \nacc: ${acc}`}
         tooltipPosition={tooltipPos}
-        >
+        onTouchTap={() => props.editLevel(props.lvNum) }
+      >
         <EditIcon />
       </IconButton>
     </div>

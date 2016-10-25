@@ -1,4 +1,5 @@
 const actionTypes = {
+  editLevel: 'CAMPAIGN_EDIT_LEVEL',
   setLevel: 'CAMPAIGN_SET_LEVEL',
   setCampaignList: 'CAMPAIGN_SET_LIST',
   updateModal: 'CAMPAIGN_UPDATE_MODAL',
