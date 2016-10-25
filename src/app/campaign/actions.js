@@ -37,3 +37,12 @@ export const updateLevelState = (i, levelState) => {
     }
   };
 };
+// TODO: Restrict by ID search Probably even an account thing.
+export const setCampaignList = (campaignList) => {
+  return {
+    type: ACTION_TYPE.setCampaignList,
+    data: {
+      campaignList: campaignList
+    }
+  };
+};

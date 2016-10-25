@@ -37,6 +37,12 @@ const accountReducer = (state = reducersInit, action) => {
       return updateState(state, {
         levelType: action.data.levelType
       });
+    case ACTION_TYPE.setCampaignList:
+      console.log('Updating Campaign List', action.data.campaignList);
+
+      return updateState(state, {
+        campaignList: action.data.campaignList
+      });
     default:
       return state;
   }

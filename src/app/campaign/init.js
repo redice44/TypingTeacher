@@ -28,7 +28,8 @@ const init = {
       acc: 0
     }
   ],
-  modalState: campaignUtil.c.CLOSED
+  modalState: campaignUtil.c.CLOSED,
+  campaignList: []
 };
 
 export default init;

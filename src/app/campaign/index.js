@@ -1,7 +1,10 @@
 import React from 'react';
+import request from 'superagent';
 import { Link } from 'react-router';
 import classNames from 'classnames';
-import Paper from 'material-ui/Paper';
+import RaisedButton from 'material-ui/RaisedButton';
+
+import CampaignList from './campaignList';
 
 const Campaign = () => {
   const c = classNames({
@@ -10,10 +13,24 @@ const Campaign = () => {
 
   return (
     <div>
-      <p>This is a placeholder Campaign Root Page.</p>
-      <p>Not completely sure what to put here yet.</p>
-      <p>Perhaps a list of all available campaigns with an easy add button to add them to your campaign list. I do not think it should be protected</p>
-      <Link to='/'>Home Link</Link>
+      <RaisedButton
+        onTouchTap={() => {
+          console.log('clicky');
+          request
+            .post('/api/1/campaign/test')
+            .end((err, res) => {
+              if (err) {
+                return console.log(err);
+              }
+
+              const data = JSON.parse(res.text);
+              console.log(data);
+            })
+        }}
+      >Clicky
+      </RaisedButton>
+      <CampaignList />
+
     </div>
   );
 };
