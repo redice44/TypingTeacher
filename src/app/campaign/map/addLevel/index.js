@@ -18,7 +18,6 @@ export default class AddLevel extends React.Component {
   }
 
   render() {
-    console.log(`FAB Index ${this.props.index}`);
     return (
       <div style={styles}>
         <FloatingActionButton
@@ -26,19 +25,30 @@ export default class AddLevel extends React.Component {
           secondary={true}
           disabled={this.props.index === 0 || this.props.index === campaignUtil.c.MAX_LEVELS - 1}
           onTouchTap={() => {
-            this.props.setLevel(this.props.index, {
+            let lv = {
               state: campaignUtil.c.SPLIT,
-              wpm: [0, 0],
-              acc: [0, 0]
-            });
-            this.props.updateLevelState(this.props.index, campaignUtil.c.SPLIT);
+              part1: {
+                wpm: 0,
+                acc: 0
+              },
+              part2: {
+                wpm: 0,
+                acc: 0
+              }
+            };
+            console.log('FAB1 sending', this.props.index, lv);
+            this.props.setLevel(this.props.index, lv);
           }}
         >
           <AddIcon />
         </FloatingActionButton>
         <FloatingActionButton
           onTouchTap={() => {
-            this.props.updateLevelState(this.props.index, campaignUtil.c.SINGLE);
+            this.props.setLevel(this.props.index, {
+              state: campaignUtil.c.SINGLE,
+              wpm: 0,
+              acc: 0,
+            });
           }}
         >
           <AddIcon />
@@ -48,12 +58,19 @@ export default class AddLevel extends React.Component {
             secondary={true}
             disabled={this.props.index === 0 || this.props.index === campaignUtil.c.MAX_LEVELS - 1}
             onTouchTap={() => {
-              this.props.setLevel(this.props.index, {
+              let lv = {
                 state: campaignUtil.c.SPLIT,
-                wpm: [0, 0],
-                acc: [0, 0]
-              });
-              this.props.updateLevelState(this.props.index, campaignUtil.c.SPLIT);
+                part1: {
+                  wpm: 0,
+                  acc: 0
+                },
+                part2: {
+                  wpm: 0,
+                  acc: 0
+                }
+              };
+              console.log('FAB3 sending', this.props.index, lv);
+              this.props.setLevel(this.props.index, lv);
             }}
           >
             <AddIcon />

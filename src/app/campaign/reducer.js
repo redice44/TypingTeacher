@@ -4,20 +4,35 @@ import ACTION_TYPE from './actionTypes.js';
 import campaignUtil from './constants';
 
 const accountReducer = (state = reducersInit, action) => {
-  let lv;
-
   switch (action.type) {
     case ACTION_TYPE.editLevel:
-      console.log(`Editing Level ${action.data.editLevel}, ${action.data.part}`);
+      console.log(`
+=== ACTION editLevel===
+  editLevelIndex: ${action.data.editLevel}
+  part: ${action.data.part}
+  state:`, state);
 
       return updateState(state, {
         editLevelIndex: action.data.editLevel,
         part: action.data.part
       });
     case ACTION_TYPE.setLevel:
-      console.log(`Setting level`, action.data.level, action.data.index);
-      lv = [].concat(state.levels);
+      console.log(`
+=== ACTION setLevel===
+  level:`, action.data.level, `
+  wpm: ${action.data.level.wpm}
+  index: ${action.data.index}
+  state:`, state.levels);
+      let lv = state.levels.slice(0);
+      console.log('level before', lv);
       lv[action.data.index] = action.data.level;
+      console.log('level after', lv);
+      if (action.data.index < lv.length - 1 &&
+          lv[action.data.index + 1].state === campaignUtil.c.EMPTY) {
+        console.log('updating next level with ready');
+        lv[action.data.index + 1].state = campaignUtil.c.READY;
+      }
+      console.log('levels', lv);
       return updateState(state, {
         levels: lv
       });
@@ -27,17 +42,6 @@ const accountReducer = (state = reducersInit, action) => {
       return updateState(state, {
         modalState: action.data.modalState
       });
-    case ACTION_TYPE.updateLevelState:
-      console.log(`Updating level states`, action.data.index, action.data.levelState);
-      lv = [].concat(state.levels);
-      lv[action.data.index].state = action.data.levelState;
-      if (action.data.index < lv.length - 1) {
-        console.log('updating next level with ready');
-        lv[action.data.index + 1].state = campaignUtil.c.READY;
-      }
-      console.log(lv);
-
-      return updateState(state, {levels: lv});
     case ACTION_TYPE.updateLevelType:
       console.log(`Updating level type ${action.data.levelType}`);
 

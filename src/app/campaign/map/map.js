@@ -43,7 +43,6 @@ export default class CampaignMap extends React.Component {
   }
 
   render () {
-    console.log(`Edit Level: ${this.props.editLevelIndex}`, this.props);
     let gridLevels = this.props.levels.map((level, i) => {
       switch (level.state) {
         case campaignUtil.c.EMPTY:
@@ -78,7 +77,7 @@ export default class CampaignMap extends React.Component {
               key={i}
               style={{display: 'flex', justifyContent: 'center'}}
             >
-              <AddLevel {... this.props} index={i} />
+              <AddLevel setLevel={this.props.setLevel} index={i} />
             </GridTile>
           );
         default:
@@ -94,13 +93,7 @@ export default class CampaignMap extends React.Component {
         >
           {gridLevels}
         </GridList>
-        <EditLevel
-          levelIndex={this.props.editLevelIndex}
-          level={this.props.editLevelIndex === -1 ? this.props.levels[0] : this.props.levels[this.props.editLevelIndex]}
-          editLevel={this.props.editLevel}
-          setLevel={this.props.setLevel}
-          part={this.props.part}
-        />
+        <EditLevel />
       </Paper>
     );
   }

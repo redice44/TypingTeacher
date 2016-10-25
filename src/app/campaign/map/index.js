@@ -15,7 +15,6 @@ import util from '../constants';
 // Convert store state to props to be passed to component
 const mapStateToProps = (state, ownProps) => {
   // ownProps are props sent to the component
-  console.log('map container setting props', state, ownProps);
   return {
     // Set props to send
     levels: state.campaign.levels,
@@ -33,9 +32,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       // TODO: Validate Levels
 
       dispatch(setLevel(i, level));
-    },
-    updateLevelState: (i, levelState) => {
-      dispatch(updateLevelState(i, levelState));
     },
     editLevel: (i, part) => {
       dispatch(editLevel(i, part));

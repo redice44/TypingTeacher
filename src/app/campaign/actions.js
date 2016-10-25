@@ -28,15 +28,6 @@ export const updateLevelType = (levelType) => {
   };
 };
 
-export const updateLevelState = (i, levelState) => {
-  return {
-    type: ACTION_TYPE.updateLevelState,
-    data: {
-      levelState: levelState,
-      index: i
-    }
-  };
-};
 // TODO: Restrict by ID search Probably even an account thing.
 export const setCampaignList = (campaignList) => {
   return {
@@ -47,11 +38,11 @@ export const setCampaignList = (campaignList) => {
   };
 };
 
-export const editLevel = (i, part) => {
+export const editLevel = (editLevel, part) => {
   return {
     type: ACTION_TYPE.editLevel,
     data: {
-      editLevel: i,
+      editLevel: editLevel,
       part: part
     }
   };
