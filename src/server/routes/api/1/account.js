@@ -2,6 +2,7 @@ import Express from 'express';
 import passport from 'passport';
 
 import Account from '../../../../database/account/model';
+import Campaign from '../../../../database/campaign/model';
 
 let router = Express.Router();
 
@@ -43,20 +44,30 @@ router.post('/register', (req, res, next) => {
 });
 
 router.post('/signin', passport.authenticate('local'), (req, res, next) => {
-  res.json({
-    authenticated: true,
-    user: {
-      name: req.user.username,
-      wpm: req.user.wpm,
-      acc: req.user.acc,
-      campaignList: req.user.campaignList
+  const q = {
+    _id: { $in: req.user.campaignList }
+  };
+
+  Campaign.find(q, (err, campList) => {
+    if (err) {
+      return console.log(err);
     }
+
+    console.log('getting campaigns for user', campList);
+    res.json({
+      authenticated: true,
+      user: {
+        name: req.user.username,
+        wpm: req.user.wpm,
+        acc: req.user.acc,
+        campaignList: campList
+      }
+    });
   });
 });
 
 router.get('/signout', (req, res, next) => {
   req.logout();
-  // TODO: Reponse should update store
   res.json({authenticated: false});
 });
 
@@ -64,15 +75,25 @@ router.get('/validate', (req, res, next) => {
   if (!req.user) {
     return res.json({authenticated: false});
   }
+  const q = {
+    _id: { $in: req.user.campaignList }
+  };
 
-  res.json({
-    authenticated: true,
-    user: {
-      name: req.user.username,
-      wpm: req.user.wpm,
-      acc: req.user.acc,
-      campaignList: req.user.campaignList
-    },
+  Campaign.find(q, (err, campList) => {
+    if (err) {
+      return console.log(err);
+    }
+
+    console.log('getting campaigns for user', campList);
+    res.json({
+      authenticated: true,
+      user: {
+        name: req.user.username,
+        wpm: req.user.wpm,
+        acc: req.user.acc,
+        campaignList: campList
+      }
+    });
   });
 });
 
