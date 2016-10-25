@@ -1,13 +1,11 @@
 import React from 'react';
 
-const playerOverviewStats = () => {
+const playerOverviewStats = (props) => {
   return (
     <div>
-      <p>Player Overview</p>
-      <p>WPM:</p>
-      <p>Acc:</p>
-      <canvas id='player-overview-stats'>
-      </canvas>
+      <p>Welcome { props.user.name }</p>
+      <p>WPM: { props.user.wpm }</p>
+      <p>Acc: { props.user.acc }</p>
     </div>
   );
 };

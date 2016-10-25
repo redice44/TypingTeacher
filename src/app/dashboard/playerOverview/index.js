@@ -13,7 +13,7 @@ const mapStateToProps = (state, ownProps) => {
   // ownProps are props sent to the component
   return {
     // Set props to send
-    player: state.account.player
+    user: state.account.player
   };
 };
 
