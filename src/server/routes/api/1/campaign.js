@@ -49,6 +49,11 @@ router.get('/', (req, res, next) => {
   // TODO: Get all campaigns, perhaps
 });
 
+router.post('/add', (req, res, next) => {
+  console.log(req.body.campaign);
+  res.end();
+});
+
 router.get('/test', (req, res, next) => {
   // TODO: Get test account campaigns
 });

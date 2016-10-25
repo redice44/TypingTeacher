@@ -8,6 +8,11 @@ const constants = {
   MAX_LEVELS: 5
 };
 
+const routes = {
+  ADD_CAMPAIGN: '/api/1/campaign/add'
+};
+
 export default {
-  c: constants
+  c: constants,
+  r: routes
 };

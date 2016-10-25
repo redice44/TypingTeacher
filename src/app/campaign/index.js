@@ -6,6 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 import CampaignList from './campaignList';
 import CampaignMap from './map';
+import CreateCampaign from './create';
 
 const Campaign = () => {
   const c = classNames({
@@ -30,7 +31,8 @@ const Campaign = () => {
         }}
       >Clicky
       </RaisedButton>
-      <CampaignMap />
+
+      <CreateCampaign />
     </div>
   );
 };

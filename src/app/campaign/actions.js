@@ -47,3 +47,12 @@ export const editLevel = (editLevel, part) => {
     }
   };
 };
+
+export const addCampaign = (camp) => {
+  return {
+    type: ACTION_TYPE.addCampaign,
+    data: {
+      camp: camp
+    }
+  };
+};
