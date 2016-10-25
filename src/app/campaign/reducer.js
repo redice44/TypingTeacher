@@ -8,14 +8,15 @@ const accountReducer = (state = reducersInit, action) => {
 
   switch (action.type) {
     case ACTION_TYPE.editLevel:
-      console.log(`Editing Level ${action.data.editLevel}`);
+      console.log(`Editing Level ${action.data.editLevel}, ${action.data.part}`);
 
       return updateState(state, {
-        editLevelIndex: action.data.editLevel
+        editLevelIndex: action.data.editLevel,
+        part: action.data.part
       });
     case ACTION_TYPE.setLevel:
       console.log(`Setting level`, action.data.level, action.data.index);
-      lv = state.levels;
+      lv = [].concat(state.levels);
       lv[action.data.index] = action.data.level;
       return updateState(state, {
         levels: lv

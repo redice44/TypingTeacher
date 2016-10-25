@@ -10,6 +10,8 @@ import {
 } from '../actions.js';
 import CampaignMap from './map';
 
+import util from '../constants';
+
 // Convert store state to props to be passed to component
 const mapStateToProps = (state, ownProps) => {
   // ownProps are props sent to the component
@@ -17,7 +19,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     // Set props to send
     levels: state.campaign.levels,
-    editLevelIndex: state.campaign.editLevelIndex
+    editLevelIndex: state.campaign.editLevelIndex,
+    part: state.campaign.part
   };
 };
 
@@ -28,13 +31,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     // Actions to send
     setLevel: (i, level) => {
       // TODO: Validate Levels
+
       dispatch(setLevel(i, level));
     },
     updateLevelState: (i, levelState) => {
       dispatch(updateLevelState(i, levelState));
     },
-    editLevel: (i) => {
-      dispatch(editLevel(i));
+    editLevel: (i, part) => {
+      dispatch(editLevel(i, part));
     }
   };
 };

@@ -22,11 +22,11 @@ const MapLevel = (props) => {
   let acc = props.level.acc;
   let tooltipPos = 'bottom-center';
 
-  if (props.path !== 0) {
-    wpm = props.level.wpm[props.path-1];
-    acc = props.level.acc[props.path-1];
+  if (props.part !== 0) {
+    wpm = props.level.wpm[props.part-1];
+    acc = props.level.acc[props.part-1];
   }
-  if (props.path === 2) {
+  if (props.part === 2) {
     tooltipPos = 'top-center';
   }
 
@@ -39,7 +39,7 @@ const MapLevel = (props) => {
         })}
         tooltip={`wpm: ${wpm} \nacc: ${acc}`}
         tooltipPosition={tooltipPos}
-        onTouchTap={() => props.editLevel(props.lvNum) }
+        onTouchTap={() => props.editLevel(props.lvNum, props.part) }
       >
         <EditIcon />
       </IconButton>
