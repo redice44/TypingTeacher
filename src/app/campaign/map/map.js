@@ -5,8 +5,8 @@ import { GridList, GridTile } from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 
-import AddLevel from '../level/addLevel';
-import Modal from '../level/addLevel/modal';
+import AddLevel from './addLevel';
+import Modal from './addLevel/modal';
 import MapLevel from './level';
 
 import campaignUtil from '../constants';
@@ -25,13 +25,14 @@ const styles = {
   },
   gridTile: {
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   gridTileSplit: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'space-around'
+    justifyContent: 'center'
   }
 };
 
@@ -49,15 +50,17 @@ export default class CampaignMap extends React.Component {
           );
         case campaignUtil.c.SINGLE:
           return (
-            <GridTile key={i} style={styles.gridTile}>
-              <MapLevel level={level} />
+            <GridTile key={i} style={styles.gridTile}
+              title={`Level: ${i+1}`}>
+              <MapLevel level={level} lvNum={i} path={0} />
             </GridTile>
           );
         case campaignUtil.c.SPLIT:
           return (
-            <GridTile key={i} style={styles.gridTileSplit}>
-              <MapLevel level={level} />
-              <MapLevel level={level} />
+            <GridTile key={i} style={styles.gridTileSplit}
+              title={`Level: ${i+1}`}>
+              <MapLevel level={level} lvNum={i} path={1} />
+              <MapLevel level={level} lvNum={i} path={2} />
             </GridTile>
           );
         case campaignUtil.c.READY:
@@ -78,7 +81,7 @@ export default class CampaignMap extends React.Component {
       <Paper zDepth={1} style={styles.root}>
         <GridList
           style={styles.gridList}
-          cellHeight={350}
+          cellHeight={300}
         >
           {gridLevels}
         </GridList>
