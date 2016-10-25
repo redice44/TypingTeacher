@@ -147,7 +147,7 @@ class Game extends React.Component {
     });
 
 		return (
-		<div>
+		<div className={c}>
 				<RaisedButton
 					label='Phrase Mode'
 					style={style}
