@@ -1,7 +1,7 @@
-import Dashboard from '../../containers/contentPages/dashboard';
-import Overview from '../../containers/contentPages/playerOverview';
-import Campaign from '../../components/campaign';
-import Stats from '../../components/stats';
+import Dashboard from '../../dashboard';
+import Overview from '../../dashboard/playerOverview';
+import Campaign from '../../campaign';
+import Stats from '../../stats';
 
 import campaignRoute from './campaign';
 import statsRoute from './stats';

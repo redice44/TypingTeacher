@@ -2,20 +2,20 @@ import { combineReducers } from 'redux';
 import { browserHistory } from 'react-router';
 import { routerReducer } from 'react-router-redux';
 
-import gameReducer from './game';
-import accountReducer from './account';
-import notificationReducer from './notification';
-import campaignReducer from './campaign';
-import dashboardReducer from './dashboard';
-import historyReducer from './history';
+import gameReducer from './game/reducer';
+import userReducer from './user/reducer';
+import notificationReducer from './notification/reducer';
+// import campaignReducer from './campaign';
+// import dashboardReducer from './dashboard';
+import historyReducer from './history/reducer';
 
 const appReducers = combineReducers({
   game: gameReducer,
-  account: accountReducer,
+  account: userReducer,
   notification: notificationReducer,
-  campaign: campaignReducer,
+  // campaign: campaignReducer,
   routing: routerReducer,
-  dashboard: dashboardReducer
+  // dashboard: dashboardReducer
 });
 
 export default appReducers;

@@ -1,6 +1,6 @@
 import request from 'superagent';
 
-import accountUtil from '../../util/account';
+import accountUtil from '../user/constants';
 
 const authenticate = (nextState, replace, cb) => {
   request

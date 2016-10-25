@@ -4,8 +4,8 @@ import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import ComputerIcon from 'material-ui/svg-icons/hardware/computer';
 
-import AccountIconButton from '../../containers/account.js';
-import TestAccountButton from '../../containers/testAccount.js';
+import AccountIconButton from '../user/accountButton';
+import TestAccountButton from '../testAccount/testAccount.js';
 
 export default class Header extends React.Component {
   constructor(props) {

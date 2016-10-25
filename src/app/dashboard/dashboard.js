@@ -4,10 +4,10 @@ import SwipeableViews from 'react-swipeable-views';
 import { Tabs, Tab } from 'material-ui/Tabs';
 
 import Campaign from '../campaign';
-import Overview from '../../containers/contentPages/playerOverview';
+import Overview from './playerOverview';
 import Stats from '../stats';
 
-import util from '../../../util/dashboard';
+import util from './constants';
 
 const Dashboard = (props) => {
   const c = classNames({

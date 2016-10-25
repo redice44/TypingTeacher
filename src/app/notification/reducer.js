@@ -1,7 +1,7 @@
 import reducersInit from './init.js';
 import ACTION_TYPE from './actionTypes.js';
 
-import util from '../../../util/notification';
+import util from './constants';
 
 const notificationReducer = (state = reducersInit, action) => {
   switch (action.type) {

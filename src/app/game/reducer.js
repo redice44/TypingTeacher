@@ -1,7 +1,7 @@
 import reducersInit from './init.js';
 import ACTION_TYPE from './actionTypes.js';
 
-import util from '../../../util/game';
+import util from './constants';
 
 const gameReducer = (state = reducersInit, action) => {
   switch (action.type) {

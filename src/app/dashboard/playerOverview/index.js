@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import actionTypes from '../../../reducers/dashboard/actionTypes.js';
+import actionTypes from '../actionTypes.js';
 import {
   updateTab
-} from '../../../reducers/dashboard/actions.js';
-import Overview from '../../../contentPages/overview';
+} from '../actions.js';
+import Overview from './overview';
 
-import util from '../../../../util/dashboard';
+import util from '../constants';
 
 // Convert store state to props to be passed to component
 const mapStateToProps = (state, ownProps) => {

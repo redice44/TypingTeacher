@@ -1,4 +1,4 @@
-import accountUtil from '../../../util/account';
+import accountUtil from './constants';
 
 const init = {
   currentTab: 0,

@@ -1,4 +1,4 @@
-import gameUtil from '../../../util/game';
+import gameUtil from './constants';
 
 const init = {
   results: {},

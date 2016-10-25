@@ -6,7 +6,7 @@ import SwipeableViews from 'react-swipeable-views';
 import TextField from 'material-ui/TextField';
 import { Tabs, Tab } from 'material-ui/Tabs';
 
-import accountUtil from '../../../../../util/account';
+import accountUtil from '../../constants';
 
 export default class AccountModal extends React.Component{
   constructor(props) {

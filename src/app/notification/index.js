@@ -3,7 +3,7 @@ import React from 'react';
 // Material UI Components
 import Snackbar from 'material-ui/Snackbar';
 
-import util from '../../../util/notification';
+import util from './constants';
 
 const Notification = (props) => {
   let styleClass = 'notification';

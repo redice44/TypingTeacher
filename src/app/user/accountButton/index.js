@@ -8,7 +8,7 @@ import LogoutIcon from 'material-ui/svg-icons/action/power-settings-new';
 // Custom Components
 import Modal from './modal';
 
-import accountUtil from '../../../../util/account';
+import accountUtil from '../constants';
 
 const AccountButton = (props) => {
   return (

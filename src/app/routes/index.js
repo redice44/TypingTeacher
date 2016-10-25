@@ -1,5 +1,5 @@
-import App from '../components/app';
-import MainPage from '../contentPages/main';
+import App from '../app';
+import MainPage from '../game';
 
 import dashboardRoute from './dashboard';
 
@@ -10,7 +10,7 @@ let route = {
     component: MainPage
   },
   childRoutes: [
-    dashboardRoute
+    //dashboardRoute
   ]
 };
 
