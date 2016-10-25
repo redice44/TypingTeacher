@@ -5,7 +5,7 @@ import IconButton from 'material-ui/IconButton';
 import ComputerIcon from 'material-ui/svg-icons/hardware/computer';
 
 import AccountIconButton from '../user/accountButton';
-import TestAccountButton from '../testAccount/testAccount.js';
+import TestAccountButton from '../testAccount';
 
 export default class Header extends React.Component {
   constructor(props) {

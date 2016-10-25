@@ -1,4 +1,4 @@
-import campaignUtil from '../../../util/campaign';
+import campaignUtil from './constants';
 
 const init = {
   levels: [

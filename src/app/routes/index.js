@@ -10,7 +10,7 @@ let route = {
     component: MainPage
   },
   childRoutes: [
-    //dashboardRoute
+    dashboardRoute
   ]
 };
 

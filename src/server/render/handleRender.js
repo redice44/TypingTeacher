@@ -8,12 +8,12 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { deepOrange500 } from 'material-ui/styles/colors';
 
 import appReducers from '../../app/reducers';
-import App from '../../app/components/App';
+import App from '../../app/app.js';
 import renderFullPage from './renderFullPage';
 // import routes from '../../app/routes/baseRoutes.js';
 import routes from '../../app/routes/';
 
-import { routeLocationDidUpdate } from '../../app/reducers/history/actions';
+import { routeLocationDidUpdate } from '../../app/history/actions';
 
 const handleRender = (req, res, next) => {
   match({routes, location: req.url}, (err, redirectLocation, renderProps) => {

@@ -1,7 +1,7 @@
 import reducersInit from './init.js';
 import ACTION_TYPE from './actionTypes.js';
 
-import campaignUtil from '../../../util/campaign';
+import campaignUtil from './constants';
 
 const accountReducer = (state = reducersInit, action) => {
   let lv;

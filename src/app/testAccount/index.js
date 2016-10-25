@@ -2,19 +2,19 @@ import request from 'superagent';
 
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import actionTypes from '../reducers/account/actionTypes.js';
+import actionTypes from '../user/actionTypes.js';
 import {
   signinAccount,
   updatePlayer,
   updateAuth
-} from '../reducers/account/actions.js';
+} from '../user/actions.js';
 import {
   sendMessage,
   sendError,
   sendSuccess
-} from '../reducers/notification/actions.js';
-import accountUtil from '../../util/account';
-import AccountButton from '../components/header/testAccount';
+} from '../notification/actions.js';
+import accountUtil from '../user/constants';
+import AccountButton from './testAccount';
 
 // Convert store state to props to be passed to component
 const mapStateToProps = (state, ownProps) => {

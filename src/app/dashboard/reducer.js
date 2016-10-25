@@ -2,7 +2,7 @@ import reducersInit from './init.js';
 import ACTION_TYPE from './actionTypes.js';
 import HISTORY_AT from '../history/actionTypes';
 
-import util from '../../../util/dashboard'
+import util from './constants'
 
 const dashboardReducer = (state = reducersInit, action) => {
   switch (action.type) {

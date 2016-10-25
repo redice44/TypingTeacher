@@ -1,6 +1,4 @@
-import request from 'superagent';
-
-import accountUtil from '../../../util/account';
+import accountUtil from './constants';
 import ACTION_TYPE from './actionTypes.js';
 
 export const updateModal = (state) => {

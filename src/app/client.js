@@ -12,19 +12,19 @@ import App from './app.js';
 import appReducers from './reducers.js';
 
 import routes from './routes';
-// import { routeLocationDidUpdate } from './reducers/history/actions';
+import { routeLocationDidUpdate } from './history/actions';
 
 const initialState = window.__INITIAL_STATE__;
 const middleware = routerMiddleware(browserHistory);
 const store = createStore(appReducers, initialState, applyMiddleware(middleware));
 const history = syncHistoryWithStore(browserHistory, store);
+const muiTheme = getMuiTheme();
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
 browserHistory.listen(() => store.dispatch(routeLocationDidUpdate(location)));
-
 render(
   <MuiThemeProvider muiTheme={ muiTheme }>
     <Provider store = { store }>
