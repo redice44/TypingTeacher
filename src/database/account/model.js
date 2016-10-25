@@ -7,7 +7,8 @@ const Schema = mongoose.Schema;
 let Account = new Schema({
   email: String,
   wpm: Number,
-  acc: Number
+  acc: Number,
+  campaignList: [Schema.Types.ObjectId]
 });
 
 Account.plugin(passportLocalMongoose);

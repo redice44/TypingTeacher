@@ -29,7 +29,6 @@ const Campaign = () => {
         }}
       >Clicky
       </RaisedButton>
-      <CampaignList />
 
     </div>
   );

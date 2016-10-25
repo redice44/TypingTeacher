@@ -1,32 +1,60 @@
-import request from 'superagent';
+import React from 'react';
 
-import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
-import actionTypes from '../actionTypes.js';
-import {
-} from '../actions.js';
-import CampaignList from './campaignList';
+import { List, ListItem } from 'material-ui/List';
+import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
+import IconButton from 'material-ui/IconButton';
+import AddIcon from 'material-ui/svg-icons/content/add';
+import PlayIcon from 'material-ui/svg-icons/av/play-circle-outline';
+import MoreIcon from 'material-ui/svg-icons/navigation/more-horiz';
 
-// Convert store state to props to be passed to component
-const mapStateToProps = (state, ownProps) => {
-  // ownProps are props sent to the component
-  return {
-    // Set props to send
-    campaignList: state.campaign.campaignList
-  };
+export default class CampaignList extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    console.log(this.props);
+    let campaigns = this.props.campaignList.map((camp) => {
+      return (
+        <ListItem
+          primaryText={camp.name}
+          // TODO: Make these icon buttons
+          leftIcon={<PlayIcon />}
+          rightIcon={<MoreIcon />}
+        />
+      );
+    });
+
+    return (
+      <div>
+        <Toolbar>
+          <ToolbarGroup
+          >
+            <ToolbarTitle
+              text='Campaign List'
+            />
+          </ToolbarGroup>
+          <ToolbarGroup
+            lastChild={true}
+            style={{alignItems: 'center'}}
+          >
+            <IconButton
+              onTouchTap={ () => {
+                this.context.router.push('/campaign/create');
+              }}
+            >
+              <AddIcon />
+            </IconButton>
+          </ToolbarGroup>
+        </Toolbar>
+        <List>
+          {campaigns}
+        </List>
+      </div>
+    );
+  }
 };
 
-// Creates props that will dispatch actions
-const mapDispatchToProps = (dispatch, ownProps) => {
-  // ownProps are props sent to the component
-  return {
-    // Actions to send
-  };
+CampaignList.contextTypes = {
+  router: React.PropTypes.object
 };
-
-const CampaignListContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CampaignList);
-
-export default CampaignListContainer;

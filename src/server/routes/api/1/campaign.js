@@ -2,6 +2,7 @@ import Express from 'express';
 let router = Express.Router();
 
 import Campaign from '../../../../database/campaign/model';
+import Account from '../../../../database/account/model';
 
 const makeCampaign = (req, res, next) => {
   let camp = new Campaign({
@@ -25,7 +26,22 @@ const makeCampaign = (req, res, next) => {
       return next(err);
     }
 
-    return res.json({campaign: camp});
+    Account.findOne({ 'username': 'test' }, (err, user) => {
+      if (err) {
+        return next(err);
+      }
+
+      console.log('found test user', user);
+
+      user.campaignList.push(camp._id);
+      user.save((err) => {
+        if (err) {
+          return next(err);
+        }
+        console.log('Updated test user');
+        return res.json({campaign: camp});
+      });
+    });
   });
 };
 

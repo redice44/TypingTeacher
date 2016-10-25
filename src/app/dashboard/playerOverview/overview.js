@@ -11,7 +11,7 @@ const playerOverviewStats = (props) => {
       flexGrow: 1
     }
   };
-
+  console.log('Current User', props.user);
   return (
     <div style={styles.root}>
       <div style={styles.sections}>
@@ -20,7 +20,7 @@ const playerOverviewStats = (props) => {
         <p>Acc: { props.user.acc }</p>
       </div>
       <div style={styles.sections}>
-        <CampaignList />
+        <CampaignList campaignList={ props.user.campaignList }/>
       </div>
     </div>
   );

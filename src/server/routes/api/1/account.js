@@ -11,7 +11,8 @@ router.post('/register', (req, res, next) => {
       username: req.body.username,
       email: req.body.email,
       wpm: 0,
-      acc: 100
+      acc: 100,
+      campaignList: []
     }),
     req.body.password,
     (err, account) => {
@@ -31,7 +32,8 @@ router.post('/register', (req, res, next) => {
             user: {
               name: account.username,
               wpm: account.wpm,
-              acc: account.acc
+              acc: account.acc,
+              campaignList: account.campaignList
             },
             authenticated: true
           });
@@ -46,7 +48,8 @@ router.post('/signin', passport.authenticate('local'), (req, res, next) => {
     user: {
       name: req.user.username,
       wpm: req.user.wpm,
-      acc: req.user.acc
+      acc: req.user.acc,
+      campaignList: req.user.campaignList
     }
   });
 });
@@ -67,7 +70,8 @@ router.get('/validate', (req, res, next) => {
     user: {
       name: req.user.username,
       wpm: req.user.wpm,
-      acc: req.user.acc
+      acc: req.user.acc,
+      campaignList: req.user.campaignList
     },
   });
 });
