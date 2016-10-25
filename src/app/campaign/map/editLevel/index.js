@@ -71,22 +71,29 @@ export default class EditLevel extends React.Component {
             step={1}
             value={2}
           />
-          <RaisedButton
-            onTouchTap={() => {
-              let lv = this.props.level;
-              if (this.props.part === 0) {
-                lv.wpm = this.state.lv.wpm;
-                lv.acc = this.state.lv.acc;
-              } else {
-                lv.wpm[this.props.part-1] = this.state.lv.wpm;
-                lv.acc[this.props.part-1] = this.state.lv.acc;
-              }
-              this.props.setLevel(this.props.level, lv);
-              this.props.editLevel(-1, 0);
-            }}
-          >
-            Save
-          </RaisedButton>
+          <div>
+            <RaisedButton
+              onTouchTap={() => {
+                let lv = this.props.level;
+                if (this.props.part === 0) {
+                  lv.wpm = this.state.lv.wpm;
+                  lv.acc = this.state.lv.acc;
+                } else {
+                  lv.wpm[this.props.part-1] = this.state.lv.wpm;
+                  lv.acc[this.props.part-1] = this.state.lv.acc;
+                }
+                this.props.setLevel(this.props.level, lv);
+                this.props.editLevel(-1, 0);
+              }}
+            >
+              Save
+            </RaisedButton>
+            <RaisedButton
+              onTouchTap={() => this.props.editLevel(-1, 0) }
+            >
+              Cancel
+            </RaisedButton>
+          </div>
       </Paper>
     );
   }
