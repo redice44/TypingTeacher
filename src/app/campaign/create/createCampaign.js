@@ -28,25 +28,44 @@ export default class CreateCampaign extends React.Component {
       'content': true
     });
 
+    const styles = {
+      inputs: {
+        display: 'flex',
+        justifyContent: 'center'
+      },
+      buttons: {
+        display: 'flex',
+        marginLeft: '100px',
+        alignItems: 'center'
+      },
+      btn: {
+        margin: '10px'
+      }
+    };
+
     return (
       <Paper zDepth={1}>
-        <TextField
-          onChange={this.handleChange}
-          floatingLabelText='Campaign Name'
-        /><br />
-        <RaisedButton
-          label='Save'
-          onTouchTap={() => {
-            let camp = {
-              levels: this.props.levels,
-              name: this.state.name
-            };
-            this.props.addCampaign(camp);
-          }}
-        /><br />
-        <RaisedButton
-          label='Cancel'
-        /><br />
+        <div style={styles.inputs}>
+          <TextField
+            onChange={this.handleChange}
+            floatingLabelText='Campaign Name'
+          />
+          <div style={styles.buttons}>
+            <RaisedButton style={styles.btn}
+              label='Save'
+              onTouchTap={() => {
+                let camp = {
+                  levels: this.props.levels,
+                  name: this.state.name
+                };
+                this.props.addCampaign(camp);
+              }}
+            />
+            <RaisedButton
+              label='Cancel'
+            />
+          </div>
+        </div>
         <CampaignMap />
       </Paper>
     );
