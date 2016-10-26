@@ -19,7 +19,7 @@ export default class CampaignList extends React.Component {
       campaigns = this.props.campaignList.map((camp, i) => {
         return (
           <ListItem key={i}
-            primaryText={camp.name}
+            primaryText={camp.name ? camp.name : 'Untitled'}
             // TODO: Make these icon buttons
             leftIcon={<PlayIcon />}
             rightIcon={<MoreIcon />}
@@ -42,6 +42,8 @@ export default class CampaignList extends React.Component {
             style={{alignItems: 'center'}}
           >
             <IconButton
+              tooltip='Create New Campaign'
+              tooltipPosition='bottom-left'
               onTouchTap={ () => {
                 //this.context.router.push('/campaign/create');
                 this.props.updateCreating(!this.props.isCreating);

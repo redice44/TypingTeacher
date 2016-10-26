@@ -65,3 +65,9 @@ export const isCreating = (cbool) => {
     }
   };
 };
+
+export const resetLevel = (cbool) => {
+  return {
+    type: ACTION_TYPE.resetLevel
+  };
+};

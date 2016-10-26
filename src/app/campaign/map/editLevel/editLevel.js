@@ -53,6 +53,7 @@ export default class EditLevel extends React.Component {
     const styles = {
       root: {
         width: '100%',
+        padding: '20px',
         display: this.props.editLevelIndex !== -1 ? 'flex' : 'none',
         flexDirection: 'column',
         alignItems: 'center'

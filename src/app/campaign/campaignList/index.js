@@ -15,7 +15,8 @@ import util from '../constants';
 const mapStateToProps = (state, ownProps) => {
   // ownProps are props sent to the component
   let c = [];
-  if (state.account.player && state.account.player.campaigList) {
+  console.log('state account', state.account);
+  if (state.account.player && state.account.player.campaignList) {
     c = state.account.player.campaignList;
   }
   return {

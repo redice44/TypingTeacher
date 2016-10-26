@@ -5,7 +5,9 @@ import { push } from 'react-router-redux';
 import actionTypes from '../actionTypes.js';
 import {
   addCampaign,
-  isCreating
+  isCreating,
+  resetLevel,
+  editLevel
 } from '../actions.js';
 import CreateCampaign from './createCampaign';
 
@@ -44,6 +46,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     updateCreating: (cBool) => {
       dispatch(isCreating(cBool));
+    },
+    resetLevel: () => {
+      dispatch(resetLevel());
+    },
+    editLevel: (i, part) => {
+      dispatch(editLevel(i, part));
     }
   };
 };

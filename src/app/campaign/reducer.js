@@ -64,6 +64,39 @@ const accountReducer = (state = reducersInit, action) => {
       return updateState(state, {
         isCreating: action.data.isCreating
       });
+    case ACTION_TYPE.resetLevel:
+      console.log('Resetting Levels');
+      const level = [
+        {
+          state: campaignUtil.c.READY,
+          wpm: 0,
+          acc: 0
+        },
+        {
+          state: campaignUtil.c.EMPTY,
+          wpm: 0,
+          acc: 0
+        },
+        {
+          state: campaignUtil.c.EMPTY,
+          wpm: 0,
+          acc: 0
+        },
+        {
+          state: campaignUtil.c.EMPTY,
+          wpm: 0,
+          acc: 0
+        },
+        {
+          state: campaignUtil.c.EMPTY,
+          wpm: 0,
+          acc: 0
+        }
+      ];
+
+      return updateState(state, {
+        levels: level
+      });
     default:
       return state;
   }

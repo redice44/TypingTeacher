@@ -15,6 +15,17 @@ export default class CreateCampaign extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.reset = this.reset.bind(this);
+  }
+
+  reset() {
+    console.log('resetting');
+    this.setState({
+      name: ''
+    });
+    this.props.updateCreating(false);
+    this.props.resetLevel();
+    this.props.editLevel(-1, 0);
   }
 
   handleChange(e) {
@@ -50,6 +61,7 @@ export default class CreateCampaign extends React.Component {
       <Paper zDepth={1} style={styles.root}>
         <div style={styles.inputs}>
           <TextField
+            value={this.state.name}
             onChange={this.handleChange}
             floatingLabelText='Campaign Name'
           />
@@ -62,13 +74,13 @@ export default class CreateCampaign extends React.Component {
                   name: this.state.name
                 };
                 this.props.addCampaign(camp);
-                this.props.updateCreating(false);
+                this.reset();
               }}
             />
             <RaisedButton
               label='Cancel'
               onTouchTap={() => {
-                this.props.updateCreating(false);
+                this.reset();
               }}
             />
           </div>
