@@ -7,6 +7,8 @@ import AddIcon from 'material-ui/svg-icons/content/add';
 import PlayIcon from 'material-ui/svg-icons/av/play-circle-outline';
 import MoreIcon from 'material-ui/svg-icons/navigation/more-horiz';
 
+import CampaignSingle from '../single/singleCampaign';
+
 export default class CampaignList extends React.Component {
   constructor(props) {
     super(props);
@@ -26,17 +28,23 @@ export default class CampaignList extends React.Component {
         return (
           <ListItem key={i}
             primaryText={camp.name ? camp.name : 'Untitled'}
+            initiallyOpen={false}
+            primaryTogglesNestedList={true}
+            nestedItems={[<CampaignSingle key={`${i}-${camp.name}`}campaign={camp} />]}
             // TODO: Make these icon buttons
             leftIcon={<PlayIcon />}
-            rightIcon={<MoreIcon />}
           />
         );
       });
     }
-
+    /*
+    onTouchTap={() => {
+      console.log('clicking camp', camp._id);
+      this.props.selectCampaign(camp);
+    }}
+    */
     return (
       <div>
-
         <List>
           <ListItem
             primaryText='Campaign List'
@@ -65,30 +73,3 @@ export default class CampaignList extends React.Component {
 CampaignList.contextTypes = {
   router: React.PropTypes.object
 };
-
-
-/*
-  <Toolbar>
-    <ToolbarGroup
-    >
-      <ToolbarTitle
-        text='Campaign List'
-      />
-    </ToolbarGroup>
-    <ToolbarGroup
-      lastChild={true}
-      style={{alignItems: 'center'}}
-    >
-      <IconButton
-        tooltip='Create New Campaign'
-        tooltipPosition='bottom-left'
-        onTouchTap={ () => {
-          //this.context.router.push('/campaign/create');
-          this.props.updateCreating(!this.props.isCreating);
-        }}
-      >
-        <AddIcon />
-      </IconButton>
-    </ToolbarGroup>
-  </Toolbar>
-  */

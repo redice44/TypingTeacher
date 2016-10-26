@@ -5,7 +5,9 @@ const Schema = mongoose.Schema;
 let LevelSchema = new Schema({
   wpm: Number,
   acc: Number,
-  difficulty: Number
+  difficulty: Number,
+  timer: Boolean,
+  state: String
 });
 
 let CampaignSchema = new Schema({

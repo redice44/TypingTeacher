@@ -66,8 +66,17 @@ export const isCreating = (cbool) => {
   };
 };
 
-export const resetLevel = (cbool) => {
+export const resetLevel = () => {
   return {
     type: ACTION_TYPE.resetLevel
+  };
+};
+
+export const selectCampaign = (camp) => {
+  return {
+    type: ACTION_TYPE.selectCampaign,
+    data: {
+      camp: camp
+    }
   };
 };

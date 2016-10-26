@@ -97,6 +97,12 @@ const accountReducer = (state = reducersInit, action) => {
       return updateState(state, {
         levels: level
       });
+    case ACTION_TYPE.selectCampaign:
+      console.log(`Selecting Campaign ${action.data.camp._id}`, action.data.camp);
+
+      return updateState(state, {
+        selectedCampaign: action.data.camp
+      });
     default:
       return state;
   }

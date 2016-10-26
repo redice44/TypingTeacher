@@ -42,7 +42,8 @@ const init = {
   campaignList: [],
   editLevelIndex: -1,
   part: 0,
-  isCreating: false
+  isCreating: false,
+  selectedCampaign: {}
 };
 
 export default init;

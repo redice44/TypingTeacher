@@ -5,6 +5,7 @@ import IconButton from 'material-ui/IconButton';
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 
 const MapLevel = (props) => {
+  console.log('=== Render: Level');
   const styles = {
     root: {
       margin: '20px',

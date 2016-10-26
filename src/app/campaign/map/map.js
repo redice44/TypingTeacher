@@ -41,6 +41,9 @@ export default class CampaignMap extends React.Component {
   constructor(props) {
     super(props);
   }
+  componentWillReceiveProps(nextProps) {
+    console.log('map will', nextProps);
+  }
 
   render () {
     let gridLevels = this.props.levels.map((level, i) => {
@@ -84,7 +87,7 @@ export default class CampaignMap extends React.Component {
           // Do nothing
       }
     });
-
+    
     return (
       <Paper zDepth={1} style={styles.root}>
         <GridList

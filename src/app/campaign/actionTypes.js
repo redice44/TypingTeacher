@@ -6,7 +6,8 @@ const actionTypes = {
   isCreating: 'CAMPAIGN_CREATING',
   updateModal: 'CAMPAIGN_UPDATE_MODAL',
   updateLevelType: 'CAMPAIGN_UPDATE_LEVEL_TYPE',
-  resetLevel: 'CAMPAIGN_LEVEL'
+  resetLevel: 'CAMPAIGN_LEVEL',
+  selectCampaign: 'CAMPAIGN_SELECT'
 };
 
 export default actionTypes;

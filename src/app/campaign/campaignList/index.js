@@ -5,7 +5,8 @@ import { push } from 'react-router-redux';
 import actionTypes from '../actionTypes.js';
 import {
   addCampaign,
-  isCreating
+  isCreating,
+  selectCampaign
 } from '../actions.js';
 import CampaignList from './campaignList';
 
@@ -33,6 +34,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     // Actions to send
     updateCreating: (cBool) => {
       dispatch(isCreating(cBool));
+    },
+    selectCampaign: (camp) => {
+      dispatch(selectCampaign(camp));
     }
   };
 };

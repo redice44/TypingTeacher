@@ -17,7 +17,12 @@ export default class AddLevel extends React.Component {
     super(props);
   }
 
+  componentWillReceiveProps(nextProps) {
+    console.log('add level will', nextProps);
+  }
+
   render() {
+    console.log('flag');
     return (
       <div style={styles}>
         <FloatingActionButton
