@@ -29,11 +29,15 @@ export default class AddLevel extends React.Component {
               state: campaignUtil.c.SPLIT,
               part1: {
                 wpm: 0,
-                acc: 0
+                acc: 0,
+                difficulty: 2,
+                timer: false
               },
               part2: {
                 wpm: 0,
-                acc: 0
+                acc: 0,
+                difficulty: 2,
+                timer: false
               }
             };
             console.log('FAB1 sending', this.props.index, lv);
@@ -48,6 +52,8 @@ export default class AddLevel extends React.Component {
               state: campaignUtil.c.SINGLE,
               wpm: 0,
               acc: 0,
+              difficulty: 2,
+              timer: false
             });
           }}
         >
@@ -62,11 +68,15 @@ export default class AddLevel extends React.Component {
                 state: campaignUtil.c.SPLIT,
                 part1: {
                   wpm: 0,
-                  acc: 0
+                  acc: 0,
+                  difficulty: 2,
+                  timer: false
                 },
                 part2: {
                   wpm: 0,
-                  acc: 0
+                  acc: 0,
+                  difficulty: 2,
+                  timer: false
                 }
               };
               console.log('FAB3 sending', this.props.index, lv);

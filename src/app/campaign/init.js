@@ -5,27 +5,37 @@ const init = {
     {
       state: campaignUtil.c.READY,
       wpm: 0,
-      acc: 0
+      acc: 0,
+      difficulty: 2,
+      timer: false
     },
     {
       state: campaignUtil.c.EMPTY,
       wpm: 0,
-      acc: 0
+      acc: 0,
+      difficulty: 2,
+      timer: false
     },
     {
       state: campaignUtil.c.EMPTY,
       wpm: 0,
-      acc: 0
+      acc: 0,
+      difficulty: 2,
+      timer: false
     },
     {
       state: campaignUtil.c.EMPTY,
       wpm: 0,
-      acc: 0
+      acc: 0,
+      difficulty: 2,
+      timer: false
     },
     {
       state: campaignUtil.c.EMPTY,
       wpm: 0,
-      acc: 0
+      acc: 0,
+      difficulty: 2,
+      timer: false
     }
   ],
   modalState: campaignUtil.c.CLOSED,

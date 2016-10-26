@@ -14,16 +14,36 @@ export default class EditLevel extends React.Component {
       lv: {
         wpm: '',
         acc: '',
-        difficulty: 0
+        difficulty: 2,
+        timer: false
       }
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleSliderChange = this.handleSliderChange.bind(this);
   }
 
   handleChange(e) {
     let lv = {};
-    lv[e.target.name] = e.target.value;
+    let value = e.target.value;
+    switch (e.target.name) {
+      case 'timer':
+        value = e.target.checked;
+        break;
+      default:
+        // Do nothing
+    }
+    lv[e.target.name] = value;
+    this.setState({
+      lv: Object.assign({}, this.state.lv, lv)
+    });
+  }
+
+  handleSliderChange(e, v) {
+    let lv = {
+      difficulty: v
+    };
+
     this.setState({
       lv: Object.assign({}, this.state.lv, lv)
     });
@@ -36,14 +56,19 @@ export default class EditLevel extends React.Component {
       case 1:
         lv.wpm = lv.part1.wpm;
         lv.acc = lv.part1.acc;
+        lv.difficulty = lv.part1.difficulty;
+        lv.timer = lv.part1.timer;
         break;
       case 2:
         lv.wpm = lv.part2.wpm;
         lv.acc = lv.part2.acc;
+        lv.difficulty = lv.part2.difficulty;
+        lv.timer = lv.part2.timer;
         break;
       default:
         // Do nothing
     }
+    console.log(lv);
     this.setState({
       lv: lv
     });
@@ -92,15 +117,18 @@ export default class EditLevel extends React.Component {
             <p>Difficulty</p>
             <Slider
               name='difficulty'
+              value={this.state.lv.difficulty}
               min={1}
               max={4}
               step={1}
-              value={2}
+              onChange={this.handleSliderChange}
             />
           </div>
           <Toggle
             label='Timer'
-            defaultToggled={true}
+            name='timer'
+            toggled={this.state.lv.timer}
+            onToggle={this.handleChange}
           />
         </div>
         <div style={{margin: '20px'}}>
@@ -111,18 +139,28 @@ export default class EditLevel extends React.Component {
                 case 0:
                   lv.wpm = this.state.lv.wpm;
                   lv.acc = this.state.lv.acc;
+                  lv.difficulty = this.state.lv.difficulty;
+                  lv.timer = this.state.lv.timer;
                   break;
                 case 1:
                   lv.part1.wpm = this.state.lv.wpm;
                   lv.part1.acc = this.state.lv.acc;
+                  lv.part1.difficulty = this.state.lv.difficulty;
+                  lv.part1.timer = this.state.lv.timer;
                   lv.wpm = -1;
                   lv.acc = -1;
+                  lv.difficulty = -1;
+                  lv.timer = -1;
                   break;
                 case 2:
                   lv.part2.wpm = this.state.lv.wpm;
-                  lv.part2.acc = this.state.lv.acc;
+                  lv.part2.acc = this.state.lv.acc;;
+                  lv.part2.difficulty = this.state.lv.difficulty;
+                  lv.part2.timer = this.state.lv.timer;
                   lv.wpm = -1;
                   lv.acc = -1;
+                  lv.difficulty = -1;
+                  lv.timer = -1;
                   break;
                 default:
                   // Do nothing
