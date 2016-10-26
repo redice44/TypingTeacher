@@ -48,10 +48,6 @@ export default class CampaignMap extends React.Component {
   render () {
     let gridLevels = this.props.levels.map((level, i) => {
       switch (level.state) {
-        case campaignUtil.c.EMPTY:
-          return (
-            <GridTile key={i} style={styles.gridTile} />
-          );
         case campaignUtil.c.SINGLE:
           return (
             <GridTile key={i} style={styles.gridTile}
@@ -75,19 +71,25 @@ export default class CampaignMap extends React.Component {
             </GridTile>
           );
         case campaignUtil.c.READY:
+          if (this.props.isEditing) {
+            return (
+              <GridTile
+                key={i}
+                style={{display: 'flex', justifyContent: 'center'}}
+              >
+                <AddLevel setLevel={this.props.setLevel} index={i} />
+              </GridTile>
+            );
+          }
+        case campaignUtil.c.EMPTY:
           return (
-            <GridTile
-              key={i}
-              style={{display: 'flex', justifyContent: 'center'}}
-            >
-              <AddLevel setLevel={this.props.setLevel} index={i} />
-            </GridTile>
+            <GridTile key={i} style={styles.gridTile} />
           );
         default:
           // Do nothing
       }
     });
-    
+
     return (
       <Paper zDepth={1} style={styles.root}>
         <GridList

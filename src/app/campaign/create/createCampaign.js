@@ -85,7 +85,7 @@ export default class CreateCampaign extends React.Component {
             />
           </div>
         </div>
-        <CampaignMap />
+        <CampaignMap isEditing={true}/>
       </Paper>
     );
   }
