@@ -135,18 +135,21 @@ export default class EditLevel extends React.Component {
           <RaisedButton
             onTouchTap={() => {
               let lv = this.props.levels[this.props.editLevelIndex];
+              // Validate first
               switch (this.props.part) {
                 case 0:
                   lv.wpm = this.state.lv.wpm;
                   lv.acc = this.state.lv.acc;
                   lv.difficulty = this.state.lv.difficulty;
                   lv.timer = this.state.lv.timer;
+                  lv.pulse = 'success';
                   break;
                 case 1:
                   lv.part1.wpm = this.state.lv.wpm;
                   lv.part1.acc = this.state.lv.acc;
                   lv.part1.difficulty = this.state.lv.difficulty;
                   lv.part1.timer = this.state.lv.timer;
+                  lv.part1.pulse = 'success';
                   lv.wpm = -1;
                   lv.acc = -1;
                   lv.difficulty = -1;
@@ -157,6 +160,7 @@ export default class EditLevel extends React.Component {
                   lv.part2.acc = this.state.lv.acc;;
                   lv.part2.difficulty = this.state.lv.difficulty;
                   lv.part2.timer = this.state.lv.timer;
+                  lv.part2.pulse = 'success';
                   lv.wpm = -1;
                   lv.acc = -1;
                   lv.difficulty = -1;
