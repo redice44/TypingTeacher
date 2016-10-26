@@ -35,15 +35,15 @@ body {
   background-color: transparent;
 }
 
-.pulse-error {
+.pulse-red {
   animation-duration: 1s;
   animation-timing-function: ease-in-out;
-  animation-name: pulse-error;
+  animation-name: pulse-red;
   animation-iteration-count: infinite;
   animation-direction: alternate;
 }
 
-@keyframes pulse-error {
+@keyframes pulse-red {
   from {
   box-shadow: 0 0 15px red;
   }
@@ -52,15 +52,15 @@ body {
   box-shadow: 0 0 35px red;
   }
 }
-.pulse-success {
+.pulse-green {
   animation-duration: 1s;
   animation-timing-function: ease-in-out;
-  animation-name: pulse-success;
+  animation-name: pulse-green;
   animation-iteration-count: infinite;
   animation-direction: alternate;
 }
 
-@keyframes pulse-success {
+@keyframes pulse-green {
   from {
   box-shadow: 0 0 15px green;
   }
@@ -69,15 +69,15 @@ body {
   box-shadow: 0 0 35px green;
   }
 }
-.pulse-active {
+.pulse-blue {
   animation-duration: 1s;
   animation-timing-function: ease-in-out;
-  animation-name: pulse-active;
+  animation-name: pulse-blue;
   animation-iteration-count: infinite;
   animation-direction: alternate;
 }
 
-@keyframes pulse-active {
+@keyframes pulse-blue {
   from {
   box-shadow: 0 0 15px blue;
   }

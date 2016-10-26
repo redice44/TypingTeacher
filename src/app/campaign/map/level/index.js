@@ -43,9 +43,9 @@ const MapLevel = (props) => {
 
   const classes = classNames({
     'level': true,
-    'pulse-error': pulse === 'error',
-    'pulse-success': pulse === 'success',
-    'pulse-active': pulse === 'active'
+    'pulse-red': pulse === 'red',
+    'pulse-green': pulse === 'green',
+    'pulse-blue': pulse === 'blue'
   });
 
   return (
