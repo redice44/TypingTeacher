@@ -6,6 +6,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import CampaignMap from '../map';
+import util from '../constants';
 
 export default class CreateCampaign extends React.Component {
   constructor(props) {
@@ -19,9 +20,14 @@ export default class CreateCampaign extends React.Component {
   }
 
   reset() {
-    console.log('resetting');
+    console.log('campaign/create: Resetting State');
+    let error = {
+      wpm: '',
+      acc: ''
+    };
     this.setState({
-      name: ''
+      name: '',
+      errorMsg: error
     });
     this.props.updateCreating(false);
     this.props.resetLevel();
@@ -69,12 +75,27 @@ export default class CreateCampaign extends React.Component {
             <RaisedButton style={styles.btn}
               label='Save'
               onTouchTap={() => {
-                let camp = {
-                  levels: this.props.levels,
-                  name: this.state.name
-                };
-                this.props.addCampaign(camp);
-                this.reset();
+                // If all levels added are ready to go
+                if (this.props.levels.every((lv) => {
+                  console.log(lv);
+                  if (lv.state === util.c.SINGLE) {
+                    return lv.pulse === 'green'; // ready level
+                  } else if (lv.state === util.c.SPLIT){
+                    return lv.part1.pulse && lv.part1.pulse === 'green' &&
+                      lv.part2.pulse && lv.part2.pulse === 'green';
+                  }
+                  return true;
+                })) {
+                  console.log('all levels saved');
+                  let camp = {
+                    levels: this.props.levels,
+                    name: this.state.name
+                  };
+                  this.props.addCampaign(camp);
+                  this.reset();
+                } else {
+                  console.log('levels need to be saved still');
+                }
               }}
             />
             <RaisedButton

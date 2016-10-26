@@ -16,6 +16,10 @@ export default class EditLevel extends React.Component {
         acc: '',
         difficulty: 2,
         timer: false
+      },
+      errorMsg: {
+        wpm: '',
+        acc: ''
       }
     };
 
@@ -100,12 +104,14 @@ export default class EditLevel extends React.Component {
           name='wpm'
           value={this.state.lv.wpm}
           floatingLabelText='Required Words Per Minute'
+          errorText={this.state.errorMsg.wpm}
           onChange={this.handleChange}
         /><br />
         <TextField
           name='acc'
           value={this.state.lv.acc}
           floatingLabelText='Required Accuracy %'
+          errorText={this.state.errorMsg.acc}
           onChange={this.handleChange}
         />
         <div style={{
@@ -134,43 +140,63 @@ export default class EditLevel extends React.Component {
         <div style={{margin: '20px'}}>
           <RaisedButton
             onTouchTap={() => {
+              let error = false;
+              let errorMsg = {
+                wpm: '',
+                acc: ''
+              };
               let lv = this.props.levels[this.props.editLevelIndex];
-              // Validate first
-              switch (this.props.part) {
-                case 0:
-                  lv.wpm = this.state.lv.wpm;
-                  lv.acc = this.state.lv.acc;
-                  lv.difficulty = this.state.lv.difficulty;
-                  lv.timer = this.state.lv.timer;
-                  lv.pulse = 'green';
-                  break;
-                case 1:
-                  lv.part1.wpm = this.state.lv.wpm;
-                  lv.part1.acc = this.state.lv.acc;
-                  lv.part1.difficulty = this.state.lv.difficulty;
-                  lv.part1.timer = this.state.lv.timer;
-                  lv.part1.pulse = 'green';
-                  lv.wpm = -1;
-                  lv.acc = -1;
-                  lv.difficulty = -1;
-                  lv.timer = -1;
-                  break;
-                case 2:
-                  lv.part2.wpm = this.state.lv.wpm;
-                  lv.part2.acc = this.state.lv.acc;;
-                  lv.part2.difficulty = this.state.lv.difficulty;
-                  lv.part2.timer = this.state.lv.timer;
-                  lv.part2.pulse = 'green';
-                  lv.wpm = -1;
-                  lv.acc = -1;
-                  lv.difficulty = -1;
-                  lv.timer = -1;
-                  break;
-                default:
-                  // Do nothing
+              if (isNaN(parseInt(this.state.lv.wpm))) {
+                errorMsg.wpm = 'Requires a Number';
+                error = true;
               }
-              this.props.setLevel(this.props.editLevelIndex, lv);
-              this.props.editLevel(-1, 0);
+
+              if (isNaN(parseInt(this.state.lv.acc))) {
+                errorMsg.acc = 'Requires a Number';
+                error = true;
+              }
+
+              if (!error) {
+                switch (this.props.part) {
+                  case 0:
+                    lv.wpm = this.state.lv.wpm;
+                    lv.acc = this.state.lv.acc;
+                    lv.difficulty = this.state.lv.difficulty;
+                    lv.timer = this.state.lv.timer;
+                    lv.pulse = 'green';
+                    break;
+                  case 1:
+                    lv.part1.wpm = this.state.lv.wpm;
+                    lv.part1.acc = this.state.lv.acc;
+                    lv.part1.difficulty = this.state.lv.difficulty;
+                    lv.part1.timer = this.state.lv.timer;
+                    lv.part1.pulse = 'green';
+                    lv.wpm = -1;
+                    lv.acc = -1;
+                    lv.difficulty = -1;
+                    lv.timer = -1;
+                    break;
+                  case 2:
+                    lv.part2.wpm = this.state.lv.wpm;
+                    lv.part2.acc = this.state.lv.acc;;
+                    lv.part2.difficulty = this.state.lv.difficulty;
+                    lv.part2.timer = this.state.lv.timer;
+                    lv.part2.pulse = 'green';
+                    lv.wpm = -1;
+                    lv.acc = -1;
+                    lv.difficulty = -1;
+                    lv.timer = -1;
+                    break;
+                  default:
+                    // Do nothing
+                }
+                this.props.setLevel(this.props.editLevelIndex, lv);
+                this.props.editLevel(-1, 0);
+              } else {
+                this.setState({
+                  errorMsg: errorMsg
+                });
+              }
             }}
           >
             Save
