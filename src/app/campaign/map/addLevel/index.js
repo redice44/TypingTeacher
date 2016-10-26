@@ -37,14 +37,14 @@ export default class AddLevel extends React.Component {
                 acc: 0,
                 difficulty: 2,
                 timer: false,
-                pulse: 'red'
+                levelState: campaignUtil.c.levelState.needsSave
               },
               part2: {
                 wpm: 0,
                 acc: 0,
                 difficulty: 2,
                 timer: false,
-                pulse: 'red'
+                levelState: campaignUtil.c.levelState.needsSave
               }
             };
             console.log('FAB1 sending', this.props.index, lv);
@@ -61,7 +61,7 @@ export default class AddLevel extends React.Component {
               acc: 0,
               difficulty: 2,
               timer: false,
-              pulse: 'red'
+              levelState: campaignUtil.c.levelState.needsSave
             });
           }}
         >
@@ -79,14 +79,14 @@ export default class AddLevel extends React.Component {
                   acc: 0,
                   difficulty: 2,
                   timer: false,
-                  pulse: 'red'
+                  levelState: campaignUtil.c.levelState.needsSave
                 },
                 part2: {
                   wpm: 0,
                   acc: 0,
                   difficulty: 2,
                   timer: false,
-                  pulse: 'red'
+                  levelState: campaignUtil.c.levelState.needsSave
                 }
               };
               console.log('FAB3 sending', this.props.index, lv);

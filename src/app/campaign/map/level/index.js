@@ -4,6 +4,8 @@ import classNames from 'classnames';
 import IconButton from 'material-ui/IconButton';
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 
+import util from '../../constants';
+
 const MapLevel = (props) => {
   console.log('=== Render: campaign/map/level');
 
@@ -23,18 +25,18 @@ const MapLevel = (props) => {
   let wpm = props.level.wpm;
   let acc = props.level.acc;
   let tooltipPos = 'bottom-center';
-  let pulse = props.level.pulse;
+  let levelState = props.level.levelState;
 
   switch (props.part) {
     case 1:
       wpm = props.level.part1.wpm;
       acc = props.level.part1.acc;
-      pulse = props.level.part1.pulse;
+      levelState = props.level.part1.levelState;
       break;
     case 2:
       wpm = props.level.part2.wpm;
       acc = props.level.part2.acc;
-      pulse = props.level.part2.pulse;
+      levelState = props.level.part2.levelState;
       tooltipPos = 'top-center';
       break;
     default:
@@ -43,9 +45,10 @@ const MapLevel = (props) => {
 
   const classes = classNames({
     'level': true,
-    'pulse-red': pulse === 'red',
-    'pulse-green': pulse === 'green',
-    'pulse-blue': pulse === 'blue'
+    'pulse-red': levelState === util.c.levelState.needsSave,
+    'pulse-green': levelState === util.c.levelState.saved ||
+      levelState === util.c.levelState.completed,
+    'pulse-blue': levelState === util.c.levelState.active
   });
 
   return (

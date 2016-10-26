@@ -79,10 +79,12 @@ export default class CreateCampaign extends React.Component {
                 if (this.props.levels.every((lv) => {
                   console.log(lv);
                   if (lv.state === util.c.SINGLE) {
-                    return lv.pulse === 'green'; // ready level
+                    return lv.levelState === util.c.levelState.saved;
                   } else if (lv.state === util.c.SPLIT){
-                    return lv.part1.pulse && lv.part1.pulse === 'green' &&
-                      lv.part2.pulse && lv.part2.pulse === 'green';
+                    return lv.part1.levelState &&
+                    lv.part1.levelState === util.c.levelState.saved &&
+                      lv.part2.levelState &&
+                      lv.part2.levelState === util.c.levelState.saved;
                   }
                   return true;
                 })) {

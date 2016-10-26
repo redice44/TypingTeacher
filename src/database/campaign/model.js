@@ -10,7 +10,7 @@ let LevelSchema = new Schema({
   state: String,
   part1: Object,
   part2: Object,
-  pulse: String
+  levelState: String
 });
 
 let CampaignSchema = new Schema({

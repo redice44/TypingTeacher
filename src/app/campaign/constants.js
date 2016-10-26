@@ -5,7 +5,13 @@ const constants = {
   READY: 'READY_LEVEL',
   SPLIT: 'SPLIT_LEVEL',
   SINGLE: 'SINGLE_LEVEL',
-  MAX_LEVELS: 5
+  MAX_LEVELS: 5,
+  levelState: {
+    needsSave: 'LEVEL_NEEDS_SAVE',
+    saved: 'LEVEL_SAVED',
+    active: 'LEVEL_ACTIVE',
+    completed: 'LEVEL_COMPLETED'
+  }
 };
 
 const routes = {
