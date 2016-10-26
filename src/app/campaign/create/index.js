@@ -15,7 +15,7 @@ const mapStateToProps = (state, ownProps) => {
   // ownProps are props sent to the component
   return {
     // Set props to send
-    campaign: state.campaign.levels
+    levels: state.campaign.levels
   };
 };
 

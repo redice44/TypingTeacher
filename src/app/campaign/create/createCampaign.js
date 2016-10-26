@@ -10,6 +10,17 @@ import CampaignMap from '../map';
 export default class CreateCampaign extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      name: ''
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(e) {
+    this.setState({
+      name: e.target.value
+    });
   }
 
   render () {
@@ -20,12 +31,17 @@ export default class CreateCampaign extends React.Component {
     return (
       <Paper zDepth={1}>
         <TextField
+          onChange={this.handleChange}
           floatingLabelText='Campaign Name'
         /><br />
         <RaisedButton
           label='Save'
           onTouchTap={() => {
-            this.props.addCampaign(this.props.campaign);
+            let camp = {
+              levels: this.props.levels,
+              name: this.state.name
+            };
+            this.props.addCampaign(camp);
           }}
         /><br />
         <RaisedButton

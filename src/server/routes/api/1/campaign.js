@@ -51,7 +51,39 @@ router.get('/', (req, res, next) => {
 
 router.post('/add', (req, res, next) => {
   console.log(req.body.campaign);
-  res.end();
+  let campaign = req.body.campaign;
+  console.log(campaign);
+  let camp = new Campaign({
+    name: campaign.name
+  });
+
+  for (let i = 0; i < campaign.levels.length; i++) {
+    camp.levels.push(campaign.levels[i]);
+  }
+
+
+  camp.save((err) => {
+    if (err) {
+      return next(err);
+    }
+
+    Account.findOne({ 'username': 'test' }, (err, user) => {
+      if (err) {
+        return next(err);
+      }
+
+      console.log('found test user', user);
+
+      user.campaignList.push(camp._id);
+      user.save((err) => {
+        if (err) {
+          return next(err);
+        }
+        console.log('Updated test user');
+        return res.json({campaign: camp});
+      });
+    });
+  });
 });
 
 router.get('/test', (req, res, next) => {
