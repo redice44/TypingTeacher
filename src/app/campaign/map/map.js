@@ -7,7 +7,7 @@ import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 
 import AddLevel from './addLevel';
 import Modal from './addLevel/modal';
-import MapLevel from './level';
+import Level from './level';
 import EditLevel from './editLevel';
 
 import campaignUtil from '../constants';
@@ -55,7 +55,7 @@ export default class CampaignMap extends React.Component {
               title={`Level: ${i+1}`}
               titlePosition='top'
             >
-              <MapLevel level={level} lvNum={i} part={0}
+              <Level level={level} lvNum={i} part={0}
                 editLevel={this.props.editLevel}/>
             </GridTile>
           );
@@ -65,9 +65,9 @@ export default class CampaignMap extends React.Component {
               title={`Level: ${i+1}`}
               titlePosition='top'
             >
-              <MapLevel level={level} lvNum={i} part={1}
+              <Level level={level} lvNum={i} part={1}
                 editLevel={this.props.editLevel}/>
-              <MapLevel level={level} lvNum={i} part={2}
+              <Level level={level} lvNum={i} part={2}
                 editLevel={this.props.editLevel}/>
             </GridTile>
           );

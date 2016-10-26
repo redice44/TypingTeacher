@@ -5,6 +5,7 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Slider from 'material-ui/Slider';
+import Toggle from 'material-ui/Toggle';
 
 export default class EditLevel extends React.Component {
   constructor(props) {
@@ -68,64 +69,76 @@ export default class EditLevel extends React.Component {
     };
     return (
       <Paper zDepth={2} style={styles.root}>
-          <h1>Level {this.props.editLevelIndex + 1}{this.props.part === 0 ? '' : `.${this.props.part}`}</h1>
-          <h3>Passing Requirements</h3>
-          <TextField
-            name='wpm'
-            value={this.state.lv.wpm}
-            floatingLabelText='Required Words Per Minute'
-            onChange={this.handleChange}
-          /><br />
-          <TextField
-            name='acc'
-            value={this.state.lv.acc}
-            floatingLabelText='Required Accuracy %'
-            onChange={this.handleChange}
-          />
-          <h5>Difficulty</h5>
-          <Slider style={styles.slider}
-            name='difficulty'
-            min={1}
-            max={4}
-            step={1}
-            value={2}
-          />
+        <h1>Level {this.props.editLevelIndex + 1}{this.props.part === 0 ? '' : `.${this.props.part}`}</h1>
+        <h3>Passing Requirements</h3>
+        <TextField
+          name='wpm'
+          value={this.state.lv.wpm}
+          floatingLabelText='Required Words Per Minute'
+          onChange={this.handleChange}
+        /><br />
+        <TextField
+          name='acc'
+          value={this.state.lv.acc}
+          floatingLabelText='Required Accuracy %'
+          onChange={this.handleChange}
+        />
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center'
+        }}>
           <div>
-            <RaisedButton
-              onTouchTap={() => {
-                let lv = this.props.levels[this.props.editLevelIndex];
-                switch (this.props.part) {
-                  case 0:
-                    lv.wpm = this.state.lv.wpm;
-                    lv.acc = this.state.lv.acc;
-                    break;
-                  case 1:
-                    lv.part1.wpm = this.state.lv.wpm;
-                    lv.part1.acc = this.state.lv.acc;
-                    lv.wpm = -1;
-                    lv.acc = -1;
-                    break;
-                  case 2:
-                    lv.part2.wpm = this.state.lv.wpm;
-                    lv.part2.acc = this.state.lv.acc;
-                    lv.wpm = -1;
-                    lv.acc = -1;
-                    break;
-                  default:
-                    // Do nothing
-                }
-                this.props.setLevel(this.props.editLevelIndex, lv);
-                this.props.editLevel(-1, 0);
-              }}
-            >
-              Save
-            </RaisedButton>
-            <RaisedButton
-              onTouchTap={() => this.props.editLevel(-1, 0) }
-            >
-              Cancel
-            </RaisedButton>
+            <p>Difficulty</p>
+            <Slider
+              name='difficulty'
+              min={1}
+              max={4}
+              step={1}
+              value={2}
+            />
           </div>
+          <Toggle
+            label='Timer'
+            defaultToggled={true}
+          />
+        </div>
+        <div style={{margin: '20px'}}>
+          <RaisedButton
+            onTouchTap={() => {
+              let lv = this.props.levels[this.props.editLevelIndex];
+              switch (this.props.part) {
+                case 0:
+                  lv.wpm = this.state.lv.wpm;
+                  lv.acc = this.state.lv.acc;
+                  break;
+                case 1:
+                  lv.part1.wpm = this.state.lv.wpm;
+                  lv.part1.acc = this.state.lv.acc;
+                  lv.wpm = -1;
+                  lv.acc = -1;
+                  break;
+                case 2:
+                  lv.part2.wpm = this.state.lv.wpm;
+                  lv.part2.acc = this.state.lv.acc;
+                  lv.wpm = -1;
+                  lv.acc = -1;
+                  break;
+                default:
+                  // Do nothing
+              }
+              this.props.setLevel(this.props.editLevelIndex, lv);
+              this.props.editLevel(-1, 0);
+            }}
+          >
+            Save
+          </RaisedButton>
+          <RaisedButton
+            onTouchTap={() => this.props.editLevel(-1, 0) }
+          >
+            Cancel
+          </RaisedButton>
+        </div>
       </Paper>
     );
   }
