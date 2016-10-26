@@ -9,7 +9,8 @@ let LevelSchema = new Schema({
   timer: Boolean,
   state: String,
   part1: Object,
-  part2: Object
+  part2: Object,
+  pulse: String
 });
 
 let CampaignSchema = new Schema({
