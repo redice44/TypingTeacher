@@ -52,3 +52,37 @@ body {
   box-shadow: 0 0 35px red;
   }
 }
+.pulse-success {
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-name: pulse-success;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes pulse-success {
+  from {
+  box-shadow: 0 0 15px green;
+  }
+
+  to {
+  box-shadow: 0 0 35px green;
+  }
+}
+.pulse-active {
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-name: pulse-active;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes pulse-active {
+  from {
+  box-shadow: 0 0 15px blue;
+  }
+
+  to {
+  box-shadow: 0 0 35px blue;
+  }
+}

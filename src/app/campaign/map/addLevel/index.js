@@ -36,13 +36,15 @@ export default class AddLevel extends React.Component {
                 wpm: 0,
                 acc: 0,
                 difficulty: 2,
-                timer: false
+                timer: false,
+                pulse: 'error'
               },
               part2: {
                 wpm: 0,
                 acc: 0,
                 difficulty: 2,
-                timer: false
+                timer: false,
+                pulse: 'error'
               }
             };
             console.log('FAB1 sending', this.props.index, lv);
@@ -58,7 +60,8 @@ export default class AddLevel extends React.Component {
               wpm: 0,
               acc: 0,
               difficulty: 2,
-              timer: false
+              timer: false,
+              pulse: 'error'
             });
           }}
         >
@@ -75,13 +78,15 @@ export default class AddLevel extends React.Component {
                   wpm: 0,
                   acc: 0,
                   difficulty: 2,
-                  timer: false
+                  timer: false,
+                  pulse: 'error'
                 },
                 part2: {
                   wpm: 0,
                   acc: 0,
                   difficulty: 2,
-                  timer: false
+                  timer: false,
+                  pulse: 'error'
                 }
               };
               console.log('FAB3 sending', this.props.index, lv);

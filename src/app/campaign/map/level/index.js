@@ -5,7 +5,8 @@ import IconButton from 'material-ui/IconButton';
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 
 const MapLevel = (props) => {
-  console.log('=== Render: Level');
+  console.log('=== Render: campaign/map/level');
+
   const styles = {
     root: {
       margin: '20px',
@@ -22,28 +23,35 @@ const MapLevel = (props) => {
   let wpm = props.level.wpm;
   let acc = props.level.acc;
   let tooltipPos = 'bottom-center';
+  let pulse = props.level.pulse;
 
   switch (props.part) {
     case 1:
       wpm = props.level.part1.wpm;
       acc = props.level.part1.acc;
+      pulse = props.level.part1.pulse;
       break;
     case 2:
       wpm = props.level.part2.wpm;
       acc = props.level.part2.acc;
+      pulse = props.level.part2.pulse;
       tooltipPos = 'top-center';
       break;
     default:
       // Do nothing
   }
-  console.log('==========',props);
+
+  const classes = classNames({
+    'level': true,
+    'pulse-error': pulse === 'error',
+    'pulse-success': pulse === 'success',
+    'pulse-active': pulse === 'active'
+  });
+
   return (
     <div style={styles.root}>
       <IconButton
-        className={classNames({
-          'level': true,
-          'pulse-error': true,
-        })}
+        className={classes}
         tooltip={`wpm: ${wpm} \nacc: ${acc}`}
         tooltipPosition={tooltipPos}
         onTouchTap={() => {
