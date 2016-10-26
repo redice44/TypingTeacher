@@ -54,7 +54,7 @@ export default class CampaignList extends React.Component {
             leftIcon={
               <IconButton style={{padding: '0px'}}
               tooltip='Create Campaign'
-              tooltipPosition='bottom-right'
+              tooltipPosition='top-right'
               onTouchTap={ () => {
                 //this.context.router.push('/campaign/create');
                 this.props.updateCreating(!this.props.isCreating);
