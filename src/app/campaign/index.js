@@ -4,7 +4,6 @@ import { Link } from 'react-router';
 import classNames from 'classnames';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import CampaignList from './campaignList';
 import CampaignMap from './map';
 import CreateCampaign from './create';
 

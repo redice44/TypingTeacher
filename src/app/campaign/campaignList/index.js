@@ -14,16 +14,19 @@ export default class CampaignList extends React.Component {
 
   render() {
     console.log(this.props);
-    let campaigns = this.props.campaignList.map((camp, i) => {
-      return (
-        <ListItem key={i}
-          primaryText={camp.name}
-          // TODO: Make these icon buttons
-          leftIcon={<PlayIcon />}
-          rightIcon={<MoreIcon />}
-        />
-      );
-    });
+    let campaigns;
+    if (this.props.campaignList) {
+      campaigns = this.props.campaignList.map((camp, i) => {
+        return (
+          <ListItem key={i}
+            primaryText={camp.name}
+            // TODO: Make these icon buttons
+            leftIcon={<PlayIcon />}
+            rightIcon={<MoreIcon />}
+          />
+        );
+      });
+    }
 
     return (
       <div>
