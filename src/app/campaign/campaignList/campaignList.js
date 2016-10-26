@@ -10,6 +10,12 @@ import MoreIcon from 'material-ui/svg-icons/navigation/more-horiz';
 export default class CampaignList extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      open: true
+    };
+
+    //this.handleToggle = this.handleToggle.bind(this);
   }
 
   render() {
@@ -30,31 +36,26 @@ export default class CampaignList extends React.Component {
 
     return (
       <div>
-        <Toolbar>
-          <ToolbarGroup
-          >
-            <ToolbarTitle
-              text='Campaign List'
-            />
-          </ToolbarGroup>
-          <ToolbarGroup
-            lastChild={true}
-            style={{alignItems: 'center'}}
-          >
-            <IconButton
-              tooltip='Create New Campaign'
-              tooltipPosition='bottom-left'
+
+        <List>
+          <ListItem
+            primaryText='Campaign List'
+            initiallyOpen={true}
+            //primaryTogglesNestedList={true}
+            nestedItems={campaigns}
+            leftIcon={
+              <IconButton style={{padding: '0px'}}
+              tooltip='Create Campaign'
+              tooltipPosition='bottom-right'
               onTouchTap={ () => {
                 //this.context.router.push('/campaign/create');
                 this.props.updateCreating(!this.props.isCreating);
               }}
-            >
-              <AddIcon />
-            </IconButton>
-          </ToolbarGroup>
-        </Toolbar>
-        <List>
-          {campaigns}
+              >
+                <AddIcon />
+              </IconButton>
+          }
+          />
         </List>
       </div>
     );
@@ -64,3 +65,30 @@ export default class CampaignList extends React.Component {
 CampaignList.contextTypes = {
   router: React.PropTypes.object
 };
+
+
+/*
+  <Toolbar>
+    <ToolbarGroup
+    >
+      <ToolbarTitle
+        text='Campaign List'
+      />
+    </ToolbarGroup>
+    <ToolbarGroup
+      lastChild={true}
+      style={{alignItems: 'center'}}
+    >
+      <IconButton
+        tooltip='Create New Campaign'
+        tooltipPosition='bottom-left'
+        onTouchTap={ () => {
+          //this.context.router.push('/campaign/create');
+          this.props.updateCreating(!this.props.isCreating);
+        }}
+      >
+        <AddIcon />
+      </IconButton>
+    </ToolbarGroup>
+  </Toolbar>
+  */
