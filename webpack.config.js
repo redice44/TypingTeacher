@@ -45,7 +45,8 @@ var config = {
       'build/assets/js/vendor.js'),
     new webpack.DefinePlugin({
       'process.env': {
-        BROWSER: JSON.stringify(true)
+        BROWSER: JSON.stringify(true),
+        DEBUG: JSON.stringify(true)
       }
     })
   ]

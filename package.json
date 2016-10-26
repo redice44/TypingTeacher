@@ -8,7 +8,7 @@
   "scripts": {
     "db": "mongod",
     "dev": "webpack --watch",
-    "server:dev": "NODE_ENV=dev node src/server/index.js",
+    "server:dev": "export NODE_ENV=dev && node src/server/index.js",
     "server:dev-windows": "set NODE_ENV=dev&&node src/server/index.js",
     "start": "nodemon --watch src/ --delay 3 --exec \"npm run server:dev\"",
     "start-windows": "nodemon --watch src/ --delay 3 --exec \"npm run server:dev-windows\"",
