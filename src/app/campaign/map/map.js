@@ -46,6 +46,10 @@ export default class CampaignMap extends React.Component {
   }
 
   render () {
+    let isEditing = false;
+    if (this.props.isEditing) {
+      isEditing = true;
+    }
     let gridLevels = this.props.levels.map((level, i) => {
       switch (level.state) {
         case campaignUtil.c.SINGLE:
@@ -54,7 +58,7 @@ export default class CampaignMap extends React.Component {
               title={`Level: ${i+1}`}
               titlePosition='top'
             >
-              <Level level={level} lvNum={i} part={0}
+              <Level isEditing={isEditing} level={level} lvNum={i} part={0}
                 editLevel={this.props.editLevel}/>
             </GridTile>
           );
@@ -64,14 +68,14 @@ export default class CampaignMap extends React.Component {
               title={`Level: ${i+1}`}
               titlePosition='top'
             >
-              <Level level={level} lvNum={i} part={1}
+              <Level isEditing={isEditing} level={level} lvNum={i} part={1}
                 editLevel={this.props.editLevel}/>
-              <Level level={level} lvNum={i} part={2}
+              <Level isEditing={isEditing} level={level} lvNum={i} part={2}
                 editLevel={this.props.editLevel}/>
             </GridTile>
           );
         case campaignUtil.c.READY:
-          if (this.props.isEditing) {
+          if (isEditing) {
             return (
               <GridTile
                 key={i}

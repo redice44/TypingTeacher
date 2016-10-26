@@ -47,11 +47,14 @@ const MapLevel = (props) => {
         tooltip={`wpm: ${wpm} \nacc: ${acc}`}
         tooltipPosition={tooltipPos}
         onTouchTap={() => {
-          props.editLevel(props.lvNum, props.part);
-          //window.scrollTo(0, document.getElementById('edit-level').offsetTop);
+          if (props.isEditing) {
+            props.editLevel(props.lvNum, props.part);
+          } else {
+            // play damn game
+          }
         }}
       >
-        <EditIcon />
+        {props.isEditing ? <EditIcon /> : props.lvNum }
       </IconButton>
     </div>
   );
