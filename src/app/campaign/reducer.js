@@ -58,6 +58,12 @@ const accountReducer = (state = reducersInit, action) => {
       console.log('Adding Campaign');
 
       return state;
+    case ACTION_TYPE.isCreating:
+      console.log(`Updating isCreating: ${action.data.isCreating}`);
+
+      return updateState(state, {
+        isCreating: action.data.isCreating
+      });
     default:
       return state;
   }

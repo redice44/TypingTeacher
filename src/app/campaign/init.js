@@ -31,7 +31,8 @@ const init = {
   modalState: campaignUtil.c.CLOSED,
   campaignList: [],
   editLevelIndex: -1,
-  part: 0
+  part: 0,
+  isCreating: false
 };
 
 export default init;

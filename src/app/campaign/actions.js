@@ -56,3 +56,12 @@ export const addCampaign = (camp) => {
     }
   };
 };
+
+export const isCreating = (cbool) => {
+  return {
+    type: ACTION_TYPE.isCreating,
+    data: {
+      isCreating: cbool
+    }
+  };
+};

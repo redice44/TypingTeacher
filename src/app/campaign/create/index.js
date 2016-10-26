@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import actionTypes from '../actionTypes.js';
 import {
-  addCampaign
+  addCampaign,
+  isCreating
 } from '../actions.js';
-import CreateCampaign from './CreateCampaign';
+import CreateCampaign from './createCampaign';
 
 import util from '../constants';
 
@@ -15,7 +16,8 @@ const mapStateToProps = (state, ownProps) => {
   // ownProps are props sent to the component
   return {
     // Set props to send
-    levels: state.campaign.levels
+    levels: state.campaign.levels,
+    isCreating: state.campaign.isCreating
   };
 };
 
@@ -39,6 +41,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         });
       // Store doesn't really need to know about a new campaign
       // dispatch(addCampaign(camp));
+    },
+    updateCreating: (cBool) => {
+      dispatch(isCreating(cBool));
     }
   };
 };

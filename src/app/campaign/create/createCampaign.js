@@ -29,6 +29,9 @@ export default class CreateCampaign extends React.Component {
     });
 
     const styles = {
+      root: {
+        display: this.props.isCreating ? 'block' : 'none'
+      },
       inputs: {
         display: 'flex',
         justifyContent: 'center'
@@ -44,7 +47,7 @@ export default class CreateCampaign extends React.Component {
     };
 
     return (
-      <Paper zDepth={1}>
+      <Paper zDepth={1} style={styles.root}>
         <div style={styles.inputs}>
           <TextField
             onChange={this.handleChange}
@@ -59,10 +62,14 @@ export default class CreateCampaign extends React.Component {
                   name: this.state.name
                 };
                 this.props.addCampaign(camp);
+                this.props.updateCreating(false);
               }}
             />
             <RaisedButton
               label='Cancel'
+              onTouchTap={() => {
+                this.props.updateCreating(false);
+              }}
             />
           </div>
         </div>

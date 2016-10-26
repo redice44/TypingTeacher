@@ -19,9 +19,6 @@ const playerOverviewStats = (props) => {
         <p>WPM: { props.user.wpm }</p>
         <p>Acc: { props.user.acc }</p>
       </div>
-      <div style={styles.sections}>
-        <CampaignList campaignList={ props.user.campaignList }/>
-      </div>
     </div>
   );
 };

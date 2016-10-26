@@ -1,63 +1,44 @@
-import React from 'react';
+import request from 'superagent';
 
-import { List, ListItem } from 'material-ui/List';
-import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
-import AddIcon from 'material-ui/svg-icons/content/add';
-import PlayIcon from 'material-ui/svg-icons/av/play-circle-outline';
-import MoreIcon from 'material-ui/svg-icons/navigation/more-horiz';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import actionTypes from '../actionTypes.js';
+import {
+  addCampaign,
+  isCreating
+} from '../actions.js';
+import CampaignList from './campaignList';
 
-export default class CampaignList extends React.Component {
-  constructor(props) {
-    super(props);
+import util from '../constants';
+
+// Convert store state to props to be passed to component
+const mapStateToProps = (state, ownProps) => {
+  // ownProps are props sent to the component
+  let c = [];
+  if (state.account.player && state.account.player.campaigList) {
+    c = state.account.player.campaignList;
   }
+  return {
+    // Set props to send
+    campaignList: c,
+    isCreating: state.campaign.isCreating
+  };
+};
 
-  render() {
-    console.log(this.props);
-    let campaigns;
-    if (this.props.campaignList) {
-      campaigns = this.props.campaignList.map((camp, i) => {
-        return (
-          <ListItem key={i}
-            primaryText={camp.name}
-            // TODO: Make these icon buttons
-            leftIcon={<PlayIcon />}
-            rightIcon={<MoreIcon />}
-          />
-        );
-      });
+// Creates props that will dispatch actions
+const mapDispatchToProps = (dispatch, ownProps) => {
+  // ownProps are props sent to the component
+  return {
+    // Actions to send
+    updateCreating: (cBool) => {
+      dispatch(isCreating(cBool));
     }
-
-    return (
-      <div>
-        <Toolbar>
-          <ToolbarGroup
-          >
-            <ToolbarTitle
-              text='Campaign List'
-            />
-          </ToolbarGroup>
-          <ToolbarGroup
-            lastChild={true}
-            style={{alignItems: 'center'}}
-          >
-            <IconButton
-              onTouchTap={ () => {
-                this.context.router.push('/campaign/create');
-              }}
-            >
-              <AddIcon />
-            </IconButton>
-          </ToolbarGroup>
-        </Toolbar>
-        <List>
-          {campaigns}
-        </List>
-      </div>
-    );
-  }
+  };
 };
 
-CampaignList.contextTypes = {
-  router: React.PropTypes.object
-};
+const CampaignListContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CampaignList);
+
+export default CampaignListContainer;
