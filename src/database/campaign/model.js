@@ -7,7 +7,9 @@ let LevelSchema = new Schema({
   acc: Number,
   difficulty: Number,
   timer: Boolean,
-  state: String
+  state: String,
+  part1: Object,
+  part2: Object
 });
 
 let CampaignSchema = new Schema({
