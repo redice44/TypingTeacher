@@ -41,6 +41,7 @@ export default class CampaignMap extends React.Component {
   constructor(props) {
     super(props);
   }
+
   componentWillReceiveProps(nextProps) {
     console.log('map will', nextProps);
   }
@@ -51,11 +52,27 @@ export default class CampaignMap extends React.Component {
       isEditing = true;
     }
     let gridLevels = this.props.levels.map((level, i) => {
+      let titlebg;
       switch (level.state) {
         case campaignUtil.c.SINGLE:
+          switch (level.levelState) {
+            case campaignUtil.c.levelState.needsSave:
+              titlebg = 'rgba(255, 0, 0, 0.6)';
+              break;
+            case campaignUtil.c.levelState.saved:
+            case campaignUtil.c.levelState.completed:
+              titlebg = 'rgba(0, 255, 0, 0.6)';
+              break;
+            case campaignUtil.c.levelState.active:
+              titlebg = 'rgba(0, 0, 255, 0.6)';
+              break;
+            default:
+              // Do nothing
+          }
           return (
             <GridTile key={i} style={styles.gridTile}
               title={`Level: ${i+1}`}
+              titleBackground={titlebg}
               titlePosition='top'
             >
               <Level isEditing={isEditing} level={level} lvNum={i} part={0}
@@ -63,9 +80,38 @@ export default class CampaignMap extends React.Component {
             </GridTile>
           );
         case campaignUtil.c.SPLIT:
+          let temp;
+          // Annoying set the correct priority color
+          if (
+            (level.part1.levelState &&
+            level.part1.levelState === campaignUtil.c.levelState.needsSave) ||
+            (level.part2.levelState &&
+            level.part2.levelState === campaignUtil.c.levelState.needsSave)
+          ) {
+            temp = 'rgba(255, 0, 0, 0.6)';
+          } else if (
+            (level.part1.levelState &&
+            level.part1.levelState === campaignUtil.c.levelState.active) ||
+            (level.part2.levelState &&
+            level.part2.levelState === campaignUtil.c.levelState.active)
+          ) {
+            temp = 'rgba(0, 0, 255, 0.6)';
+          } else if (
+            (level.part1.levelState &&
+            level.part1.levelState === campaignUtil.c.levelState.completed ||
+            level.part1.levelState === campaignUtil.c.levelState.saved) ||
+            (level.part2.levelState &&
+            level.part2.levelState === campaignUtil.c.levelState.completed ||
+            level.part2.levelState === campaignUtil.c.levelState.saved)
+          ) {
+            temp = 'rgba(0, 255, 0, 0.6)';
+          } else {
+
+          }
           return (
             <GridTile key={i} style={styles.gridTileSplit}
               title={`Level: ${i+1}`}
+              titleBackground={temp}
               titlePosition='top'
             >
               <Level isEditing={isEditing} level={level} lvNum={i} part={1}

@@ -77,10 +77,9 @@ export default class CreateCampaign extends React.Component {
               onTouchTap={() => {
                 // If all levels added are ready to go
                 if (this.props.levels.every((lv) => {
-                  console.log(lv);
                   if (lv.state === util.c.SINGLE) {
                     return lv.levelState === util.c.levelState.saved;
-                  } else if (lv.state === util.c.SPLIT){
+                  } else if (lv.state === util.c.SPLIT) {
                     return lv.part1.levelState &&
                     lv.part1.levelState === util.c.levelState.saved &&
                       lv.part2.levelState &&
@@ -89,8 +88,18 @@ export default class CreateCampaign extends React.Component {
                   return true;
                 })) {
                   console.log('all levels saved');
+                  let tempLevels = this.props.levels.map((lv, i) => {
+                    console.log(lv, i);
+                    if (lv.state === util.c.SINGLE) {
+                      lv.levelState = i === 0 ? util.c.levelState.active : '';
+                    } else if (lv.state === util.c.SPLIT) {
+                      lv.part1.levelState = '';
+                      lv.part2.levelState = '';
+                    }
+                    return lv;
+                  });
                   let camp = {
-                    levels: this.props.levels,
+                    levels: tempLevels,
                     name: this.state.name
                   };
                   this.props.addCampaign(camp);
