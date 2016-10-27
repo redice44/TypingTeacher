@@ -21,13 +21,8 @@ export default class CreateCampaign extends React.Component {
 
   reset() {
     console.log('campaign/create: Resetting State');
-    let error = {
-      wpm: '',
-      acc: ''
-    };
     this.setState({
-      name: '',
-      errorMsg: error
+      name: ''
     });
     this.props.updateCreating(false);
     this.props.resetLevel();
@@ -75,8 +70,10 @@ export default class CreateCampaign extends React.Component {
             <RaisedButton style={styles.btn}
               label='Save'
               onTouchTap={() => {
+                // TODO: Check to make sure it's a valid level config. ie has levels and ends single
                 // If all levels added are ready to go
-                if (this.props.levels.every((lv) => {
+                if (this.state.name !== '' &&
+                  this.props.levels.every((lv) => {
                   if (lv.state === util.c.SINGLE) {
                     return lv.levelState === util.c.levelState.saved;
                   } else if (lv.state === util.c.SPLIT) {
@@ -105,6 +102,7 @@ export default class CreateCampaign extends React.Component {
                   this.props.addCampaign(camp);
                   this.reset();
                 } else {
+                  // TODO Display error
                   console.log('levels need to be saved still');
                 }
               }}

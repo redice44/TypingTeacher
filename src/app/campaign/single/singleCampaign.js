@@ -8,9 +8,8 @@ const singleCampaign = (props) => {
   }
   const camp = props.campaign;
   return (
-    <div style={{padding: '20px', width: '100%'}}>
-      <p>ID: {camp._id}</p>
-      <p>Name: {camp.name}</p>
+    <div style={{padding: '20px', width: '100%', textAlign: 'center'}}>
+      <h2>Name: {camp.name}</h2>
       <CampaignMap levels={camp.levels} setGame={props.setGame}/>
     </div>
   );

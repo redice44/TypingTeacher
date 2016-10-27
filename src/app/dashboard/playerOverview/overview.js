@@ -19,6 +19,9 @@ const playerOverviewStats = (props) => {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center'
+    },
+    header: {
+      marginBottom: '-20px'
     }
   };
   let recentCamp;
@@ -30,11 +33,9 @@ const playerOverviewStats = (props) => {
     <div style={styles.root}>
       <div style={styles.sections}>
         <h1>Welcome { props.user.name }</h1>
-        <p>WPM: { props.user.wpm }</p>
-        <p>Acc: { props.user.acc }</p>
       </div>
       <div style={styles.sections}>
-        <h1>Most Recent Campaign</h1>
+        <h1 style={styles.header}>Most Recent Campaign</h1>
         {recentCamp}
       </div>
     </div>
