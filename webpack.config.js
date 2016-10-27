@@ -11,12 +11,20 @@ var config = {
   entry: {
     'build/assets/js/client': './src/app/client.js',
     'build/assets/js/vendor': [
+      'classnames',
+      'd3',
       'react',
+      'react-d3',
       'react-dom',
       'react-redux',
       'react-router',
+      'react-router-redux',
+      'react-motion',
       'react-tap-event-plugin',
+      "react-swipeable-views",
+      "react-tap-event-plugin",
       'redux',
+      'superagent',
       'material-ui'
     ]
   },
