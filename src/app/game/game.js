@@ -10,8 +10,8 @@ const style = {
 };
 
 class Game extends React.Component {
-	constructor(){
-		super();
+	constructor(props){
+		super(props);
 		this.state = {
 			phrase: '',
 			phraseTextField: '',
@@ -140,8 +140,16 @@ class Game extends React.Component {
 			clearInterval(this.state.interval);
 		}
 	}
+  componentWillReceiveProps(nextProps) {
+    if (process.env.BROWSER && process.env.DEBUG) {
+      console.log('=== Will Receive Props: Game', nextProps);
+    }
+  }
 
-	render(){
+	render() {
+    if (process.env.BROWSER && process.env.DEBUG) {
+      console.log('=== Render: Game', this.props);
+    }
     const c = classNames({
       'content': true
     });

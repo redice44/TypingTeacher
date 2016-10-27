@@ -5,6 +5,9 @@ import { push } from 'react-router-redux';
 import actionTypes from '../actionTypes.js';
 import {
 } from '../actions.js';
+import {
+  setGame
+} from '../../game/actions';
 import SingleCampaign from './singleCampaign';
 
 import util from '../constants';
@@ -14,7 +17,7 @@ const mapStateToProps = (state, ownProps) => {
   // ownProps are props sent to the component
   return {
     // Set props to send
-    campaign: state.campaign.selectedCampaign
+    campaign: ownProps.campaign
   };
 };
 
@@ -23,6 +26,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   // ownProps are props sent to the component
   return {
     // Actions to send
+    setGame: (game) => {
+      dispatch(setGame(game));
+      dispatch(push('/'));
+    }
   };
 };
 

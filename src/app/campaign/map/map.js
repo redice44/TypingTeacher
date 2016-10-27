@@ -76,7 +76,8 @@ export default class CampaignMap extends React.Component {
               titlePosition='top'
             >
               <Level isEditing={isEditing} level={level} lvNum={i} part={0}
-                editLevel={this.props.editLevel} />
+                editLevel={this.props.editLevel}
+                setGame={this.props.setGame} />
             </GridTile>
           );
         case campaignUtil.c.SPLIT:
@@ -115,9 +116,11 @@ export default class CampaignMap extends React.Component {
               titlePosition='top'
             >
               <Level isEditing={isEditing} level={level} lvNum={i} part={1}
-                editLevel={this.props.editLevel} />
+                editLevel={this.props.editLevel}
+                setGame={this.props.setGame} />
               <Level isEditing={isEditing} level={level} lvNum={i} part={2}
-                editLevel={this.props.editLevel} />
+                editLevel={this.props.editLevel}
+                setGame={this.props.setGame} />
             </GridTile>
           );
         case campaignUtil.c.READY:

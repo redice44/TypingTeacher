@@ -1,7 +1,7 @@
 import React from 'react';
 
 import CampaignList from '../../campaign/campaignList';
-import SingleCampaign from '../../campaign/single/singleCampaign';
+import SingleCampaign from '../../campaign/single';
 
 const playerOverviewStats = (props) => {
   if (process.env.BROWSER && process.env.DEBUG) {
@@ -15,15 +15,16 @@ const playerOverviewStats = (props) => {
       alignItems: 'center'
     },
     sections: {
-      width: '100%'
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
     }
   };
   let recentCamp;
   if (props.user.campaignList && props.user.campaignList.length > 0) {
-    recentCamp = <SingleCampaign campaign={props.user.campaignList[0]} />;
+    recentCamp = <SingleCampaign campaign={props.user.campaignList[props.user.campaignList.length - 1]} />;
   }
-
-  console.log(recentCamp);
 
   return (
     <div style={styles.root}>

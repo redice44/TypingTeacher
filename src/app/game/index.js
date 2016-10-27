@@ -19,7 +19,8 @@ const mapStateToProps = (state, ownProps) => {
     // Set props to send
     gameType: state.game.gameType,
     phrase: state.game.phrase,
-    timer: state.game.timer
+    timer: state.game.timer,
+    game: state.game.game
   };
 };
 

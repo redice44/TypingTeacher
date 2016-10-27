@@ -37,6 +37,13 @@ const gameReducer = (state = reducersInit, action) => {
         gameType: util.c.TIME
       });
       break;
+    case ACTION_TYPE.setGame:
+      console.log(`Initiating Play Time Trial Mode`);
+
+      return Object.assign({}, state, {
+        game: action.data.game
+      });
+      break;
     default:
       return state;
   }

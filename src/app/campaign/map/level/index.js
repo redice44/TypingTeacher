@@ -7,7 +7,7 @@ import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 import util from '../../constants';
 
 const MapLevel = (props) => {
-  console.log('=== Render: campaign/map/level');
+  console.log('=== Render: campaign/map/level', props);
 
   const styles = {
     root: {
@@ -22,21 +22,24 @@ const MapLevel = (props) => {
       width: '80%'
     }
   };
-  let wpm = props.level.wpm;
-  let acc = props.level.acc;
+  let lv = {};
+  lv.wpm = props.level.wpm;
+  lv.acc = props.level.acc;
+  lv.difficulty = props.level.difficulty;
+  lv.timer = props.level.timer;
   let tooltipPos = 'bottom-center';
-  let levelState = props.level.levelState;
+  lv.levelState = props.level.levelState;
 
   switch (props.part) {
     case 1:
-      wpm = props.level.part1.wpm;
-      acc = props.level.part1.acc;
-      levelState = props.level.part1.levelState;
+      lv.wpm = props.level.part1.wpm;
+      lv.acc = props.level.part1.acc;
+      lv.levelState = props.level.part1.levelState;
       break;
     case 2:
-      wpm = props.level.part2.wpm;
-      acc = props.level.part2.acc;
-      levelState = props.level.part2.levelState;
+      lv.wpm = props.level.part2.wpm;
+      lv.acc = props.level.part2.acc;
+      lv.levelState = props.level.part2.levelState;
       tooltipPos = 'top-center';
       break;
     default:
@@ -45,23 +48,23 @@ const MapLevel = (props) => {
 
   const classes = classNames({
     'level': true,
-    'pulse-red': levelState === util.c.levelState.needsSave,
-    'pulse-green': levelState === util.c.levelState.saved ||
-      levelState === util.c.levelState.completed,
-    'pulse-blue': levelState === util.c.levelState.active
+    'pulse-red': lv.levelState === util.c.levelState.needsSave,
+    'pulse-green': lv.levelState === util.c.levelState.saved ||
+      lv.levelState === util.c.levelState.completed,
+    'pulse-blue': lv.levelState === util.c.levelState.active
   });
 
   return (
     <div style={styles.root}>
       <IconButton
         className={classes}
-        tooltip={`wpm: ${wpm} \nacc: ${acc}`}
+        tooltip={`wpm: ${lv.wpm} \nacc: ${lv.acc}`}
         tooltipPosition={tooltipPos}
         onTouchTap={() => {
           if (props.isEditing) {
             props.editLevel(props.lvNum, props.part);
           } else {
-            // play damn game
+            props.setGame(lv)
           }
         }}
       >

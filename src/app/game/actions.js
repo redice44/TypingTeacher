@@ -42,3 +42,12 @@ export const updatePhrase = (phrase) => {
     }
   };
 };
+
+export const setGame = (game) => {
+  return {
+    type: ACTION_TYPE.setGame,
+    data: {
+      game: game
+    }
+  };
+};
