@@ -25,7 +25,8 @@ class Game extends React.Component {
 			timer: 0,
 			interval: 0,
 			amountOfTypedLetters: 0,
-			gameType: 1
+			gameType: 1,
+      game: props.game
 		 }
 
 	 //Bindings
