@@ -5,6 +5,8 @@ import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
+import Results from './results/results';
+
 const style = {
   margin: 12,
 };
@@ -157,6 +159,7 @@ class Game extends React.Component {
 
 		return (
 		<div className={c}>
+      <div style={{padding: '20px'}}>
 				<RaisedButton
 					label='Phrase Mode'
 					style={style}
@@ -187,10 +190,8 @@ class Game extends React.Component {
 					onChange={this.update}
 				/>
 
-				{this.state.isResults ? this.displayResults(): null}
-
-				<br />
-				<Link to='/dashboard'>Dashboard Link</Link>
+				{this.state.isResults ? <Results />: null}
+      </div>
 		</div>
 		);
 	}
