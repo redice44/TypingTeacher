@@ -13,7 +13,7 @@ export default class Timer extends React.Component {
   }
 
   componentDidMount() {
-    this.timer = setTimeout(() => this.progress(this.timerInc), 100);
+    this.timer = setTimeout(() => this.progress(0), 100);
   }
 
   componentWillUnmount() {
@@ -36,7 +36,10 @@ export default class Timer extends React.Component {
     }
 
     return(
-      <LinearProgress mode="determinate" value={this.state.completed} />
+      <div>
+        <p>{this.state.timer - Math.floor(this.state.completed / 100 * this.state.timer)} s</p>
+        <LinearProgress mode="determinate" value={this.state.completed} />
+      </div>
     );
   }
 }

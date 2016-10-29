@@ -167,6 +167,15 @@ class Game extends React.Component {
       'content': true
     });
 
+    const styles = {
+      root: {
+
+      },
+      card: {
+
+      }
+    }
+
 		return (
 		<div className={c}>
       <Card expanded={this.state.expanded}>
@@ -191,22 +200,24 @@ class Game extends React.Component {
   					onClick={this.timeTrialButtonClick}
   				/>
         </CardActions>
-        <CardText expandable={true}>
-  				{this.state.isTimer ? <Timer timer={this.state.timer} />: null}
+        <CardText expandable={true} style={{display: 'flex', justifyContent: 'center'}}>
+          <div style={{width: '50%'}}>
+    				{this.state.isTimer ? <Timer timer={this.state.timer} />: null}
 
-  				<p>Phrase: {this.state.phrase}</p>
-  				<p>Counter: {this.state.counter}</p>
-  				<p>Typos: {this.state.typos}</p>
+    				<p>Phrase: {this.state.phrase}</p>
+    				<p>Counter: {this.state.counter}</p>
+    				<p>Typos: {this.state.typos}</p>
 
-  				<TextField
-  					name="phraseTextField"
-  					floatingLabelText="Type Here"
-  					disabled={this.state.disabledTextField}
-  					value={this.state.phraseTextField}
-  					onChange={this.update}
-  				/>
+    				<TextField
+    					name="phraseTextField"
+    					floatingLabelText="Type Here"
+    					disabled={this.state.disabledTextField}
+    					value={this.state.phraseTextField}
+    					onChange={this.update}
+    				/>
 
-  				{this.state.isResults ? <Results />: null}
+    				{this.state.isResults ? <Results />: null}
+          </div>
         </CardText>
       </Card>
 		</div>
