@@ -23,7 +23,8 @@ export default class Timer extends React.Component {
   progress(completed) {
     if (completed > 100) {
       this.setState({completed: 100});
-      console.log('completed');
+      clearTimeout(this.timer);
+      this.props.sendResults();
     } else {
       this.setState({completed});
       this.timer = setTimeout(() => this.progress(completed + this.timerInc), 100);
@@ -32,12 +33,12 @@ export default class Timer extends React.Component {
 
   render() {
     if (debug) {
-      console.log('=== Render Game/Timer', this.props);
+      //console.log('=== Render Game/Timer', this.props);
     }
 
     return(
       <div>
-        <p>{this.state.timer - Math.floor(this.state.completed / 100 * this.state.timer)} s</p>
+        <p>Time Remaining: {this.state.timer - Math.floor(this.state.completed / 100 * this.state.timer)} s</p>
         <LinearProgress mode="determinate" value={this.state.completed} />
       </div>
     );

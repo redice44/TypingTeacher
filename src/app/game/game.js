@@ -40,6 +40,7 @@ class Game extends React.Component {
 	 this.phraseButtonClick = this.phraseButtonClick.bind(this);
 	 this.timeTrialButtonClick = this.timeTrialButtonClick.bind(this);
 	 this.tick = this.tick.bind(this);
+      this.sendResults = this.sendResults.bind(this);
     };
 
 	update(e){
@@ -99,52 +100,22 @@ class Game extends React.Component {
 		clearInterval(this.state.interval);
 		//var intervalID = setInterval(this.tick, 1000);
 
-        this.setState({
-          phrase: "TimeTrial Mode",
-					disabledPhraseButton: true,
-					disabledTimeTrialButton: true,
-					disabledTextField: false,
-					isResults: false,
-					typos: 0,
-					isTimer: true,
-					//interval: intervalID,
-					timer: 30,
-					amountOfTypedLetters: 0,
-					gameType: 0,
-          expanded: true
-        });
-    }
+      this.setState({
+        phrase: "TimeTrial Mode",
+				disabledPhraseButton: true,
+				disabledTimeTrialButton: true,
+				disabledTextField: false,
+				isResults: false,
+				typos: 0,
+				isTimer: true,
+				//interval: intervalID,
+				timer: 5,
+				amountOfTypedLetters: 0,
+				gameType: 0,
+        expanded: true
+      });
+  }
 
-	displayResults(){
-		var percentage = 100 - (this.state.typos/(this.state.amountOfTypedLetters) * 100);
-
-		if(this.state.typos > 0){
-			return (
-				<div>
-					<h1>Results</h1>
-					<p>Typos: {this.state.typos}</p>
-					<p>Accuracy:  {Math.round(percentage)}% </p>
-				</div>
-			)
-		}
-		else{
-			return (
-				<div>
-					<h1>Results</h1>
-					<p>Typos: None</p>
-					<p>Accuracy:  100% </p>
-				</div>
-			)
-		}
-	}
-
-	displayTimer(){
-		return(
-			<div>
-				<h1>Time: {this.state.timer} seconds</h1>
-			</div>
-		)
-	}
 
 	tick(){
 		this.setState({timer: this.state.timer - 1});
@@ -153,6 +124,17 @@ class Game extends React.Component {
 			clearInterval(this.state.interval);
 		}
 	}
+
+  sendResults() {
+    console.log('results received');
+    this.setState({
+      disabledPhraseButton: false,
+      disabledTimeTrialButton: false,
+      disabledTextField: true, phraseTextField: '',
+      counter: 0, isResults: true
+    });
+  }
+
   componentWillReceiveProps(nextProps) {
     if (process.env.BROWSER && process.env.DEBUG) {
       console.log('=== Will Receive Props: Game', nextProps);
@@ -183,7 +165,7 @@ class Game extends React.Component {
           title='Phrase Mode'
           subtitle='subtitle'
         />
-        <CardActions>
+        <CardActions style={{textAlign: 'center'}}>
   				<RaisedButton
   					label='Phrase Mode'
   					style={style}
@@ -202,11 +184,9 @@ class Game extends React.Component {
         </CardActions>
         <CardText expandable={true} style={{display: 'flex', justifyContent: 'center'}}>
           <div style={{width: '50%'}}>
-    				{this.state.isTimer ? <Timer timer={this.state.timer} />: null}
+    				{this.state.isTimer ? <Timer timer={this.state.timer} sendResults={this.sendResults}/>: null}
 
-    				<p>Phrase: {this.state.phrase}</p>
-    				<p>Counter: {this.state.counter}</p>
-    				<p>Typos: {this.state.typos}</p>
+    				<h3>{this.state.phrase}</h3>
 
     				<TextField
     					name="phraseTextField"
@@ -214,6 +194,7 @@ class Game extends React.Component {
     					disabled={this.state.disabledTextField}
     					value={this.state.phraseTextField}
     					onChange={this.update}
+              fullWidth={true}
     				/>
 
     				{this.state.isResults ? <Results />: null}
