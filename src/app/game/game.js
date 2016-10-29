@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router';
 import classNames from 'classnames';
 import Paper from 'material-ui/Paper';
+import {
+  Card, CardActions, CardHeader, CardText
+} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
@@ -77,33 +80,39 @@ class Game extends React.Component {
 
 	phraseButtonClick() {
 		clearInterval(this.state.interval);
-        this.setState({ phrase: "Phrase Mode",
-						disabledPhraseButton: true,
-						disabledTimeTrialButton: true,
-						disabledTextField: false,
-						isResults: false,
-						typos: 0,
-						isTimer: false,
-						timer: 2,
-						amountOfTypedLetters: 0,
-						gameType: 1});
+        this.setState({
+          phrase: "The quick brown fox jumps over the lazy dog.",
+					disabledPhraseButton: true,
+					disabledTimeTrialButton: true,
+					disabledTextField: false,
+					isResults: false,
+					typos: 0,
+					isTimer: false,
+					timer: 2,
+					amountOfTypedLetters: 0,
+					gameType: 1,
+          expanded: true
+        });
     }
 
 	timeTrialButtonClick() {
 		clearInterval(this.state.interval);
-		var intervalID = setInterval(this.tick, 1000);
+		//var intervalID = setInterval(this.tick, 1000);
 
-        this.setState({ phrase: "TimeTrial Mode",
-						disabledPhraseButton: true,
-						disabledTimeTrialButton: true,
-						disabledTextField: false,
-						isResults: false,
-						typos: 0,
-						isTimer: true,
-						interval: intervalID,
-						timer: 30,
-						amountOfTypedLetters: 0,
-						gameType: 0});
+        this.setState({
+          phrase: "TimeTrial Mode",
+					disabledPhraseButton: true,
+					disabledTimeTrialButton: true,
+					disabledTextField: false,
+					isResults: false,
+					typos: 0,
+					isTimer: true,
+					//interval: intervalID,
+					timer: 30,
+					amountOfTypedLetters: 0,
+					gameType: 0,
+          expanded: true
+        });
     }
 
 	displayResults(){
@@ -160,39 +169,46 @@ class Game extends React.Component {
 
 		return (
 		<div className={c}>
-      <div style={{padding: '20px'}}>
-				<RaisedButton
-					label='Phrase Mode'
-					style={style}
-					primary={true}
-					disabled={this.state.disabledPhraseButton}
-					onClick={this.phraseButtonClick}
-				/>
+      <Card expanded={this.state.expanded}>
+        <CardHeader
+          title='Phrase Mode'
+          subtitle='subtitle'
+        />
+        <CardActions>
+  				<RaisedButton
+  					label='Phrase Mode'
+  					style={style}
+  					primary={true}
+  					disabled={this.state.disabledPhraseButton}
+  					onClick={this.phraseButtonClick}
+  				/>
 
-				<RaisedButton
-					label='Time Trial Mode'
-					style={style}
-					primary={true}
-					disabled={this.state.disabledTimeTrialButton}
-					onClick={this.timeTrialButtonClick}
-				/>
+  				<RaisedButton
+  					label='Time Trial Mode'
+  					style={style}
+  					primary={true}
+  					disabled={this.state.disabledTimeTrialButton}
+  					onClick={this.timeTrialButtonClick}
+  				/>
+        </CardActions>
+        <CardText expandable={true}>
+  				{this.state.isTimer ? <Timer timer={this.state.timer} />: null}
 
-				{this.state.isTimer ? <Timer timer={this.state.timer} />: null}
+  				<p>Phrase: {this.state.phrase}</p>
+  				<p>Counter: {this.state.counter}</p>
+  				<p>Typos: {this.state.typos}</p>
 
-				<p>Phrase: {this.state.phrase}</p>
-				<p>Counter: {this.state.counter}</p>
-				<p>Typos: {this.state.typos}</p>
+  				<TextField
+  					name="phraseTextField"
+  					floatingLabelText="Type Here"
+  					disabled={this.state.disabledTextField}
+  					value={this.state.phraseTextField}
+  					onChange={this.update}
+  				/>
 
-				<TextField
-					name="phraseTextField"
-					floatingLabelText="Type Here"
-					disabled={this.state.disabledTextField}
-					value={this.state.phraseTextField}
-					onChange={this.update}
-				/>
-
-				{this.state.isResults ? <Results />: null}
-      </div>
+  				{this.state.isResults ? <Results />: null}
+        </CardText>
+      </Card>
 		</div>
 		);
 	}

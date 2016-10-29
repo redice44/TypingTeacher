@@ -1,16 +1,42 @@
 import React from 'react';
+import LinearProgress from 'material-ui/LinearProgress';
+
 import debug from '../../common/debug';
 
-const Timer = (props) => {
-  if (debug) {
-    console.log('=== Render Game/Timer', props);
+export default class Timer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      timer: props.timer
+    };
+    this.timerInc = 100 / props.timer / 10;
   }
 
-  return(
-    <div>
-      <h1>Time: {props.timer} seconds</h1>
-    </div>
-  );
-}
+  componentDidMount() {
+    this.timer = setTimeout(() => this.progress(this.timerInc), 100);
+  }
 
-export default Timer;
+  componentWillUnmount() {
+    clearTimeout(this.timer);
+  }
+
+  progress(completed) {
+    if (completed > 100) {
+      this.setState({completed: 100});
+      console.log('completed');
+    } else {
+      this.setState({completed});
+      this.timer = setTimeout(() => this.progress(completed + this.timerInc), 100);
+    }
+  }
+
+  render() {
+    if (debug) {
+      console.log('=== Render Game/Timer', this.props);
+    }
+
+    return(
+      <LinearProgress mode="determinate" value={this.state.completed} />
+    );
+  }
+}
