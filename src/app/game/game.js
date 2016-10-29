@@ -6,6 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
 import Results from './results/results';
+import Timer from './timer/timer';
 
 const style = {
   margin: 12,
@@ -176,7 +177,7 @@ class Game extends React.Component {
 					onClick={this.timeTrialButtonClick}
 				/>
 
-				{this.state.isTimer ? this.displayTimer(): null}
+				{this.state.isTimer ? <Timer timer={this.state.timer} />: null}
 
 				<p>Phrase: {this.state.phrase}</p>
 				<p>Counter: {this.state.counter}</p>
