@@ -21,6 +21,7 @@ class Game extends React.Component {
 		super(props);
 		this.state = {
 			phrase: "",
+			originalPhrase: "",
 			phraseTextField: '',
 			typos: 0,
 			counter: 0,
@@ -45,11 +46,26 @@ class Game extends React.Component {
      this.sendResults = this.sendResults.bind(this);
     };
 
-	update(e){
-		if(this.state.counter < this.state.phrase.length && this.state.timer > 0){ //If user has not typed all characters...
+	update(e){	
+		if(e.target.value.length < this.state.phraseTextField.length){	//If User pressed backspace		
+			this.setState({phraseTextField: e.target.value,
+						counter: this.state.counter - 1,
+						amountOfTypedLetters: this.state.amountOfTypedLetters - 1});
+			
+			if(this.state.phrase.substring(this.state.counter - 1,this.state.counter) == '*')	{ //If current char is a typo...
+			
+				var newPhrase = this.state.phrase.slice(0, this.state.counter - 1) + 
+								this.state.originalPhrase.slice(this.state.counter - 1, this.state.phrase.length);
+				
+				this.setState({phrase: newPhrase,
+							typos: this.state.typos - 1});
+			}
+			
+		}
+		else if(this.state.counter < this.state.phrase.length && this.state.timer > 0){ //If user has not typed all characters...
+
 			var inputChar = e.target.value.substring(this.state.counter,this.state.counter + 1);
 			var currentChar = this.state.phrase.substring(this.state.counter,this.state.counter + 1);
-
 			//Compare user input
 			if(inputChar != currentChar){
 				var input = this.state.phrase.slice(0, this.state.counter) +
@@ -75,6 +91,9 @@ class Game extends React.Component {
 						counter: 0});
 		}
 		else{	//Display Results
+			var accuracy = 100 - (this.state.typos/(this.state.amountOfTypedLetters) * 100);	//Calculate accuracy
+			this.props.updateResults({acc: accuracy});
+			
 			this.setState({ disabledPhraseButton: false,
 							disabledTimeTrialButton: false,
 							disabledTextField: true, phraseTextField: '',
@@ -85,9 +104,9 @@ class Game extends React.Component {
 	phraseButtonClick() {
 		clearInterval(this.state.interval);
 		this.props.playPhrase();
-		this.props.playPhrase();
         this.setState({
 					phrase: this.props.phrase,
+					originalPhrase: this.props.phrase,
 					disabledPhraseButton: true,
 					disabledTimeTrialButton: true,
 					disabledTextField: false,
@@ -98,17 +117,16 @@ class Game extends React.Component {
 					amountOfTypedLetters: 0,
 	
 					expanded: true
-        });
-		
-		
+        });	
     }
-
+ 
 	timeTrialButtonClick() {
 		clearInterval(this.state.interval);
 		//var intervalID = setInterval(this.tick, 1000);
 		this.props.playTime();
       this.setState({
         phrase: this.props.phrase,
+				originalPhrase: this.props.phrase,
 				disabledPhraseButton: true,
 				disabledTimeTrialButton: true,
 				disabledTextField: false,
@@ -194,7 +212,6 @@ class Game extends React.Component {
     				{this.state.isTimer ? <Timer timer={this.state.timer} sendResults={this.sendResults}/>: null}
 
     				<h3>{this.state.phrase}</h3>
-
     				<TextField
     					name="phraseTextField"
     					floatingLabelText="Type Here"
