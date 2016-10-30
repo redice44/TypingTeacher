@@ -10,6 +10,7 @@ import TextField from 'material-ui/TextField';
 
 import Results from './results/results';
 import Timer from './timer/timer';
+import util from './constants';
 
 const style = {
   margin: 12,
@@ -19,7 +20,7 @@ class Game extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			phrase: '',
+			phrase: "",
 			phraseTextField: '',
 			typos: 0,
 			counter: 0,
@@ -31,16 +32,17 @@ class Game extends React.Component {
 			timer: 0,
 			interval: 0,
 			amountOfTypedLetters: 0,
-			gameType: 1,
-      game: props.game
+			gameType: props.gameType,
+			game: props.game
 		 }
 
+	 this.props.playTime();
 	 //Bindings
      this.update = this.update.bind(this);
 	 this.phraseButtonClick = this.phraseButtonClick.bind(this);
 	 this.timeTrialButtonClick = this.timeTrialButtonClick.bind(this);
 	 this.tick = this.tick.bind(this);
-      this.sendResults = this.sendResults.bind(this);
+     this.sendResults = this.sendResults.bind(this);
     };
 
 	update(e){
@@ -66,8 +68,9 @@ class Game extends React.Component {
 							amountOfTypedLetters: this.state.amountOfTypedLetters + 1});
 			}
 		}
-		else if ((this.state.timer > 0) && (this.state.gameType == 0)){ //Update Phrase
-			this.setState({phrase: "New Phrase",
+		else if ((this.state.timer > 0) && (this.state.gameType == util.c.TIME)){ //Update Phrase
+			this.props.playTime();
+			this.setState({phrase: this.props.phrase,
 						phraseTextField: "",
 						counter: 0});
 		}
@@ -81,8 +84,10 @@ class Game extends React.Component {
 
 	phraseButtonClick() {
 		clearInterval(this.state.interval);
+		this.props.playPhrase();
+		this.props.playPhrase();
         this.setState({
-          phrase: "The quick brown fox jumps over the lazy dog.",
+					phrase: this.props.phrase,
 					disabledPhraseButton: true,
 					disabledTimeTrialButton: true,
 					disabledTextField: false,
@@ -91,17 +96,19 @@ class Game extends React.Component {
 					isTimer: false,
 					timer: 2,
 					amountOfTypedLetters: 0,
-					gameType: 1,
-          expanded: true
+	
+					expanded: true
         });
+		
+		
     }
 
 	timeTrialButtonClick() {
 		clearInterval(this.state.interval);
 		//var intervalID = setInterval(this.tick, 1000);
-
+		this.props.playTime();
       this.setState({
-        phrase: "TimeTrial Mode",
+        phrase: this.props.phrase,
 				disabledPhraseButton: true,
 				disabledTimeTrialButton: true,
 				disabledTextField: false,
@@ -111,7 +118,7 @@ class Game extends React.Component {
 				//interval: intervalID,
 				timer: 5,
 				amountOfTypedLetters: 0,
-				gameType: 0,
+				gameType: util.c.TIME,
         expanded: true
       });
   }
@@ -162,7 +169,7 @@ class Game extends React.Component {
 		<div className={c}>
       <Card expanded={this.state.expanded}>
         <CardHeader
-          title='Phrase Mode'
+          title={this.state.gameType == util.c.PHRASE ? 'Phrase Mode' : 'Time Trial Mode'}
           subtitle='subtitle'
         />
         <CardActions style={{textAlign: 'center'}}>
