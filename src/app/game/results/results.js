@@ -13,7 +13,7 @@ const Results = (props) => {
         <li>The quick brown fox jumps over the lazy dog.</li>
         <li>in 7.214 seconds</li>
         <li>at 74.85 words per minute</li>
-        <li>with an accuracy of 95.55%</li>
+        <li>with an accuracy of {props.acc}%</li>
       </ul>
     </div>
   );
