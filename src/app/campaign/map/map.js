@@ -57,14 +57,14 @@ export default class CampaignMap extends React.Component {
         case campaignUtil.c.SINGLE:
           switch (level.levelState) {
             case campaignUtil.c.levelState.needsSave:
-              titlebg = 'rgba(255, 0, 0, 0.6)';
+              titlebg = '#a71b1b';
               break;
             case campaignUtil.c.levelState.saved:
             case campaignUtil.c.levelState.completed:
-              titlebg = 'rgba(0, 255, 0, 0.6)';
+              titlebg = '#206135';
               break;
             case campaignUtil.c.levelState.active:
-              titlebg = 'rgba(0, 0, 255, 0.6)';
+              titlebg = '#3c869e';
               break;
             default:
               // Do nothing
@@ -89,14 +89,14 @@ export default class CampaignMap extends React.Component {
             (level.part2.levelState &&
             level.part2.levelState === campaignUtil.c.levelState.needsSave)
           ) {
-            temp = 'rgba(255, 0, 0, 0.6)';
+            temp = '#a71b1b';
           } else if (
             (level.part1.levelState &&
             level.part1.levelState === campaignUtil.c.levelState.active) ||
             (level.part2.levelState &&
             level.part2.levelState === campaignUtil.c.levelState.active)
           ) {
-            temp = 'rgba(0, 0, 255, 0.6)';
+            temp = '#3c869e';
           } else if (
             (level.part1.levelState &&
             level.part1.levelState === campaignUtil.c.levelState.completed ||
@@ -105,7 +105,7 @@ export default class CampaignMap extends React.Component {
             level.part2.levelState === campaignUtil.c.levelState.completed ||
             level.part2.levelState === campaignUtil.c.levelState.saved)
           ) {
-            temp = 'rgba(0, 255, 0, 0.6)';
+            temp = '#206135';
           } else {
 
           }

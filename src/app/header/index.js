@@ -18,7 +18,7 @@ export default class Header extends React.Component {
         title = 'Typing Teacher'
         onLeftIconButtonTouchTap={ () => this.context.router.push('/') }
         iconElementLeft={ <IconButton><ComputerIcon /></IconButton> }
-        iconElementRight={ <div style={{display: 'flex'}}><TestAccountButton /><AccountIconButton /></div> }
+        iconElementRight={ <div style={{display: 'flex'}}><AccountIconButton /></div> }
       />
     );
   }

@@ -19,7 +19,7 @@ const AccountButton = (props) => {
         }}
         tooltip={ props.auth ? "Sign Out" : "Sign In" }
       >
-        { props.auth ? <LogoutIcon /> : <AccountIcon /> }
+        { props.auth ? <LogoutIcon color={'#FFFFFF'}/> : <AccountIcon color={'#FFFFFF'}/> }
       </IconButton>
       <Modal {...props} />
     </div>

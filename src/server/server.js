@@ -41,7 +41,7 @@ mongoose.connect(mongodbUri, (err) => {
     saveUninitialized: false,
     // TODO: Be sure to update this life time to something reasonable.
     cookie: {
-      maxAge: 5 * 60 * 1000
+      maxAge: 30 * 60 * 1000
     }
   }));
   server.use(passport.initialize());

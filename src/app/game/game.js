@@ -47,21 +47,21 @@ class Game extends React.Component {
     this.sendResults = this.sendResults.bind(this);
   };
 
-  update(e){	
-   	if(e.target.value.length < this.state.phraseTextField.length){	//If User pressed backspace		
+  update(e){
+   	if(e.target.value.length < this.state.phraseTextField.length){	//If User pressed backspace
 	  this.setState({
 	    phraseTextField: e.target.value,
 		counter: this.state.counter - 1,
 		amountOfTypedLetters: this.state.amountOfTypedLetters - 1});
-			
+
 	  if(this.state.phrase.substring(this.state.counter - 1,this.state.counter) == '*')	{ //If current char is a typo...
-	    var newPhrase = this.state.phrase.slice(0, this.state.counter - 1) + 
+	    var newPhrase = this.state.phrase.slice(0, this.state.counter - 1) +
 			            this.state.originalPhrase.slice(this.state.counter - 1, this.state.phrase.length);
-					  
+
 	    this.setState({
 		  phrase: newPhrase,
 		  typos: this.state.typos - 1});
-	  }	
+	  }
 	}
 	else if(this.state.counter < this.state.phrase.length && this.state.timer > 0){ //If user has not typed all characters...
 	  var inputChar = e.target.value.substring(this.state.counter,this.state.counter + 1);
@@ -97,8 +97,8 @@ class Game extends React.Component {
 	  var accuracy = 100 - (this.state.typos/(this.state.amountOfTypedLetters) * 100);	//Calculate accuracy
 	  accuracy = Math.round(accuracy);
 	  this.props.updateResults({acc: accuracy});
-			
-	  this.setState({ 
+
+	  this.setState({
 		disabledPhraseButton: false,
 		acc: accuracy,
 		disabledTimeTrialButton: false,
@@ -110,7 +110,7 @@ class Game extends React.Component {
   phraseButtonClick() {
 	clearInterval(this.state.interval);
 	this.props.playPhrase();
-	
+
     this.setState({
       phrase: this.props.phrase,
 	  originalPhrase: this.props.phrase,
@@ -122,9 +122,9 @@ class Game extends React.Component {
 	  isTimer: false,
 	  timer: 2,
 	  amountOfTypedLetters: 0,
-	  expanded: true});	
+	  expanded: true});
   }
- 
+
   timeTrialButtonClick() {
 	clearInterval(this.state.interval);
 	//var intervalID = setInterval(this.tick, 1000);
@@ -158,7 +158,7 @@ class Game extends React.Component {
     console.log('results received');
 	var accuracy = 100 - (this.state.typos/(this.state.amountOfTypedLetters) * 100);	//Calculate accuracy
 	this.props.updateResults({acc: accuracy});
-	
+
     this.setState({
       disabledPhraseButton: false,
 	  acc: Math.round(accuracy),
@@ -190,15 +190,17 @@ class Game extends React.Component {
 
       }
     }
+/*
 
+  <CardHeader
+    title={this.state.gameType == util.c.PHRASE ? '' : ''}
+    subtitle=''
+  />
+  */
 	return (
 	<div className={c}>
       <Card expanded={this.state.expanded}>
-        <CardHeader
-          title={this.state.gameType == util.c.PHRASE ? 'Phrase Mode' : 'Time Trial Mode'}
-          subtitle='subtitle'
-        />
-        <CardActions style={{textAlign: 'center'}}>
+        <CardActions style={{textAlign: 'center', display: this.state.disabledPhraseButton ? 'none' : 'block'}}>
   				<RaisedButton
   					label='Phrase Mode'
   					style={style}
@@ -216,20 +218,22 @@ class Game extends React.Component {
   				/>
         </CardActions>
         <CardText expandable={true} style={{display: 'flex', justifyContent: 'center'}}>
-          <div style={{width: '50%'}}>
-    				{this.state.isTimer ? <Timer timer={this.state.timer} sendResults={this.sendResults}/>: null}
+          <div style={{display: 'flex', flexGrow: 1, flexDirection: 'column', alignItems: 'center'}}>
+            <div style={{width: '50%'}}>
+      				{this.state.isTimer ? <Timer timer={this.state.timer} sendResults={this.sendResults}/>: null}
 
-    				<h3>{this.state.phrase}</h3>
-    				<TextField
-    					name="phraseTextField"
-    					floatingLabelText="Type Here"
-    					disabled={this.state.disabledTextField}
-    					value={this.state.phraseTextField}
-    					onChange={this.update}
-              fullWidth={true}
-    				/>
+      				<h3>{this.state.phrase}</h3>
+      				<TextField
+      					name="phraseTextField"
+      					floatingLabelText="Type Here"
+      					disabled={this.state.disabledTextField}
+      					value={this.state.phraseTextField}
+      					onChange={this.update}
+                fullWidth={true}
+      				/>
 
-    				{this.state.isResults ? <Results acc={this.state.acc}/>: null}
+            </div>
+            {this.state.isResults ? <Results acc={this.state.acc}/>: null}
           </div>
         </CardText>
       </Card>

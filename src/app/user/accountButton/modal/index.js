@@ -117,7 +117,6 @@ export default class AccountModal extends React.Component{
 
     return (
       <Dialog
-        title="Modal"
         modal={false}
         actions={actions}
         open={this.props.modalState}
