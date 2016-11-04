@@ -11,8 +11,8 @@ const Results = (props) => {
       <h3>You typed</h3>
       <ul>
         <li>The quick brown fox jumps over the lazy dog.</li>
-        <li>in 7.214 seconds</li>
-        <li>at 74.85 words per minute</li>
+        <li>in {props.timer} seconds</li>
+        <li>at {props.wpm} words per minute</li>
         <li>with an accuracy of {props.acc}%</li>
       </ul>
     </div>

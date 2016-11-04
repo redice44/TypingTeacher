@@ -37,7 +37,11 @@ class Game extends React.Component {
 	  game: props.game,
 	  acc: 0,
 	  timeTrialWasClicked: false,
-	  timestamp: []
+	  timestamp: [],
+	  wpm: 0,
+	  amountOfCharsTyped: 0,
+	  amountOfWords: 0,
+	  startTime: 0
     }
 
 	this.props.playTime();
@@ -51,6 +55,7 @@ class Game extends React.Component {
   
   update(e){	  
     this.state.timestamp.push(Date.now()); // Collect timestamp
+	this.setState({amountOfCharsTyped: this.state.amountOfCharsTyped + 1}); //Count everytime user types
 	
    	if((e.target.value.length < this.state.phraseTextField.length && this.state.timer > 0 && this.state.gameType == util.c.TIME) ||
 		(e.target.value.length < this.state.phraseTextField.length && this.state.gameType == util.c.PHRASE)){	//If User pressed backspace		
@@ -93,23 +98,34 @@ class Game extends React.Component {
 	  }
 	}
 	else if ((this.state.timer > 0) && (this.state.gameType == util.c.TIME)){ //Update Phrase
-	  this.props.playTime();
+	  
 	  this.setState({
+		amountOfWords: this.state.originalPhrase.split(" ").length + this.state.amountOfWords,
 		phrase: this.props.phrase,
+		originalPhrase: this.props.phrase,
 		phraseTextField: "",
 		counter: 0});
+		this.props.playTime();
 	}
-	else{	//Display Results
+	else{	//Display Results for phrase mode
 	  var accuracy = 100 - (this.state.typos/(this.state.amountOfTypedLetters) * 100);	//Calculate accuracy
-	  accuracy = Math.round(accuracy);
-	  this.props.updateResults({acc: accuracy, timeStamps: this.state.timestamps});
+	  accuracy = Math.round(accuracy); 
 			
+	  var time = Math.round((Date.now() / 1000) - this.state.startTime);
+	  
 	  this.setState({ 
 		disabledPhraseButton: false,
 		acc: accuracy,
 		disabledTimeTrialButton: false,
 		disabledTextField: true, phraseTextField: '',
-		counter: 0, isResults: true});
+		counter: 0, isResults: true,
+		timer: time,
+		wpm: this.calculateWPM(time)});
+		
+	  this.props.updateResults({acc: accuracy, 
+		    					timeStamps: this.state.timestamps,
+								wpm: this.state.wpm,
+								timer: this.state.timer});
 	}
   }
 
@@ -127,7 +143,11 @@ class Game extends React.Component {
 	  typos: 0,
 	  isTimer: false,
 	  timer: 0,
+	  startTime: Date.now() / 1000,
+	  wpm: 0,
 	  amountOfTypedLetters: 0,
+	  amountOfCharsTyped: 0,
+	  amountOfWords: 0,
 	  gameType: util.c.PHRASE,
 	  expanded: true,
 	  timestamp: []});	
@@ -135,7 +155,7 @@ class Game extends React.Component {
  
   timeTrialButtonClick() {
 	clearInterval(this.state.interval);
-	//var intervalID = setInterval(this.tick, 1000);
+
 	this.props.playTime();
     this.setState({
 	  phrase: this.props.phrase,
@@ -146,9 +166,11 @@ class Game extends React.Component {
 	  isResults: false,
 	  typos: 0,
       isTimer: true,
-	//interval: intervalID,
 	  timer: 5,
+	  wpm: 0,
 	  amountOfTypedLetters: 0,
+	  amountOfCharsTyped: 0,
+	  amountOfWords: 0,
 	  gameType: util.c.TIME,
       expanded: true,
 	  timeTrialWasClicked: !this.state.timeTrialWasClicked,
@@ -164,18 +186,30 @@ class Game extends React.Component {
 	}
   }
 
+  calculateWPM(time){
+	var words = this.state.amountOfWords + this.state.originalPhrase.split(" ").length;  
+	console.log(this.state.amountOfCharsTyped + " " + words + " " + time);
+	var wpm = (this.state.amountOfCharsTyped /  words) * 60 / time;
+	return Math.round(wpm);
+  }
+  
+  
   sendResults() {
     console.log('results received');
 	var accuracy = 100 - (this.state.typos/(this.state.amountOfTypedLetters) * 100);	//Calculate accuracy
-	this.props.updateResults({acc: accuracy});
-	
+
     this.setState({
       disabledPhraseButton: false,
 	  acc: Math.round(accuracy),
       disabledTimeTrialButton: false,
       disabledTextField: true, phraseTextField: '',
-      counter: 0, isResults: true
+      counter: 0, isResults: true,
+	  wpm: this.calculateWPM(this.state.timer)
     });
+	
+	this.props.updateResults({acc: accuracy, 
+						    timeStamps: this.state.timestamps});
+	
   }
 
   componentWillReceiveProps(nextProps) {
@@ -239,7 +273,7 @@ class Game extends React.Component {
               fullWidth={true}
     				/>
 
-    				{this.state.isResults ? <Results acc={this.state.acc}/>: null}
+    				{this.state.isResults ? <Results acc={this.state.acc} wpm={this.state.wpm} timer={this.state.timer} />: null}
           </div>
         </CardText>
       </Card>
