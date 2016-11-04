@@ -73,8 +73,8 @@ class Game extends React.Component {
 		  typos: this.state.typos - 1});
 	  }	
 	}
-	else if((this.state.counter < this.state.phrase.length && this.state.timer > 0 && this.state.gameType == util.c.TIME) || 
-			((this.state.counter < this.state.phrase.length && this.state.gameType == util.c.PHRASE))){ //If user has not typed all characters...
+	else if((this.state.counter < this.state.phrase.length - 1 && this.state.timer > 0 && this.state.gameType == util.c.TIME) || 
+			((this.state.counter < this.state.phrase.length - 1 && this.state.gameType == util.c.PHRASE))){ //If user has not typed all characters...
 	  var inputChar = e.target.value.substring(this.state.counter,this.state.counter + 1);
 	  var currentChar = this.state.phrase.substring(this.state.counter,this.state.counter + 1);
 	  //Compare user input
