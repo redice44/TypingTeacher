@@ -35,7 +35,8 @@ class Game extends React.Component {
 	  amountOfTypedLetters: 0,
 	  gameType: props.gameType,
 	  game: props.game,
-	  acc: 0
+	  acc: 0,
+	  timeTrialWasClicked: false
     }
 
 	this.props.playTime();
@@ -48,7 +49,9 @@ class Game extends React.Component {
   };
 
   update(e){	
-   	if(e.target.value.length < this.state.phraseTextField.length){	//If User pressed backspace		
+	console.log(this.state.gameType);
+   	if((e.target.value.length < this.state.phraseTextField.length && this.state.timer > 0 && this.state.gameType == util.c.TIME) ||
+		(e.target.value.length < this.state.phraseTextField.length && this.state.gameType == util.c.PHRASE)){	//If User pressed backspace		
 	  this.setState({
 	    phraseTextField: e.target.value,
 		counter: this.state.counter - 1,
@@ -63,7 +66,8 @@ class Game extends React.Component {
 		  typos: this.state.typos - 1});
 	  }	
 	}
-	else if(this.state.counter < this.state.phrase.length && this.state.timer > 0){ //If user has not typed all characters...
+	else if((this.state.counter < this.state.phrase.length && this.state.timer > 0 && this.state.gameType == util.c.TIME) || 
+			((this.state.counter < this.state.phrase.length && this.state.gameType == util.c.PHRASE))){ //If user has not typed all characters...
 	  var inputChar = e.target.value.substring(this.state.counter,this.state.counter + 1);
 	  var currentChar = this.state.phrase.substring(this.state.counter,this.state.counter + 1);
 	  //Compare user input
@@ -120,8 +124,9 @@ class Game extends React.Component {
 	  isResults: false,
 	  typos: 0,
 	  isTimer: false,
-	  timer: 2,
+	  timer: 0,
 	  amountOfTypedLetters: 0,
+	  gameType: util.c.PHRASE,
 	  expanded: true});	
   }
  
@@ -142,7 +147,8 @@ class Game extends React.Component {
 	  timer: 5,
 	  amountOfTypedLetters: 0,
 	  gameType: util.c.TIME,
-      expanded: true});
+      expanded: true,
+	  timeTrialWasClicked: !this.state.timeTrialWasClicked});
   }
 
 
@@ -217,7 +223,7 @@ class Game extends React.Component {
         </CardActions>
         <CardText expandable={true} style={{display: 'flex', justifyContent: 'center'}}>
           <div style={{width: '50%'}}>
-    				{this.state.isTimer ? <Timer timer={this.state.timer} sendResults={this.sendResults}/>: null}
+    				{this.state.isTimer ? <Timer timer={this.state.timer} timeTrialWasClicked={this.state.timeTrialWasClicked} sendResults={this.sendResults}/>: null}
 
     				<h3>{this.state.phrase}</h3>
     				<TextField
