@@ -36,7 +36,8 @@ class Game extends React.Component {
 	  gameType: props.gameType,
 	  game: props.game,
 	  acc: 0,
-	  timeTrialWasClicked: false
+	  timeTrialWasClicked: false,
+	  timestamp: []
     }
 
 	this.props.playTime();
@@ -47,15 +48,16 @@ class Game extends React.Component {
 	this.tick = this.tick.bind(this);
     this.sendResults = this.sendResults.bind(this);
   };
-
-  update(e){	
-	console.log(this.state.gameType);
+  
+  update(e){	  
+    this.state.timestamp.push(Date.now()); // Collect timestamp
+	
    	if((e.target.value.length < this.state.phraseTextField.length && this.state.timer > 0 && this.state.gameType == util.c.TIME) ||
 		(e.target.value.length < this.state.phraseTextField.length && this.state.gameType == util.c.PHRASE)){	//If User pressed backspace		
 	  this.setState({
 	    phraseTextField: e.target.value,
 		counter: this.state.counter - 1,
-		amountOfTypedLetters: this.state.amountOfTypedLetters - 1});
+	    amountOfTypedLetters: this.state.amountOfTypedLetters - 1});
 			
 	  if(this.state.phrase.substring(this.state.counter - 1,this.state.counter) == '*')	{ //If current char is a typo...
 	    var newPhrase = this.state.phrase.slice(0, this.state.counter - 1) + 
@@ -100,7 +102,7 @@ class Game extends React.Component {
 	else{	//Display Results
 	  var accuracy = 100 - (this.state.typos/(this.state.amountOfTypedLetters) * 100);	//Calculate accuracy
 	  accuracy = Math.round(accuracy);
-	  this.props.updateResults({acc: accuracy});
+	  this.props.updateResults({acc: accuracy, timeStamps: this.state.timestamps});
 			
 	  this.setState({ 
 		disabledPhraseButton: false,
@@ -127,7 +129,8 @@ class Game extends React.Component {
 	  timer: 0,
 	  amountOfTypedLetters: 0,
 	  gameType: util.c.PHRASE,
-	  expanded: true});	
+	  expanded: true,
+	  timestamp: []});	
   }
  
   timeTrialButtonClick() {
@@ -148,7 +151,8 @@ class Game extends React.Component {
 	  amountOfTypedLetters: 0,
 	  gameType: util.c.TIME,
       expanded: true,
-	  timeTrialWasClicked: !this.state.timeTrialWasClicked});
+	  timeTrialWasClicked: !this.state.timeTrialWasClicked,
+	  timestamp: []});
   }
 
 
