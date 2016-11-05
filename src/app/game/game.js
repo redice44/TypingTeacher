@@ -16,6 +16,19 @@ const style = {
   margin: 12,
 };
 
+const backgroundRed = {
+  background: "red",
+  margin: "1px"
+};
+
+const styleRed = {
+  color: 'red'
+};
+
+const styleBlue = {
+  color: 'Blue'
+};
+
 class Game extends React.Component {
   constructor(props){
 	super(props);
@@ -49,6 +62,7 @@ class Game extends React.Component {
 	this.phraseButtonClick = this.phraseButtonClick.bind(this);
 	this.timeTrialButtonClick = this.timeTrialButtonClick.bind(this);
     this.sendResults = this.sendResults.bind(this);
+	this.replaceString = this.replaceString.bind(this);
   };
   
 
@@ -192,7 +206,7 @@ class Game extends React.Component {
   }
 
   calculateWPM(time){
-	console.log(this.state.amountOfCharsTyped + " " + (this.state.amountOfWords) + " " + time);
+	console.log(this.state.amountOfCharsTyped + " " + (this.state.amountOfWords + 1) + " " + time);
 	var wpm = (this.state.amountOfCharsTyped /  this.state.amountOfWords + 1) * 60 / time;
 	return Math.round(wpm);
   }
@@ -228,7 +242,30 @@ class Game extends React.Component {
       console.log('=== Will Receive Props: Game', nextProps);
     }
   }
+  
+  
+  replaceString(){
+	var parts = this.state.phrase.split(/\\*/g);
+	
+	for (var i = 0; i < parts.length; i++) {
+	  if(parts[i] == "*") // marks characters as red 
+	  {
+	    if(this.state.originalPhrase[i] == " "){
+		  parts[i] = <span className="match" style={backgroundRed} key={i}>{this.state.originalPhrase[i]}</span>;   	   
+		}	
+	    else{
+	      parts[i] = <span className="match" style={styleRed} key={i}>{this.state.originalPhrase[i]}</span>;	  
+	    }   
+	  }
+	  else{  	
+		parts[i] = <span>{parts[i]}</span>;	
+      }
+	}
+	return <div>{parts}</div>;
+  }
+  
 
+  
   render() {
     if (process.env.BROWSER && process.env.DEBUG) {
       console.log('=== Render: Game', this.props);
@@ -236,7 +273,7 @@ class Game extends React.Component {
     const c = classNames({
       'content': true
     });
-
+	
     const styles = {
       root: {
 
@@ -245,7 +282,7 @@ class Game extends React.Component {
 
       }
     }
-
+	
 	return (
 	<div className={c}>
       <Card expanded={this.state.expanded}>
@@ -274,17 +311,17 @@ class Game extends React.Component {
           <div style={{width: '50%'}}>
     				{this.state.isTimer ? <Timer timer={this.state.timer} timeTrialWasClicked={this.state.timeTrialWasClicked} sendResults={this.sendResults}/>: null}
 
-    				<h3>{this.state.phrase}</h3>
+					<h3>{this.replaceString()}</h3>
     				<TextField
     					name="phraseTextField"
     					floatingLabelText="Type Here"
     					disabled={this.state.disabledTextField}
     					value={this.state.phraseTextField}
     					onChange={this.update}
-              fullWidth={true}
+						fullWidth={true}
     				/>
 
-    				{this.state.isResults ? <Results acc={this.state.acc} wpm={this.state.wpm} timer={this.state.timer} />: null}
+    				{this.state.isResults ? <Results acc={this.state.acc} originalPhrase={this.state.originalPhrase} wpm={this.state.wpm} timer={this.state.timer} />: null}
           </div>
         </CardText>
       </Card>
