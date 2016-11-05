@@ -10,7 +10,7 @@ const Results = (props) => {
     <div>
       <h3>You typed</h3>
       <ul>
-        <li>The quick brown fox jumps over the lazy dog.</li>
+        <li>{props.originalPhrase}</li>
         <li>in {props.timer} seconds</li>
         <li>at {props.wpm} words per minute</li>
         <li>with an accuracy of {props.acc}%</li>
