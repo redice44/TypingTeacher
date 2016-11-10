@@ -66,7 +66,7 @@ mongoose.connect(mongodbUri, (err) => {
 
   // REMINDER: Adjustments need to be done here and in the route file.
   // Authenticated Routes
-  //server.get('/dashboard', auth, handleRender);
+  // server.get('/dashboard', auth, handleRender);
   //server.get('/campaign/create', auth, handleRender);
 
   // Unauthenticated Routes

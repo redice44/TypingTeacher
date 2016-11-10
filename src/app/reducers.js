@@ -15,7 +15,8 @@ const appReducers = combineReducers({
   notification: notificationReducer,
   campaign: campaignReducer,
   routing: routerReducer,
-  dashboard: dashboardReducer
+  dashboard: dashboardReducer,
+  history: historyReducer
 });
 
 export default appReducers;

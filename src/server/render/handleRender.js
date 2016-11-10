@@ -13,6 +13,11 @@ import renderFullPage from './renderFullPage';
 // import routes from '../../app/routes/baseRoutes.js';
 import routes from '../../app/routes/';
 
+import Account from '../../database/account/model';
+import Campaign from '../../database/campaign/model';
+
+import { updatePlayer } from '../../app/user/actions';
+
 import { routeLocationDidUpdate } from '../../app/history/actions';
 
 const handleRender = (req, res, next) => {
@@ -24,10 +29,6 @@ const handleRender = (req, res, next) => {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
       const store = createStore(appReducers);
-      // Triggers any store related changes to location
-      store.dispatch(routeLocationDidUpdate(renderProps.location));
-
-      // TODO: Standardize MUI Theme
       const muiTheme = getMuiTheme({
         pallet: {
           accent1Color: deepOrange500,
@@ -44,9 +45,35 @@ const handleRender = (req, res, next) => {
         </MuiThemeProvider>
       );
 
-      const initialState = store.getState();
-      console.log(initialState);
-      res.send(renderFullPage(html, initialState));
+      // Triggers any store related changes to location
+      store.dispatch(routeLocationDidUpdate(renderProps.location));
+      // If it's an authenticated route, attach the account to the store
+      if (renderProps.location.pathname !== '/' && req.user) {
+        const q = {
+          _id: { $in: req.user.campaignList }
+        };
+
+        Campaign.find(q, (err, campList) => {
+          if (err) {
+            return console.log(err);
+          }
+
+          const player = {
+            name: req.user.username,
+            wpm: req.user.wpm,
+            acc: req.user.acc,
+            campaignList: campList
+          };
+          store.dispatch(updatePlayer(player));
+          const initialState = store.getState();
+          console.log('Initial Store State on Server', initialState);
+          res.send(renderFullPage(html, initialState));
+        });
+      } else {
+        const initialState = store.getState();
+        console.log('Initial Store State on Server', initialState);
+        res.send(renderFullPage(html, initialState));
+      }
     } else {
       // TODO: Handle 404 better
       res.status(404).send('Not found');
