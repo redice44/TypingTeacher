@@ -9,6 +9,9 @@ import {
   resetLevel,
   editLevel
 } from '../actions.js';
+import {
+  updatePlayer
+} from '../../user/actions';
 import CreateCampaign from './createCampaign';
 
 import util from '../constants';
@@ -43,10 +46,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           }
 
           const data = JSON.parse(res.text);
-          console.log(data);
+          dispatch(updatePlayer(data.user));
         });
-      // Store doesn't really need to know about a new campaign
-      // dispatch(addCampaign(camp));
     },
     updateCreating: (cBool) => {
       dispatch(isCreating(cBool));

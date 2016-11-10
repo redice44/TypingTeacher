@@ -29,15 +29,32 @@ router.post('/add', (req, res, next) => {
         return next(err);
       }
 
-      console.log('found test user', user);
-
       user.campaignList.push(camp._id);
       user.save((err) => {
         if (err) {
           return next(err);
         }
-        console.log('Updated test user');
-        return res.json({campaign: camp});
+        const q = {
+          _id: { $in: user.campaignList }
+        };
+
+        Campaign.find(q, (err, campList) => {
+          if (err) {
+            return console.log(err);
+          }
+
+          console.log('getting campaigns for user', campList);
+          res.json({
+            user: {
+              name: req.user.username,
+              wpm: req.user.wpm,
+              acc: req.user.acc,
+              campaignList: campList
+            }
+          });
+        });
+
+        //return res.json({user: user});
       });
     });
   });
