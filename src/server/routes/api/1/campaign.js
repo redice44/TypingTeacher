@@ -9,9 +9,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/add', (req, res, next) => {
-  console.log(req.body.campaign);
   let campaign = req.body.campaign;
-  console.log(campaign);
   let camp = new Campaign({
     name: campaign.name
   });
@@ -26,7 +24,7 @@ router.post('/add', (req, res, next) => {
       return next(err);
     }
 
-    Account.findOne({ 'username': 'test' }, (err, user) => {
+    Account.findOne({ 'username': req.body.username }, (err, user) => {
       if (err) {
         return next(err);
       }

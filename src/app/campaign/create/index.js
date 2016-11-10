@@ -18,6 +18,7 @@ const mapStateToProps = (state, ownProps) => {
   // ownProps are props sent to the component
   return {
     // Set props to send
+    username: state.account.player.name,
     levels: state.campaign.levels,
     isCreating: state.campaign.isCreating
   };
@@ -28,11 +29,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   // ownProps are props sent to the component
   return {
     // Actions to send
-    addCampaign: (camp) => {
+    addCampaign: (camp, user) => {
       // create campaign on server
       request
         .post(util.r.ADD_CAMPAIGN)
-        .send({campaign: camp})
+        .send({
+          campaign: camp,
+          username: user
+        })
         .end((err, res) => {
           if (err) {
             return console.log(err);

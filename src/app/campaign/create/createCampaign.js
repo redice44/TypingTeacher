@@ -85,6 +85,7 @@ export default class CreateCampaign extends React.Component {
                   return true;
                 })) {
                   console.log('all levels saved');
+                  console.log(this.props);
                   let tempLevels = this.props.levels.map((lv, i) => {
                     console.log(lv, i);
                     if (lv.state === util.c.SINGLE) {
@@ -99,7 +100,7 @@ export default class CreateCampaign extends React.Component {
                     levels: tempLevels,
                     name: this.state.name
                   };
-                  this.props.addCampaign(camp);
+                  this.props.addCampaign(camp, this.props.username);
                   this.reset();
                 } else {
                   // TODO Display error
