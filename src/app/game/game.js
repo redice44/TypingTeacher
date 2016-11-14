@@ -106,13 +106,14 @@ class Game extends React.Component {
 		var input = this.state.phrase.slice(0, this.state.counter) +
 					'*' + this.state.phrase.slice(this.state.counter +
 					1, this.state.phrase.length);
-
+	 	
 	    this.setState({
 		  phraseTextField: str,
 		  phrase: input,
 		  counter: this.state.counter + 1,
-		  typos: this.state.typos + 1,
 		  amountOfTypedLetters: this.state.amountOfTypedLetters + 1});
+		
+		this.state.typos = this.state.typos + 1;	
 	  }
 	  else {
 		this.setState({
@@ -142,7 +143,6 @@ class Game extends React.Component {
 	}
 	else{	//Display Results for phrase mode
 	  this.compareInput(e.target.value);
-	  this.setState({amountOfWords: this.state.amountOfWords + 1});
 	  this.sendResults();
 	}
   }
@@ -207,7 +207,7 @@ class Game extends React.Component {
 
   calculateWPM(time){
 	console.log(this.state.amountOfCharsTyped + " " + (this.state.amountOfWords + 1) + " " + time);
-	var wpm = (this.state.amountOfCharsTyped /  this.state.amountOfWords + 1) * 60 / time;
+	var wpm = (this.state.amountOfCharsTyped /  (this.state.amountOfWords + 1)) * 60 / time;
 	return Math.round(wpm);
   }
   
@@ -226,7 +226,7 @@ class Game extends React.Component {
 	  phraseTextField: '',
 	  counter: 0, isResults: true,
 	  timer: (this.state.gameType == util.c.PHRASE ? time: this.state.timer),
-	  amountOfWords: this.state.amountOfWords + 1,
+	  amountOfWords: this.state.amountOfWords + 2,
 	  wpm: this.calculateWPM((this.state.gameType == util.c.PHRASE ? time: this.state.timer)),
 	});
 		
