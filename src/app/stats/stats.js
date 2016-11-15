@@ -1,3 +1,7 @@
+import request from 'superagent';
+
+import RaisedButton from 'material-ui/RaisedButton';
+
 import React from 'react';
 import * as d3 from 'd3';
 import {
@@ -5,7 +9,57 @@ import {
   LineChart
 } from 'react-d3';
 
+const fakeData = [
+  {
+    key: 'k',
+    timeStamp: 0,
+    isTypo: false
+  },
+  {
+    key: 'e',
+    timestamp: 1,
+    isTypo: false
+  },
+  {
+    key: 'v',
+    timestamp: 2,
+    isTypo: false
+  },
+  {
+    key: 'i',
+    timestamp: 3,
+    isTypo: false
+  },
+  {
+    key: 'n',
+    timestamp: 4,
+    isTypo: false
+  }
+]
+
+const sendFakeData = () => {
+  console.log('attempting to send fakedata');
+  request.post('/api/1/stats/results').send({
+    results: {
+      timeTrial: true,
+      difficulty: 5,
+      timeOfRun: 666666666,
+      keyEvents: fakeData
+    }
+  })
+  .end((err, res) => {
+    if(err){
+      console.log('something went wrong');
+      return console.log(err);
+    }
+
+    const data = JSON.parse(res.text);
+  });
+  console.log('I didn\'t die');
+};
+
 const debug = process.env.BROWSER && process.env.DEBUG;
+
 const Stats = (props) => {
   if (debug) {
     console.log('=== Render: Stats', props);
@@ -105,6 +159,13 @@ const Stats = (props) => {
           yAxisLabel='Accuracy %'
           gridHorizontal={true}
         />
+      </div>
+      <div>
+        <RaisedButton
+          label='GET'
+          primary={true}
+          onClick={sendFakeData}
+        /> 
       </div>
     </div>
   );
