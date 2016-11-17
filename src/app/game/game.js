@@ -11,6 +11,7 @@ import TextField from 'material-ui/TextField';
 import Results from './results/results';
 import Timer from './timer/timer';
 import util from './constants';
+import request from 'superagent';
 
 const style = {
   margin: 12,
@@ -49,7 +50,7 @@ class Game extends React.Component {
 	  game: props.game,
 	  acc: 0,
 	  timeTrialWasClicked: false,
-	  timestamp: [],
+	  keyEvents: [],
 	  wpm: 0,
 	  amountOfCharsTyped: 0,
 	  amountOfWords: 0,
@@ -124,7 +125,13 @@ class Game extends React.Component {
   }
   
   update(e){	  
-    this.state.timestamp.push(Date.now()); // Collect timestamp
+    this.state.keyEvents.push({
+	  key: e.target.value[e.target.value.length - 1],
+	  timeStamp: Date.now(),
+      isTypo: (e.target.value[e.target.value.length - 1] != this.state.phrase.substring(this.state.counter,this.state.counter + 1))
+	}); // Collect timestamp
+	
+	
 	this.setState({amountOfCharsTyped: this.state.amountOfCharsTyped + 1}); //Count everytime user types
 
    	if((e.target.value.length < this.state.phraseTextField.length && this.state.timer > 0 && this.state.gameType == util.c.TIME) ||
@@ -178,7 +185,7 @@ class Game extends React.Component {
 	  amountOfWords: 0,
 	  gameType: util.c.PHRASE,
 	  expanded: true,
-	  timestamp: []});	
+	  keyEvents: []});	
   }
  
   timeTrialButtonClick() {
@@ -202,7 +209,7 @@ class Game extends React.Component {
 	  gameType: util.c.TIME,
       expanded: true,
 	  timeTrialWasClicked: !this.state.timeTrialWasClicked,
-	  timestamp: []});
+	  keyEvents: []});
   }
 
   calculateWPM(time){
@@ -216,25 +223,44 @@ class Game extends React.Component {
     console.log('results received');
 	var accuracy = 100 - (this.state.typos/(this.state.amountOfTypedLetters) * 100);	//Calculate accuracy
 	accuracy = Math.round(accuracy); 		
-	var time = Math.round((Date.now() / 1000) - this.state.startTime);
+	var time = Math.round((Date.now() / 1000) - this.state.startTime);  
 	  
-	this.setState({ 
-	  disabledPhraseButton: false,
-	  acc: accuracy,
-	  disabledTimeTrialButton: false,
-	  disabledTextField: true, 
-	  phraseTextField: '',
-	  counter: 0, isResults: true,
-	  timer: (this.state.gameType == util.c.PHRASE ? time: this.state.timer),
-	  amountOfWords: this.state.amountOfWords + 2,
-	  wpm: this.calculateWPM((this.state.gameType == util.c.PHRASE ? time: this.state.timer)),
-	});
-		
-	this.props.updateResults({acc: accuracy, 
-	                 		timeStamps: this.state.timestamps,
-							wpm: this.state.wpm,
-							timer: this.state.timer,
-							gameMode: this.state.gameType});
+    request.post('/api/1/stats/results').send({
+	  username: "test",	
+      results: {
+        timeTrial: (this.state.gameType != util.c.PHRASE),
+        difficulty: 5,
+        timeOfRun: (this.state.gameType == util.c.PHRASE ? (Date.now() - this.state.startTime * 1000): this.state.timer * 1000),
+        keyEvents: this.state.keyEvents
+	  }
+    })
+    .end((err, res) => {
+      if(err){
+        console.log('something went wrong');
+        return console.log(err);
+      }
+
+      const data = JSON.parse(res.text);
+	
+	  this.setState({ 
+	    disabledPhraseButton: false,
+	    acc: Math.round(data.gamerun.acc),
+	    disabledTimeTrialButton: false,
+	    disabledTextField: true, 
+	    phraseTextField: '',
+	    counter: 0, isResults: true,
+	    timer: (this.state.gameType == util.c.PHRASE ? time: this.state.timer),
+	    amountOfWords: this.state.amountOfWords + 2,
+	    wpm: this.calculateWPM((this.state.gameType == util.c.PHRASE ? time: this.state.timer))});
+	  
+	  this.props.updateResults({
+		acc:  Math.round(data.gamerun.acc), 
+	    keyEvents: this.state.keyEvents,
+		wpm: data.gamerun.wpm,
+		timer: (this.state.gameType == util.c.PHRASE ? time: this.state.timer),
+		gameMode: this.state.gameType});
+    });
+    console.log('I didn\'t die');
   }
 
   componentWillReceiveProps(nextProps) {
