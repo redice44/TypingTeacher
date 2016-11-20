@@ -7,6 +7,10 @@ import GameRun from '../../../../database/gamerun/model';
 
 let router = Express.Router();
 
+
+/*
+Function for calulating accuracy from a list of keyevents
+*/
 const calculateAcc = (keyEvents) => {
 	
 	let i = 0;
@@ -25,81 +29,146 @@ const calculateAcc = (keyEvents) => {
 			noCorrect++;
 		}
 	}
+
 	if(i === 0){
 		return 0;
 	}
-	console.log(noCorrect);
-	//increment i to get total number of characters
-	console.log(i);
+
 	//Use noCorrect and i to calculate accuracy
 	let accuracy = (noCorrect/i) * 100;
 	return accuracy;
 }
 
 
-//TODO: Calculate WPM
+/*
+  Add up all of the correct key presses, divide by typical
+  word size, and divide by the total time it took to
+  type of the characters. Counting only correct key presses
+  assures that users cant acheive impossibly fast typing
+  speeds by simply hitting many keys on the keyboard
+  with no purpose.
+*/
 const calculateWPM = (keyEvents) => {
-	let WPM = 0;
+	let WPM;
+	let elapsedMin;
+	let elapsedTime;
+
+	let i;
+	let correctKeyPresses = 0;
+	for(i = 0; i < keyEvents.length; i++){
+		if(!keyEvents[i].isTypo){
+			correctKeyPresses++;
+		}
+	}
+
+	elapsedTime = keyEvents[keyEvents.length - 1].timeStamp;
+	elapsedMin = elapsedTime/1000/60;
+	WPM = (Math.ceil(correctKeyPresses/5)/elapsedMin);
+
 	return WPM;
 }
 
 
 //handles results received from a user playing game
 router.post('/results', (req, res, next) => {
+
+	//Retrieve request contents
 	console.log('Server says: The req body');
 	console.log(req.body);
 	let results = req.body.results;
-	console.log('Server says: The Results')
+	console.log('Server says: The Results');
 	console.log(results);
-	//let keyEvents = req.body.results.keyEvents;
+	let username = req.body.username;
 	let gameType = req.body.results.timeTrial;
 	let difficulty = req.body.results.difficulty;
-	let timeOfRun = req.body.results.timeOfRun
-	let keyEvents = req.body.results.keyEvents
+	let timeOfRun = req.body.results.timeOfRun;
+	let keyEvents = req.body.results.keyEvents;
 
+	//calculate statistical values
 	let accuracy = calculateAcc(keyEvents);
 	let WPM = calculateWPM(keyEvents);
 
 
-
+	//create new database entry
 	let gamerun = new GameRun({
 		wpm: WPM,
 		acc: accuracy,
 		timeOfRun: timeOfRun
 	});
 
-	console.log('Server says: The final gamerun')
+
+	console.log('Server says: The final gamerun');
 	console.log(gamerun);
 
-	res.json({gamerun: gamerun});
-/*	gamerun.save((err) => {
+	//save the gamerun to the database
+	gamerun.save((err) => {
+
+		//handle misc database errors
 		if(err){
 			return next(err);
 		}
 
+		//find user to update that it has a new gamerun
 		Account.findOne({'username': 'test'}, (err, user) => {
+
+			//handle misc database erros
 			if(err){
 				return next(err);
 			}
 
 			console.log('found test user', user);
+
+			//add gamerun id to users list of gamerun ids
 			user.gameruns.push(gamerun._id);
+
+			//save this new user back to the database
 			user.save((err) => {
 				if(err){
 					return next(err);
 				}
+
+				//send gamerun data back to the client
 				console.log('updated test user');
 				return res.json({gamerun: gamerun});
 			});
 		});
-	});*/
+	});
 });
 
-//test function, just return something
-router.get('/test', (req, res, next) => {
-	let wpm = 0;
-	console.log("sending back tasty info");
-	res.json({wpm: wpm});
+/*
+GET Method to retrieve the users game history
+*/
+router.get('/users/:username/period/:from-:to', (req, res, next) => {
+
+	console.log(req.params);
+	//Find appropriate user to get their game history
+	Account.findOne({'username': req.params.username}, (err, user) => {
+
+		//handle misc database error
+		if(err){
+			return console.log(err);
+		}
+
+		//construct the query criteria to get all of the users gameruns
+
+		const q = {
+			_id: { $in: user.gameruns },
+			timeOfRun: {
+				$lt: req.params.to,
+				$gt: req.params.from
+			}
+		};
+		
+		console.log(q);
+		//execute the query for the users gameruns
+		GameRun.find(q, (err, gameruns) => {
+			if(err){
+				return console.log(err);
+			}
+			console.log(gameruns);
+			res.json({gameruns: gameruns});
+		});
+	});
 });
 
 export default router;
