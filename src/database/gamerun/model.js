@@ -12,17 +12,17 @@ const Schema = mongoose.Schema;
 let GameRunSchema = new Schema({
 	//General Info
 	timeOfRun: Number,
-	difficulty: Number,
+	//difficulty: Number,
 	//level:
 	//campaign:
 
 	//Results
 	wpm: Number,
 	acc: Number,
-	keyAccuracy: [{
+	/*keyAccuracy: [{
 		key: String,
 		accuracy: Number
-	}]
+	}]*/
 });
 
 export default mongoose.model('GameRun', GameRunSchema);

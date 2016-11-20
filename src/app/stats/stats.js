@@ -17,45 +17,55 @@ const fakeData = [
   },
   {
     key: 'e',
-    timestamp: 1,
+    timeStamp: 1,
     isTypo: false
   },
   {
     key: 'v',
-    timestamp: 2,
+    timeStamp: 2,
     isTypo: false
   },
   {
     key: 'i',
-    timestamp: 3,
+    timeStamp: 3,
     isTypo: false
   },
   {
     key: 'n',
-    timestamp: 4,
+    timeStamp: 4,
     isTypo: false
   }
-]
+];
+
+const getFakeData = () => {
+  console.log('attempting to get fakeData');
+  request.get('/api/1/stats/users/test/period/0-6666666661')
+  .end((err, res) => {
+    if(err){
+      return console.log(err);
+    }
+    const data = JSON.parse(res.text);
+    console.log(data);
+  });
+}
 
 const sendFakeData = () => {
   console.log('attempting to send fakedata');
   request.post('/api/1/stats/results').send({
+    username: 'test',
     results: {
       timeTrial: true,
       difficulty: 5,
-      timeOfRun: 666666666,
+      timeOfRun: 7666666666,
       keyEvents: fakeData
     }
   })
   .end((err, res) => {
     if(err){
-      console.log('something went wrong');
       return console.log(err);
     }
-
     const data = JSON.parse(res.text);
   });
-  console.log('I didn\'t die');
 };
 
 const debug = process.env.BROWSER && process.env.DEBUG;
@@ -162,10 +172,17 @@ const Stats = (props) => {
       </div>
       <div>
         <RaisedButton
-          label='GET'
+          label='POST'
           primary={true}
           onClick={sendFakeData}
         /> 
+      </div>
+      <div>
+        <RaisedButton 
+          label='GET'
+          primary={true}
+          onClick={getFakeData}
+        />
       </div>
     </div>
   );
