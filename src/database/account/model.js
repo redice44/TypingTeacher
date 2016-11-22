@@ -8,7 +8,8 @@ let Account = new Schema({
   email: String,
   wpm: Number,
   acc: Number,
-  campaignList: [Schema.Types.ObjectId]
+  campaignList: [Schema.Types.ObjectId],
+  gameruns: [Schema.Types.ObjectId]
 });
 
 Account.plugin(passportLocalMongoose);
