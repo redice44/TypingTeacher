@@ -20,7 +20,9 @@ const mapStateToProps = (state, ownProps) => {
     gameType: state.game.gameType,
     phrase: state.game.phrase,
     timer: state.game.timer,
-    game: state.game.game
+    game: state.game.game,
+    difficulty: state.game.difficulty,
+    username: state.account.player.name
   };
 };
 
