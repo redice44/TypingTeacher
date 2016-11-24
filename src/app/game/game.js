@@ -26,10 +26,6 @@ const styleRed = {
   color: 'red'
 };
 
-const styleBlue = {
-  color: 'Blue'
-};
-
 class Game extends React.Component {
   constructor(props){
 	super(props);
@@ -45,15 +41,12 @@ class Game extends React.Component {
 	  isResults: false,
 	  isTimer: false,
 	  timer: 0,
-	  amountOfTypedLetters: 0,
 	  gameType: props.gameType,
 	  game: props.game,
 	  acc: 0,
 	  timeTrialWasClicked: false,
 	  keyEvents: [],
 	  wpm: 0,
-	  amountOfCharsTyped: 0,
-	  amountOfWords: 0,
 	  startTime: 0
     }
 
@@ -66,28 +59,10 @@ class Game extends React.Component {
 	this.replaceString = this.replaceString.bind(this);
   };
   
-
-  increaseAmountOfWords(){
-	var currentChar = this.state.originalPhrase.slice(this.state.counter, this.state.counter + 1);
-	if( currentChar== " " || currentChar == "\n") { // Increase amount of words if " " is found
-	  console.log("amount of words " + this.state.amountOfWords);
-	  this.setState({amountOfWords: this.state.amountOfWords + 1});
-	}	  
-  }
-  
-  decreaseAmountOfWords(){
-	var currentChar = this.state.originalPhrase.slice(this.state.counter - 1, this.state.counter);
-	if(currentChar == " " || currentChar == "\n") { // Decrease amount of words if " " is found
-	  console.log("Backspace empty char" + currentChar + "s");
-	  this.setState({amountOfWords: this.state.amountOfWords - 1});
-	}	
-  }
-  
   checkForTypos(str){
 	this.setState({
 	  phraseTextField: str,
-	  counter: this.state.counter - 1,
-	  amountOfTypedLetters: this.state.amountOfTypedLetters - 1}); 
+	  counter: this.state.counter - 1}); 
 	  
 	if(this.state.phrase.substring(this.state.counter - 1,this.state.counter) == '*'){ //Check for typos
       var newPhrase = this.state.phrase.slice(0, this.state.counter - 1) + 
@@ -111,16 +86,14 @@ class Game extends React.Component {
 	    this.setState({
 		  phraseTextField: str,
 		  phrase: input,
-		  counter: this.state.counter + 1,
-		  amountOfTypedLetters: this.state.amountOfTypedLetters + 1});
+		  counter: this.state.counter + 1});
 		
 		this.state.typos = this.state.typos + 1;	
 	  }
 	  else {
 		this.setState({
 		  phraseTextField: str,
-		  counter: this.state.counter + 1,
-		  amountOfTypedLetters: this.state.amountOfTypedLetters + 1});
+		  counter: this.state.counter + 1});
 	  }
   }
   
@@ -129,21 +102,15 @@ class Game extends React.Component {
 	  key: e.target.value[e.target.value.length - 1],
 	  timeStamp: Date.now(),
       isTypo: (e.target.value[e.target.value.length - 1] != this.state.phrase.substring(this.state.counter,this.state.counter + 1))
-	}); // Collect timestamp
-	
-	
-	this.setState({amountOfCharsTyped: this.state.amountOfCharsTyped + 1}); //Count everytime user types
+	}); // Collect Key Events
 
    	if((e.target.value.length < this.state.phraseTextField.length && this.state.timer > 0 && this.state.gameType == util.c.TIME) ||
 		(e.target.value.length < this.state.phraseTextField.length && this.state.gameType == util.c.PHRASE)){	//If User pressed backspace		
 	  this.checkForTypos(e.target.value); //if backspaced char was a typo, change it to original
-  
-	  this.decreaseAmountOfWords();	    //Decrease amount of words if char is " "	
 	}
 	else if((this.state.counter < this.state.phrase.length - 1 && this.state.timer > 0 && this.state.gameType == util.c.TIME) || //If user has not typed all characters...
 			((this.state.counter < this.state.phrase.length - 1 && this.state.gameType == util.c.PHRASE))){  
-	  this.increaseAmountOfWords(); // Check for spaces and return carriage
-	  this.compareInput(e.target.value);   //COmpare if current letter is equal to input
+	  this.compareInput(e.target.value);   //Compare if current letter is equal to input
 	}
 	else if ((this.state.timer > 0) && (this.state.gameType == util.c.TIME)){ //if timer is still running and this is time trial...
 	  this.updatePhrase();  // change current phrase
@@ -156,7 +123,6 @@ class Game extends React.Component {
 
   updatePhrase(){
 	this.setState({
-	  amountOfWords: this.state.amountOfWords + 1,
 	  phrase: this.props.phrase,
 	  originalPhrase: this.props.phrase,
 	  phraseTextField: "",
@@ -180,9 +146,6 @@ class Game extends React.Component {
 	  timer: 0,
 	  startTime: Date.now() / 1000,
 	  wpm: 0,
-	  amountOfTypedLetters: 0,
-	  amountOfCharsTyped: 0,
-	  amountOfWords: 0,
 	  gameType: util.c.PHRASE,
 	  expanded: true,
 	  keyEvents: []});	
@@ -203,33 +166,21 @@ class Game extends React.Component {
       isTimer: true,
 	  timer: 10,
 	  wpm: 0,
-	  amountOfTypedLetters: 0,
-	  amountOfCharsTyped: 0,
-	  amountOfWords: 0,
 	  gameType: util.c.TIME,
       expanded: true,
 	  timeTrialWasClicked: !this.state.timeTrialWasClicked,
 	  keyEvents: []});
-  }
-
-  calculateWPM(time){
-	console.log(this.state.amountOfCharsTyped + " " + (this.state.amountOfWords + 1) + " " + time);
-	var wpm = (this.state.amountOfCharsTyped /  (this.state.amountOfWords + 1)) * 60 / time;
-	return Math.round(wpm);
-  }
-  
+  } 
   
   sendResults() {
-    console.log('results received');
-	var accuracy = 100 - (this.state.typos/(this.state.amountOfTypedLetters) * 100);	//Calculate accuracy
-	accuracy = Math.round(accuracy); 		
-	var time = Math.round((Date.now() / 1000) - this.state.startTime);  
-	  
+    console.log('results received');		
+	var time = Math.round((Date.now() / 1000) - this.state.startTime);   
+
     request.post('/api/1/stats/results').send({
-	  username: "test",	
+	  username: (typeof this.props.username == 'undefined' ? 'anonymous' : this.props.username),	
       results: {
         timeTrial: (this.state.gameType != util.c.PHRASE),
-        difficulty: 5,
+        difficulty: this.props.difficulty ,
         timeOfRun: (this.state.gameType == util.c.PHRASE ? (Date.now() - this.state.startTime * 1000): this.state.timer * 1000),
         keyEvents: this.state.keyEvents
 	  }
@@ -248,19 +199,18 @@ class Game extends React.Component {
 	    disabledTimeTrialButton: false,
 	    disabledTextField: true, 
 	    phraseTextField: '',
-	    counter: 0, isResults: true,
+	    counter: 0, 
+		isResults: true,
 	    timer: (this.state.gameType == util.c.PHRASE ? time: this.state.timer),
-	    amountOfWords: this.state.amountOfWords + 2,
-	    wpm: this.calculateWPM((this.state.gameType == util.c.PHRASE ? time: this.state.timer))});
+	    wpm: data.gamerun.wpm});
 	  
 	  this.props.updateResults({
 		acc:  Math.round(data.gamerun.acc), 
 	    keyEvents: this.state.keyEvents,
-		wpm: data.gamerun.wpm,
+		wpm: Math.round(data.gamerun.wpm),
 		timer: (this.state.gameType == util.c.PHRASE ? time: this.state.timer),
 		gameMode: this.state.gameType});
     });
-    console.log('I didn\'t die');
   }
 
   componentWillReceiveProps(nextProps) {
