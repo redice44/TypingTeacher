@@ -17,29 +17,29 @@ const fakeData = [
   },
   {
     key: 'e',
-    timeStamp: 1,
+    timeStamp: 20,
     isTypo: false
   },
   {
     key: 'v',
-    timeStamp: 2,
+    timeStamp: 40,
     isTypo: false
   },
   {
     key: 'i',
-    timeStamp: 3,
+    timeStamp: 60,
     isTypo: false
   },
   {
     key: 'n',
-    timeStamp: 4,
+    timeStamp: 80,
     isTypo: false
   }
 ];
 
-const getFakeData = () => {
+const getFakeDataTime = () => {
   console.log('attempting to get fakeData');
-  request.get('/api/1/stats/users/test/period/0-6666666661')
+  request.get('/api/1/stats/test/runs/period/0-70000')
   .end((err, res) => {
     if(err){
       return console.log(err);
@@ -47,7 +47,31 @@ const getFakeData = () => {
     const data = JSON.parse(res.text);
     console.log(data);
   });
-}
+};
+
+const getNFakeData = () => {
+  request.get('/api/1/stats/test/runs/3')
+  .end((err, res) => {
+    if(err){
+      return console.log(err);
+    }
+
+    const data = JSON.parse(res.text);
+    console.log(data);
+  });
+};
+
+const getAllFakeData = () => {
+  request.get('/api/1/stats/test/runs')
+  .end((err, res) => {
+    if(err){
+      return console.log(err);
+    }
+
+    const data = JSON.parse(res.text);
+    console.log(data);
+  });
+};
 
 const sendFakeData = () => {
   console.log('attempting to send fakedata');
@@ -57,6 +81,7 @@ const sendFakeData = () => {
       timeTrial: true,
       difficulty: 5,
       timeOfRun: 7666666666,
+      campaign: '582e31f74f60a908bcd48f86',
       keyEvents: fakeData
     }
   })
@@ -181,7 +206,17 @@ const Stats = (props) => {
         <RaisedButton 
           label='GET'
           primary={true}
-          onClick={getFakeData}
+          onClick={getFakeDataTime}
+        />
+        <RaisedButton 
+          label='GET 3'
+          primary={true}
+          onClick={getNFakeData}
+        />
+        <RaisedButton 
+          label='GET ALL'
+          primary={true}
+          onClick={getAllFakeData}
         />
       </div>
     </div>

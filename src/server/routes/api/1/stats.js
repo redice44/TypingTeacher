@@ -61,13 +61,34 @@ const calculateWPM = (keyEvents) => {
 		}
 	}
 
-	elapsedTime = keyEvents[keyEvents.length - 1].timeStamp;
+	elapsedTime = keyEvents[keyEvents.length - 1].timeStamp 
+		- keyEvents[0].timeStamp;
 	elapsedMin = elapsedTime/1000/60;
 	WPM = (Math.ceil(correctKeyPresses/5)/elapsedMin);
 
 	return WPM;
 }
 
+const calculateAverages = (gameruns) => {
+
+	let WPMsum = 0;
+	let accSum = 0;
+	let i;
+
+	for(i = 0; i < gameruns.length; i++){
+		WPMsum += gameruns[i].wpm;
+		accSum += gameruns[i].acc;
+	}
+
+	console.log(i);
+	let avgWPM = WPMsum/i;
+	let avgAcc = accSum/i;
+
+	return {
+		avgWPM: avgWPM,
+		avgAcc: avgAcc
+	};
+}
 
 //handles results received from a user playing game
 router.post('/results', (req, res, next) => {
@@ -136,9 +157,142 @@ router.post('/results', (req, res, next) => {
 });
 
 /*
-GET Method to retrieve the users game history
+GET Method to retrieve the users complete game history sorted by time.
 */
-router.get('/users/:username/period/:from-:to', (req, res, next) => {
+router.get('/:username/runs', (req, res, next) => {
+
+	console.log(req.params);
+	//Find appropriate user to get their game history
+	Account.findOne({'username': req.params.username}, (err, user) => {
+
+		//handle misc database error
+		if(err){
+			return console.log(err);
+		}
+
+		//construct the query criteria to get all of the users gameruns
+
+		const q = {
+			_id: { $in: user.gameruns }
+		};
+		
+		console.log(q);
+		//execute the query for the users gameruns
+		GameRun.find(q)
+		.sort({timeOfRun: 1})
+		.exec((err, gameruns) => {
+			if(err){
+				return console.log(err);
+			}
+			console.log(gameruns);
+
+			let avgs = calculateAverages(gameruns);
+
+			res.json({
+				avgAcc: avgs.avgAcc,
+				avgWPM: avgs.avgWPM,
+				gameruns: gameruns
+			});
+		});
+	});
+});
+
+
+/*
+GET Receives the 'quantity' most recent game runs for the specified user
+sorted by time.
+*/
+router.get('/:username/runs/:quantity', (req, res, next) => {
+
+	console.log(req.params);
+	//Find appropriate user to get their game history
+	Account.findOne({'username': req.params.username}, (err, user) => {
+
+		//handle misc database error
+		if(err){
+			return console.log(err);
+		}
+
+		//construct the query criteria to get all of the users gameruns
+
+		const q = {
+			_id: { $in: user.gameruns }
+		};
+		
+		console.log(q);
+		//execute the query for the users gameruns
+		GameRun.find(q)
+		.sort({timeOfRun: 1})
+		.limit(parseInt(req.params.quantity))
+		.exec((err, gameruns) => {
+			if(err){
+				return console.log(err);
+			}
+			console.log(gameruns);
+
+			let avgs = calculateAverages(gameruns);
+
+			res.json({
+				avgAcc: avgs.avgAcc,
+				avgWPM: avgs.avgWPM,
+				gameruns: gameruns
+			});
+		});
+	});
+});
+
+
+/*
+GET Retrieves the history of a user related to a specific campaign.
+*/
+/*
+router.get('/:username/runs/campaign/:campaign', (req, res, next) => {
+
+	console.log(req.params);
+	//Find appropriate user to get their game history
+	Account.findOne({'username': req.params.username}, (err, user) => {
+
+		//handle misc database error
+		if(err){
+			return console.log(err);
+		}
+
+		//construct the query criteria to get all of the users gameruns
+
+		const q = {
+			_id: { 
+				$in: user.gameruns,
+			},
+			timeOfRun: {
+				$lt: req.params.to,
+				$gt: req.params.from
+			},
+			campaign: campaign
+		};
+		
+		console.log(q);
+		//execute the query for the users gameruns
+		GameRun.find(q, (err, gameruns) => {
+			if(err){
+				return console.log(err);
+			}
+			console.log(gameruns);
+
+			let avgs = calculateAverages(gameruns);
+
+			res.json({
+				avgAcc: avgs.avgAcc,
+				avgWPM: avgs.avgWPM,
+				gameruns: gameruns
+			});
+		});
+	});
+});
+*/
+/*
+GET to receive user game history within a time frame, sorted by time
+*/
+router.get('/:username/runs/period/:from-:to', (req, res, next) => {
 
 	console.log(req.params);
 	//Find appropriate user to get their game history
@@ -161,14 +315,24 @@ router.get('/users/:username/period/:from-:to', (req, res, next) => {
 		
 		console.log(q);
 		//execute the query for the users gameruns
-		GameRun.find(q, (err, gameruns) => {
+		GameRun.find(q)
+		.sort({timeOfRun: 1})
+		.exec((err, gameruns) => {
 			if(err){
 				return console.log(err);
 			}
 			console.log(gameruns);
-			res.json({gameruns: gameruns});
+
+			let avgs = calculateAverages(gameruns);
+
+			res.json({
+				avgAcc: avgs.avgAcc,
+				avgWPM: avgs.avgWPM,
+				gameruns: gameruns
+			});
 		});
 	});
 });
+
 
 export default router;
