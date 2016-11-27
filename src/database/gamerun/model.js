@@ -12,13 +12,12 @@ const Schema = mongoose.Schema;
 let GameRunSchema = new Schema({
 	//General Info
 	timeOfRun: Number,
-	//difficulty: Number,
-	//level:
-	//campaign:
+	difficulty: Number,
+
 
 	//Results
 	wpm: Number,
-	acc: Number,
+	acc: Number
 	/*keyAccuracy: [{
 		key: String,
 		accuracy: Number
