@@ -159,4 +159,16 @@ router.post('/addCampaign', (req, res, next) => {
   });
 });
 
+router.get('/all', (req, res, next) => {
+  Account.find({}, {"_id": false, "username": true}, (err, users) => {
+    if (err) {
+      return next(err);
+    }
+
+    return res.json(users.map((user) => {
+      return user.username;
+    }));
+  });
+});
+
 export default router;

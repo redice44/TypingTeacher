@@ -12,6 +12,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 import CampaignMap from '../map';
 import util from '../constants';
+import Students from './students';
 
 export default class CreateCampaign extends React.Component {
   constructor(props) {
@@ -200,13 +201,14 @@ export default class CreateCampaign extends React.Component {
               this.props.player.isTeacher ? <Checkbox
               label="Teacher Campaign?"
               onCheck={this.isTeacherCampaign}
+              style={{width: '300px'}}
             /> : null
             }
             
           </div>
         </div>
         <CampaignMap isEditing={true}/>
-        { this.state.isTeacherCampaign ? <p>Hi</p> : null}
+        { this.state.isTeacherCampaign ? <Students /> : null}
 
         <Dialog
           title="Modal"

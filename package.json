@@ -59,6 +59,7 @@
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^4.0.0",
     "react": "^15.3.2",
+    "react-autosuggest": "^7.0.1",
     "react-d3": "^0.4.0",
     "react-dom": "^15.3.2",
     "react-motion": "^0.4.5",
