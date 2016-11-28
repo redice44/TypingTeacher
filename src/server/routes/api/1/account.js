@@ -97,4 +97,60 @@ router.get('/validate', (req, res, next) => {
   });
 });
 
+router.post('/addCampaign', (req, res, next) => {
+  const campId = req.body.campId;
+  console.log(`Add campaign ID: ${campId}`);
+  Campaign.findById(campId, (err, campaign) => {
+    if (err) {
+      // not found?
+      if (err.name === 'CastError') {
+        console.log('Cast error');
+        return res.json({error: "not found"});
+      }
+      else {
+        console.log(err);
+        return next(err);
+      }
+    }
+
+    if (campaign === null) {
+      console.log('not found');
+      return res.json({error: "not found"});
+    }
+    console.log('add campaign camp:', campaign);
+    // add to user's campaign list
+    Account.findOne({ 'username': req.body.username }, (err, user) => {
+      if (err) {
+        return next(err);
+      }
+
+      user.campaignList.push(campaign._id);
+      user.save((err) => {
+        if (err) {
+          return next(err);
+        }
+        const q = {
+          _id: { $in: user.campaignList }
+        };
+
+        Campaign.find(q, (err, campList) => {
+          if (err) {
+            return console.log(err);
+          }
+
+          console.log('getting campaigns for user', campList);
+          res.json({
+            user: {
+              name: req.user.username,
+              wpm: req.user.wpm,
+              acc: req.user.acc,
+              campaignList: campList
+            }
+          });
+        });
+      });
+    });
+  });
+});
+
 export default router;

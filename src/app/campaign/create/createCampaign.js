@@ -1,8 +1,12 @@
+import request from 'superagent';
+
 import React from 'react';
 import { Link } from 'react-router';
 import classNames from 'classnames';
 import Paper from 'material-ui/Paper';
+import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import CampaignMap from '../map';
@@ -12,17 +16,57 @@ export default class CreateCampaign extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: ''
+      name: '',
+      camp_id: '',
+      open: false
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.importCampaign = this.importCampaign.bind(this);
+    this.importModal = this.importModal.bind(this);
+    this.updateCampId = this.updateCampId.bind(this);
     this.reset = this.reset.bind(this);
+  }
+
+  importModal() {
+    let t = !this.state.open;
+    this.setState({
+      open: t
+    });
+  }
+
+  importCampaign() {
+    // import campaign
+    request
+      .post('/api/1/account/addCampaign')
+      .send({
+        campId: this.state.camp_id,
+        username: this.props.username
+      })
+      .end((err, res) => {
+        if (err) {
+          console.log('error', err);
+          return;
+        }
+
+        const data = JSON.parse(res.text);
+        console.log(data);
+      });
+    this.importModal();
+    this.reset();
+  }
+
+  updateCampId(e) {
+    this.setState({
+      camp_id: e.target.value
+    });
   }
 
   reset() {
     console.log('campaign/create: Resetting State');
     this.setState({
-      name: ''
+      name: '',
+      camp_id: ''
     });
     this.props.updateCreating(false);
     this.props.resetLevel();
@@ -57,6 +101,20 @@ export default class CreateCampaign extends React.Component {
         margin: '10px'
       }
     };
+
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={() => this.importModal()}
+      />,
+      <FlatButton
+        label="Submit"
+        onTouchTap={() => {
+          this.importCampaign();
+        }}
+      />
+    ];
 
     return (
       <Paper zDepth={1} style={styles.root}>
@@ -108,15 +166,36 @@ export default class CreateCampaign extends React.Component {
                 }
               }}
             />
-            <RaisedButton
+            <RaisedButton style={styles.btn}
               label='Cancel'
               onTouchTap={() => {
                 this.reset();
               }}
             />
+            <RaisedButton style={styles.btn}
+              label='Import'
+              onTouchTap={() => {
+                this.importModal();
+              }}
+            />
           </div>
         </div>
         <CampaignMap isEditing={true}/>
+
+        <Dialog
+          title="Modal"
+          modal={false}
+          actions={actions}
+          open={this.state.open}
+          onRequestClose={() => this.importModal()}
+        >
+          <TextField
+            name="campId"
+            floatingLabelText="Campaign Id"
+            value={this.state.camp_id}
+            onChange={this.updateCampId}
+          />
+        </Dialog>
       </Paper>
     );
   }
