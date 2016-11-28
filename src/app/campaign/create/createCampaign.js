@@ -51,6 +51,10 @@ export default class CreateCampaign extends React.Component {
 
         const data = JSON.parse(res.text);
         console.log(data);
+        if (!data.error) {
+          // update store with user
+          this.props.updateUser(data.user);
+        }
       });
     this.importModal();
     this.reset();

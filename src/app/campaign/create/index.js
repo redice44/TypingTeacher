@@ -57,6 +57,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     editLevel: (i, part) => {
       dispatch(editLevel(i, part));
+    },
+    updateUser: (player) => {
+      dispatch(updatePlayer(player));
     }
   };
 };
