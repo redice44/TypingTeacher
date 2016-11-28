@@ -61,7 +61,7 @@ export default class CampaignMap extends React.Component {
               break;
             case campaignUtil.c.levelState.saved:
             case campaignUtil.c.levelState.completed:
-              titlebg = 'rgba(0, 255, 0, 0.6)';
+              titlebg = 'rgba(0, 155, 0, 0.6)';
               break;
             case campaignUtil.c.levelState.active:
               titlebg = 'rgba(0, 0, 255, 0.6)';
@@ -105,7 +105,7 @@ export default class CampaignMap extends React.Component {
             level.part2.levelState === campaignUtil.c.levelState.completed ||
             level.part2.levelState === campaignUtil.c.levelState.saved)
           ) {
-            temp = 'rgba(0, 255, 0, 0.6)';
+            temp = 'rgba(0, 155, 0, 0.6)';
           } else {
 
           }
