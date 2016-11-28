@@ -262,10 +262,6 @@ class Game extends React.Component {
 	return (
 	<div className={c}>
       <Card expanded={this.state.expanded}>
-        <CardHeader
-          title={this.state.gameType == util.c.PHRASE ? 'Phrase Mode' : 'Time Trial Mode'}
-          subtitle='subtitle'
-        />
         <CardActions style={{textAlign: 'center'}}>
   				<RaisedButton
   					label='Phrase Mode'
