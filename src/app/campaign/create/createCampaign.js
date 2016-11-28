@@ -21,7 +21,8 @@ export default class CreateCampaign extends React.Component {
       name: '',
       camp_id: '',
       open: false,
-      isTeacherCampaign: false
+      isTeacherCampaign: false,
+      studentList: []
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -31,6 +32,13 @@ export default class CreateCampaign extends React.Component {
     this.reset = this.reset.bind(this);
     this.saveCampaign = this.saveCampaign.bind(this);
     this.isTeacherCampaign = this.isTeacherCampaign.bind(this);
+    this.getStudents = this.getStudents.bind(this);
+  }
+
+  getStudents(list) {
+    this.setState({
+      studentList: list
+    });
   }
 
   importModal() {
@@ -108,6 +116,9 @@ export default class CreateCampaign extends React.Component {
         levels: tempLevels,
         name: this.state.name
       };
+      if (this.state.isTeacherCampaign) {
+        camp['students'] = this.state.studentList;
+      }
       this.props.addCampaign(camp, this.props.player.name);
       this.reset();
     } else {
@@ -208,7 +219,7 @@ export default class CreateCampaign extends React.Component {
           </div>
         </div>
         <CampaignMap isEditing={true}/>
-        { this.state.isTeacherCampaign ? <Students me={this.props.player.name} /> : null}
+        { this.state.isTeacherCampaign ? <Students getStudents={this.getStudents} me={this.props.player.name} /> : null}
 
         <Dialog
           title="Modal"

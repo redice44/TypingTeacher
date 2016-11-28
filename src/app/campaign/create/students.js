@@ -67,6 +67,7 @@ export default class Students extends React.Component {
       return s == this.state.value;
     }) && this.state.value != this.props.me) {
       t.push(this.state.value);
+      this.props.getStudents(t);
       this.setState({
         list: t
       });
@@ -99,7 +100,6 @@ export default class Students extends React.Component {
       onChange: this.onChange
     };
     let studentList = [];
-    console.log('list',this.state.list);
     this.state.list.forEach((s) => {
       studentList.push(<ListItem primaryText={s} />);
     });

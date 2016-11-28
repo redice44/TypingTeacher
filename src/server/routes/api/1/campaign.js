@@ -18,6 +18,32 @@ router.post('/add', (req, res, next) => {
     camp.levels.push(campaign.levels[i]);
   }
 
+  console.log('campaign', campaign);
+  if (campaign.students && campaign.students.length > 0) {
+
+    camp.students = campaign.students;
+    let q = {
+      username: { $in: campaign.students }
+    };
+
+    Account.find(q, (err, students) => {
+      if (err) {
+        console.log(err);
+        return next(err);
+      }
+
+      console.log('students from teachers camp', students);
+      students.forEach((student) => {
+        student.campaignList.push(camp._id);
+          student.save((err) => {
+            if (err) {
+              return next(err);
+            }
+            console.log('saving student', student);
+          });
+      })
+    });
+  }
 
   camp.save((err) => {
     if (err) {
@@ -58,6 +84,9 @@ router.post('/add', (req, res, next) => {
       });
     });
   });
+
+
+
 });
 
 router.get('/test', (req, res, next) => {

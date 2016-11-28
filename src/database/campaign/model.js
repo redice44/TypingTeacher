@@ -15,7 +15,8 @@ let LevelSchema = new Schema({
 
 let CampaignSchema = new Schema({
   name: String,
-  levels: [LevelSchema]
+  levels: [LevelSchema],
+  students: [String]
 });
 
 export default mongoose.model('Campaign', CampaignSchema);
