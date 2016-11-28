@@ -7,10 +7,12 @@ import Campaign from '../../../../database/campaign/model';
 let router = Express.Router();
 
 router.post('/register', (req, res, next) => {
+  console.log(req.body);
   Account.register(
     new Account({
       username: req.body.username,
       email: req.body.email,
+      isTeacher: req.body.isTeacher,
       wpm: 0,
       acc: 100,
       campaignList: []
@@ -34,6 +36,7 @@ router.post('/register', (req, res, next) => {
               name: account.username,
               wpm: account.wpm,
               acc: account.acc,
+              isTeacher: account.isTeacher,
               campaignList: account.campaignList
             },
             authenticated: true
@@ -60,6 +63,7 @@ router.post('/signin', passport.authenticate('local'), (req, res, next) => {
         name: req.user.username,
         wpm: req.user.wpm,
         acc: req.user.acc,
+        isTeacher: req.user.isTeacher,
         campaignList: campList
       }
     });
@@ -91,6 +95,7 @@ router.get('/validate', (req, res, next) => {
         name: req.user.username,
         wpm: req.user.wpm,
         acc: req.user.acc,
+        isTeacher: req.user.isTeacher,
         campaignList: campList
       }
     });
@@ -144,6 +149,7 @@ router.post('/addCampaign', (req, res, next) => {
               name: req.user.username,
               wpm: req.user.wpm,
               acc: req.user.acc,
+              isTeacher: req.user.isTeacher,
               campaignList: campList
             }
           });

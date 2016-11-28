@@ -91,7 +91,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         .send({
           username: account.username,
           password: account.password,
-          email: account.email
+          email: account.email,
+          isTeacher: account.isTeacher
         })
         .end((err, res) => {
           if (err) {

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Dialog from 'material-ui/Dialog';
+import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
 import SwipeableViews from 'react-swipeable-views';
 import TextField from 'material-ui/TextField';
@@ -16,7 +17,8 @@ export default class AccountModal extends React.Component{
       account: {
         username: '',
         password: '',
-        email: ''
+        email: '',
+        isTeacher: false
       },
       errors: {
         username: '',
@@ -26,6 +28,16 @@ export default class AccountModal extends React.Component{
     };
 
     this.updateAccount = this.updateAccount.bind(this);
+    this.isTeacher = this.isTeacher.bind(this);
+  }
+
+  isTeacher(e, isTeacher) {
+    console.log(`is? ${isTeacher}`);
+    let t = {};
+    t.isTeacher = isTeacher;
+    this.setState({
+      account: Object.assign({}, this.state.account, t)
+    });
   }
 
   updateAccount(e) {
@@ -101,7 +113,8 @@ export default class AccountModal extends React.Component{
               let temp = {
                 username: '',
                 password: '',
-                email: ''
+                email: '',
+                isTeacher: false
               };
               this.setState({
                 account: Object.assign({}, temp)
@@ -161,6 +174,11 @@ export default class AccountModal extends React.Component{
               errorText={this.state.errors.email}
               value={this.state.account.email}
               onChange={this.updateAccount}
+            /><br />
+            <Checkbox
+              label="Teacher"
+              labelPosition="left"
+              onCheck={this.isTeacher}
             />
           </div>
         </SwipeableViews>

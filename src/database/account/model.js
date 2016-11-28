@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 
 let Account = new Schema({
   email: String,
+  isTeacher: Boolean,
   wpm: Number,
   acc: Number,
   campaignList: [Schema.Types.ObjectId],
