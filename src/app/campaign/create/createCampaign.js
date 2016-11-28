@@ -208,7 +208,7 @@ export default class CreateCampaign extends React.Component {
           </div>
         </div>
         <CampaignMap isEditing={true}/>
-        { this.state.isTeacherCampaign ? <Students /> : null}
+        { this.state.isTeacherCampaign ? <Students me={this.props.player.name} /> : null}
 
         <Dialog
           title="Modal"

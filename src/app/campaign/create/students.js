@@ -2,6 +2,8 @@ import request from 'superagent';
 
 import React from 'react';
 import Autosuggest from 'react-autosuggest';
+import RaisedButton from 'material-ui/RaisedButton';
+import {List, ListItem} from 'material-ui/List';
 
 import CampaignMap from '../map';
 import util from '../constants';
@@ -38,12 +40,14 @@ export default class Students extends React.Component {
     super(props);
     this.state = {
       value: '',
-      suggestions: []
+      suggestions: [],
+      list: []
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this);
     this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this);
+    this.addStudent = this.addStudent.bind(this);
 
     request
       .get('/api/1/account/all')
@@ -54,6 +58,19 @@ export default class Students extends React.Component {
 
         students = JSON.parse(res.text);
       });
+  }
+
+  addStudent() {
+    let t = this.state.list;
+    // If the student isn't already on the list
+    if (!t.find((s) => {
+      return s == this.state.value;
+    }) && this.state.value != this.props.me) {
+      t.push(this.state.value);
+      this.setState({
+        list: t
+      });
+    }
   }
 
   onChange(event, { newValue, method }) {
@@ -81,15 +98,34 @@ export default class Students extends React.Component {
       value,
       onChange: this.onChange
     };
+    let studentList = [];
+    console.log('list',this.state.list);
+    this.state.list.forEach((s) => {
+      studentList.push(<ListItem primaryText={s} />);
+    });
 
     return (
-      <Autosuggest 
-        suggestions={suggestions}
-        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-        getSuggestionValue={getSuggestionValue}
-        renderSuggestion={renderSuggestion}
-        inputProps={inputProps} />
+      <div>
+        <div>
+          <Autosuggest 
+            suggestions={suggestions}
+            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+            getSuggestionValue={getSuggestionValue}
+            renderSuggestion={renderSuggestion}
+            inputProps={inputProps} />
+          <RaisedButton 
+            label='Add'
+            onTouchTap={() => {
+              this.addStudent();
+            }}/>
+        </div>
+        <div>
+          <List>
+            {studentList}
+          </List>
+        </div>
+      </div>
     );
   }
 };
