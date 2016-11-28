@@ -1,7 +1,8 @@
 import request from 'superagent';
 
 import React from 'react';
-import Autosuggest from 'react-autosuggest';
+import Autosuggest from 'react-autosuggest'; 
+import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import {List, ListItem} from 'material-ui/List';
 
@@ -65,7 +66,8 @@ export default class Students extends React.Component {
     // If the student isn't already on the list
     if (!t.find((s) => {
       return s == this.state.value;
-    }) && this.state.value != this.props.me) {
+    }) && this.state.value != this.props.me
+      && this.state.value != "") {
       t.push(this.state.value);
       this.props.getStudents(t);
       this.setState({
@@ -100,13 +102,19 @@ export default class Students extends React.Component {
       onChange: this.onChange
     };
     let studentList = [];
-    this.state.list.forEach((s) => {
-      studentList.push(<ListItem primaryText={s} />);
+    this.state.list.forEach((s, i) => {
+      studentList.push(<ListItem key={i} primaryText={s} />);
     });
 
     return (
       <div>
-        <div>
+        <Paper style={{paddingBottom: "20px", paddingLeft: "20px"}}>
+          <RaisedButton 
+              label='Add'
+              style={{marginBottom: "20px", marginTop: "20px"}}
+              onTouchTap={() => {
+                this.addStudent();
+              }}/>
           <Autosuggest 
             suggestions={suggestions}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
@@ -114,17 +122,15 @@ export default class Students extends React.Component {
             getSuggestionValue={getSuggestionValue}
             renderSuggestion={renderSuggestion}
             inputProps={inputProps} />
-          <RaisedButton 
-            label='Add'
-            onTouchTap={() => {
-              this.addStudent();
-            }}/>
-        </div>
-        <div>
-          <List>
-            {studentList}
-          </List>
-        </div>
+        </Paper>
+        <List>
+          {studentList.length > 0 ? 
+          <ListItem
+            primaryText='Student List' 
+            initiallyOpen={true}
+            primaryTogglesNestedList={true}
+            nestedItems={studentList} /> : null }
+        </List>
       </div>
     );
   }
