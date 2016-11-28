@@ -32,7 +32,6 @@ export default class AccountModal extends React.Component{
   }
 
   isTeacher(e, isTeacher) {
-    console.log(`is? ${isTeacher}`);
     let t = {};
     t.isTeacher = isTeacher;
     this.setState({
@@ -177,7 +176,6 @@ export default class AccountModal extends React.Component{
             /><br />
             <Checkbox
               label="Teacher"
-              labelPosition="left"
               onCheck={this.isTeacher}
             />
           </div>

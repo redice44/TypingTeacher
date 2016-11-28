@@ -21,7 +21,7 @@ const mapStateToProps = (state, ownProps) => {
   // ownProps are props sent to the component
   return {
     // Set props to send
-    username: state.account.player.name,
+    player: state.account.player,
     levels: state.campaign.levels,
     isCreating: state.campaign.isCreating
   };

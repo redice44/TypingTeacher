@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 import classNames from 'classnames';
 import Paper from 'material-ui/Paper';
 import Dialog from 'material-ui/Dialog';
+import Checkbox from 'material-ui/Checkbox';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -18,7 +19,8 @@ export default class CreateCampaign extends React.Component {
     this.state = {
       name: '',
       camp_id: '',
-      open: false
+      open: false,
+      isTeacherCampaign: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -26,6 +28,8 @@ export default class CreateCampaign extends React.Component {
     this.importModal = this.importModal.bind(this);
     this.updateCampId = this.updateCampId.bind(this);
     this.reset = this.reset.bind(this);
+    this.saveCampaign = this.saveCampaign.bind(this);
+    this.isTeacherCampaign = this.isTeacherCampaign.bind(this);
   }
 
   importModal() {
@@ -35,13 +39,19 @@ export default class CreateCampaign extends React.Component {
     });
   }
 
+  isTeacherCampaign(e, b) {
+    this.setState({
+      isTeacherCampaign: b
+    });
+  }
+
   importCampaign() {
     // import campaign
     request
       .post('/api/1/account/addCampaign')
       .send({
         campId: this.state.camp_id,
-        username: this.props.username
+        username: this.props.player.name
       })
       .end((err, res) => {
         if (err) {
@@ -64,6 +74,45 @@ export default class CreateCampaign extends React.Component {
     this.setState({
       camp_id: e.target.value
     });
+  }
+
+  saveCampaign() {
+    // TODO: Check to make sure it's a valid level config. ie has levels and ends single
+    // If all levels added are ready to go
+    if (this.state.name !== '' &&
+      this.props.levels.every((lv) => {
+      if (lv.state === util.c.SINGLE) {
+        return lv.levelState === util.c.levelState.saved;
+      } else if (lv.state === util.c.SPLIT) {
+        return lv.part1.levelState &&
+        lv.part1.levelState === util.c.levelState.saved &&
+          lv.part2.levelState &&
+          lv.part2.levelState === util.c.levelState.saved;
+      }
+      return true;
+    })) {
+      console.log('all levels saved');
+      console.log(this.props);
+      let tempLevels = this.props.levels.map((lv, i) => {
+        console.log(lv, i);
+        if (lv.state === util.c.SINGLE) {
+          lv.levelState = i === 0 ? util.c.levelState.active : '';
+        } else if (lv.state === util.c.SPLIT) {
+          lv.part1.levelState = '';
+          lv.part2.levelState = '';
+        }
+        return lv;
+      });
+      let camp = {
+        levels: tempLevels,
+        name: this.state.name
+      };
+      this.props.addCampaign(camp, this.props.player.name);
+      this.reset();
+    } else {
+      // TODO Display error
+      console.log('levels need to be saved still');
+    }
   }
 
   reset() {
@@ -132,42 +181,7 @@ export default class CreateCampaign extends React.Component {
             <RaisedButton style={styles.btn}
               label='Save'
               onTouchTap={() => {
-                // TODO: Check to make sure it's a valid level config. ie has levels and ends single
-                // If all levels added are ready to go
-                if (this.state.name !== '' &&
-                  this.props.levels.every((lv) => {
-                  if (lv.state === util.c.SINGLE) {
-                    return lv.levelState === util.c.levelState.saved;
-                  } else if (lv.state === util.c.SPLIT) {
-                    return lv.part1.levelState &&
-                    lv.part1.levelState === util.c.levelState.saved &&
-                      lv.part2.levelState &&
-                      lv.part2.levelState === util.c.levelState.saved;
-                  }
-                  return true;
-                })) {
-                  console.log('all levels saved');
-                  console.log(this.props);
-                  let tempLevels = this.props.levels.map((lv, i) => {
-                    console.log(lv, i);
-                    if (lv.state === util.c.SINGLE) {
-                      lv.levelState = i === 0 ? util.c.levelState.active : '';
-                    } else if (lv.state === util.c.SPLIT) {
-                      lv.part1.levelState = '';
-                      lv.part2.levelState = '';
-                    }
-                    return lv;
-                  });
-                  let camp = {
-                    levels: tempLevels,
-                    name: this.state.name
-                  };
-                  this.props.addCampaign(camp, this.props.username);
-                  this.reset();
-                } else {
-                  // TODO Display error
-                  console.log('levels need to be saved still');
-                }
+                this.saveCampaign();
               }}
             />
             <RaisedButton style={styles.btn}
@@ -182,9 +196,17 @@ export default class CreateCampaign extends React.Component {
                 this.importModal();
               }}
             />
+            {
+              this.props.player.isTeacher ? <Checkbox
+              label="Teacher Campaign?"
+              onCheck={this.isTeacherCampaign}
+            /> : null
+            }
+            
           </div>
         </div>
         <CampaignMap isEditing={true}/>
+        { this.state.isTeacherCampaign ? <p>Hi</p> : null}
 
         <Dialog
           title="Modal"
