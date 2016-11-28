@@ -10,20 +10,35 @@ import Modal from './modal';
 
 import accountUtil from '../constants';
 
-const AccountButton = (props) => {
-  return (
-    <div>
-      <IconButton
-        onTouchTap={() => {
-          props.auth ? props.signoutAccount() : props.updateModalState(accountUtil.c.OPENED);
-        }}
-        tooltip={ props.auth ? "Sign Out" : "Sign In" }
-      >
-        { props.auth ? <LogoutIcon /> : <AccountIcon /> }
-      </IconButton>
-      <Modal {...props} />
-    </div>
-  );
-};
+export default class AccountButton extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-export default AccountButton;
+  render() {
+    return (
+      <div>
+        <IconButton
+          style={ this.props.auth ? {} : {display: "none"}}
+          onTouchTap={() => this.context.router.push('/dashboard')}
+          tooltip='Dashboard'
+        >
+          <AccountIcon /> 
+        </IconButton>
+        <IconButton
+          onTouchTap={() => {
+            this.props.auth ? this.props.signoutAccount() : this.props.updateModalState(accountUtil.c.OPENED);
+          }}
+          tooltip={ this.props.auth ? "Sign Out" : "Sign In" }
+        >
+          { this.props.auth ? <LogoutIcon /> : <AccountIcon /> }
+        </IconButton>
+        <Modal {...this.props} />
+      </div>
+    );
+  }
+}
+
+AccountButton.contextTypes = {
+  router: React.PropTypes.object
+};
