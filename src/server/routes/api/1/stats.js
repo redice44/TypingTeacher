@@ -11,6 +11,10 @@ let router = Express.Router();
 /*
 Function for calulating accuracy from a list of keyevents
 */
+const calculateKeyAcc = (keyEvents) => {
+	return 0;
+};
+
 const calculateAcc = (keyEvents) => {
 	
 	let i = 0;
@@ -37,7 +41,7 @@ const calculateAcc = (keyEvents) => {
 	//Use noCorrect and i to calculate accuracy
 	let accuracy = (noCorrect/i) * 100;
 	return accuracy;
-}
+};
 
 
 /*
@@ -67,7 +71,7 @@ const calculateWPM = (keyEvents) => {
 	WPM = (Math.ceil(correctKeyPresses/5)/elapsedMin);
 
 	return WPM;
-}
+};
 
 const calculateAverages = (gameruns) => {
 
@@ -88,7 +92,7 @@ const calculateAverages = (gameruns) => {
 		avgWPM: avgWPM,
 		avgAcc: avgAcc
 	};
-}
+};
 
 //handles results received from a user playing game
 router.post('/results', (req, res, next) => {
@@ -215,15 +219,30 @@ router.get('/:username/runs/:quantity', (req, res, next) => {
 
 		//construct the query criteria to get all of the users gameruns
 
-		const q = {
+		/*const q = {
 			_id: { $in: user.gameruns }
-		};
+		};*/
 		
+		let q = [];
+
+		q.push({
+			$match:{ _id: { $in: user.gameruns} }
+		});
+
+		q.push({
+			$sort:{timeOfRun: -1}
+		});
+
+		q.push({
+			$limit: parseInt(req.params.quantity)
+		});
+
+		q.push({
+			$sort: { timeOfRun: 1}
+		});
+
 		console.log(q);
-		//execute the query for the users gameruns
-		GameRun.find(q)
-		.sort({timeOfRun: 1})
-		.limit(parseInt(req.params.quantity))
+		GameRun.aggregate(q)
 		.exec((err, gameruns) => {
 			if(err){
 				return console.log(err);
@@ -238,6 +257,27 @@ router.get('/:username/runs/:quantity', (req, res, next) => {
 				gameruns: gameruns
 			});
 		});
+
+		//execute the query for the users gameruns
+
+/*		var query = GameRun.find(q)
+		.sort({timeOfRun: -1})
+		.limit(parseInt(req.params.quantity));
+		.sort({timeOfRun: 1})
+		.exec((err, gameruns) => {
+			if(err){
+				return console.log(err);
+			}
+			console.log(gameruns);
+
+			let avgs = calculateAverages(gameruns);
+
+			res.json({
+				avgAcc: avgs.avgAcc,
+				avgWPM: avgs.avgWPM,
+				gameruns: gameruns
+			});
+		});*/
 	});
 });
 
