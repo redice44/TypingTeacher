@@ -181,7 +181,7 @@ class Game extends React.Component {
       results: {
         timeTrial: (this.state.gameType != util.c.PHRASE),
         difficulty: this.props.difficulty ,
-        timeOfRun: (this.state.gameType == util.c.PHRASE ? (Date.now() - this.state.startTime * 1000): this.state.timer * 1000),
+        timeOfRun: (Math.round((Date.now() / 1000))),
         keyEvents: this.state.keyEvents
 	  }
     })
@@ -202,7 +202,8 @@ class Game extends React.Component {
 	    counter: 0, 
 		isResults: true,
 	    timer: (this.state.gameType == util.c.PHRASE ? time: this.state.timer),
-	    wpm: data.gamerun.wpm});
+	    wpm: Math.round(data.gamerun.wpm)
+	});
 	  
 	  this.props.updateResults({
 		acc:  Math.round(data.gamerun.acc), 
