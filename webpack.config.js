@@ -15,6 +15,7 @@ var config = {
       'd3',
       'react',
       'react-d3',
+      'react-d3-basic',
       'react-dom',
       'react-redux',
       'react-router',
