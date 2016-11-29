@@ -39,9 +39,8 @@ mongoose.connect(mongodbUri, (err) => {
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: false,
-    // TODO: Be sure to update this life time to something reasonable.
     cookie: {
-      maxAge: 5 * 60 * 1000
+      maxAge: 60 * 60 * 1000
     }
   }));
   server.use(passport.initialize());
