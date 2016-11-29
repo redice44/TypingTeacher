@@ -131,7 +131,6 @@ class Game extends React.Component {
   }
   
   phraseButtonClick() {
-	clearInterval(this.state.interval);
 	this.props.playPhrase();
 	
     this.setState({
@@ -152,7 +151,6 @@ class Game extends React.Component {
   }
  
   timeTrialButtonClick() {
-	clearInterval(this.state.interval);
 
 	this.props.playTime();
     this.setState({
@@ -187,7 +185,6 @@ class Game extends React.Component {
     })
     .end((err, res) => {
       if(err){
-        console.log('something went wrong');
         return console.log(err);
       }
 
