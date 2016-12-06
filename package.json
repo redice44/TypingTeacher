@@ -7,10 +7,11 @@
   },
   "scripts": {
     "db": "mongod",
+    "db-init":"node src/database/phrase/init.js",
     "dev": "webpack --watch",
     "server:dev": "export NODE_ENV=dev && node src/server/index.js",
     "server:dev-windows": "set NODE_ENV=dev&&node src/server/index.js",
-    "start": "nodemon --watch src/ --delay 3 --exec \"npm run server:dev\"",
+    "start": "node src/server/index.js",
     "start-windows": "nodemon --watch src/ --delay 3 --exec \"npm run server:dev-windows\"",
     "mongo-win": "md mongo-db & \"C:/Program Files/MongoDb/Server/3.2/bin/mongod.exe\" --dbpath mongo-db",
     "test": "echo \"Error: no test specified\" && exit 1"

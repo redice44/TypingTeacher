@@ -10,6 +10,34 @@ This web application will allow users to practice and assess his or her typing p
   - Phrase lengths (short, medium, long)
   - Custom input phrases
 
+# Installation Instructions
+
+Requirements:
+- [NodeJS](https://nodejs.org/en/)
+  - Node Package Manager (npm) Comes with node
+- [MongoDB](https://www.mongodb.com/download-center)
+
+Clone the master branch from this repo.
+
+Start Database:
+
+` $ mongod`
+
+Setup Database: (May have to kill the script)
+
+` $ npm run db-init`
+
+Install Dependencies:
+
+` $ npm install`
+
+Start the server:
+
+` $ npm start`
+
+Access the app:
+[localhost:3000](http://localhost:3000/)
+
 ### Additional Information
 
 Software Engineering 1 @ Florida International University
